@@ -24,7 +24,7 @@ export class CreditService {
         .from('credits')
         .select('credits')
         .eq('user_id', userId)
-        .single()
+        .single() as { data: Credits | null; error: any }
 
       if (error && error.code !== 'PGRST116') {
         return { balance: 0, error: 'Failed to fetch credits' }
@@ -58,12 +58,13 @@ export class CreditService {
       const newBalance = currentBalance + amount
 
       const supabase = await this.getClient()
+      const creditData: CreditsInsert = {
+        user_id: userId,
+        credits: newBalance
+      }
       const { error } = await supabase
         .from('credits')
-        .upsert({
-          user_id: userId,
-          credits: newBalance
-        }, {
+        .upsert(creditData, {
           onConflict: 'user_id'
         })
 
@@ -99,9 +100,10 @@ export class CreditService {
       const newBalance = currentBalance - amount
 
       const supabase = await this.getClient()
+      const updateData: CreditsUpdate = { credits: newBalance }
       const { error } = await supabase
         .from('credits')
-        .update({ credits: newBalance })
+        .update(updateData)
         .eq('user_id', userId)
 
       if (error) {
@@ -134,12 +136,13 @@ export class CreditService {
   ): Promise<{ success: boolean; error?: string }> {
     try {
       const supabase = await this.getClient()
+      const creditData: CreditsInsert = {
+        user_id: userId,
+        credits: initialCredits
+      }
       const { error } = await supabase
         .from('credits')
-        .insert({
-          user_id: userId,
-          credits: initialCredits
-        })
+        .insert(creditData)
 
       if (error && error.code !== '23505') {
         return { success: false, error: 'Failed to initialize credits' }
