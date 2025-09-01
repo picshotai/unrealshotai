@@ -37,28 +37,14 @@ const data = {
       isActive: true,
     },
     {
-      title: "Demo Tool",
-      url: "/demo-tool",
-      icon: Shield,
-    },
-    {
-      title: "Example Tool",
+      title: "Credit Deduct Demo",
       url: "/example-tool",
       icon: Shield,
     },
-    {
-      title: "Reports",
-      url: "/reports",
-      icon: PieChart,
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-    },
+   
     {
       title: "Documentation",
-      url: "#",
+      url: "/docs",
       icon: BookOpen,
     },
     {
@@ -120,8 +106,8 @@ export function AppSidebar({
                   <Command className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Acme Inc</span>
-                  <span className="truncate text-xs">Enterprise</span>
+                  <span className="truncate font-medium">DodoStarter</span>
+                  <span className="truncate text-xs">By Harvansh Chaudhary</span>
                 </div>
               </a>
             </SidebarMenuButton>

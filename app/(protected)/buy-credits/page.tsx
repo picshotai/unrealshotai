@@ -75,7 +75,7 @@ export default async function BuyCreditsPage() {
           <p className="text-muted-foreground">Please check back later or contact support.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {plans.map((plan) => (
             <Card key={plan.id} className={`relative ${plan.isPopular ? 'border-primary shadow-lg' : ''}`}>
               {plan.isPopular && (
@@ -121,6 +121,7 @@ export default async function BuyCreditsPage() {
                   userId={user?.id || ''}
                   amount={plan.price}
                   credits={plan.credits}
+                  planName={plan.name}
                   className="w-full border border-input bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer"
                 >
                   Buy {formatCredits(plan.credits)} Credits

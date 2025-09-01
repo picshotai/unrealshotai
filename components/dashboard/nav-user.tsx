@@ -5,6 +5,7 @@ import {
   Bell,
   ChevronsUpDown,
   CreditCard,
+  Home,
   LogOut,
   Sparkles,
 } from "lucide-react"
@@ -69,8 +70,8 @@ export function NavUser({
             sideOffset={4}
           >
             <DropdownMenuLabel className="p-0 font-normal">
-              <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <Avatar className="h-8 w-8 rounded-lg">
+              <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm cursor-pointer">
+                <Avatar className="h-8 w-8 rounded-lg ">
                   <AvatarImage src={user.avatar} alt={user.name} />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
@@ -83,24 +84,31 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem asChild>
-                <a href="/buy-credits">Upgrade to Pro</a>
+                <a href="/buy-credits" className="flex items-center">
+              <Sparkles className="mr-2 h-4 w-4" />
+              Buy Credits
+            </a>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+             <DropdownMenuGroup>
+           <DropdownMenuItem>
+            <Home className="mr-2 h-4 w-4" />
+            <a href="/dashboard">Dashboard</a>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <BadgeCheck className="mr-2 h-4 w-4" />
+            <a href="/account">Account</a>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <CreditCard className="mr-2 h-4 w-4" />
+            <a href="/billing">Billing</a>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Bell className="mr-2 h-4 w-4" />
+            <a href="#">Notifications</a>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={async () => {

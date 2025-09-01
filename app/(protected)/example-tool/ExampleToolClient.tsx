@@ -9,7 +9,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Loader2, Zap, CreditCard, AlertTriangle, CheckCircle } from 'lucide-react'
 import { toast } from 'sonner'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useCreditManager, makeApiCallWithCreditUpdate } from '@/lib/credit-manager'
 
 type GenerationResult = {
   success: boolean
@@ -33,9 +33,8 @@ export default function ExampleToolClient({
   const [prompt, setPrompt] = useState('')
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<GenerationResult | null>(null)
-  const [currentBalance, setCurrentBalance] = useState(initialCreditBalance)
-  const [hasCredits, setHasCredits] = useState(hasSufficientCredits)
-  const router = useRouter()
+  const { balance: currentBalance } = useCreditManager(userId)
+  const hasCredits = currentBalance >= requiredCredits
 
   const handleGenerate = async () => {
     if (!prompt.trim()) {
@@ -47,36 +46,22 @@ export default function ExampleToolClient({
     setResult(null)
 
     try {
-      const response = await fetch('/api/example-protected', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ prompt }),
-      })
-
-      if (response.status === 402) {
-        const data = await response.json()
-        toast.error(data.message || 'Insufficient credits')
-        // Refresh the page to get updated server-side credit status
-        router.refresh()
-        return
-      }
-
-      if (!response.ok) {
-        throw new Error('Failed to generate content')
-      }
-
-      const data = await response.json()
+      const data = await makeApiCallWithCreditUpdate<any>(
+        () => fetch('/api/example-protected', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ prompt }),
+        }),
+        userId
+      )
+      
       setResult({
         success: true,
         content: data.content,
         newBalance: data.newBalance,
       })
-      
-      // Update local state with new balance
-      setCurrentBalance(data.newBalance)
-      setHasCredits(data.newBalance >= requiredCredits)
       
       toast.success('Content generated successfully!')
     } catch (error) {
@@ -87,9 +72,7 @@ export default function ExampleToolClient({
     }
   }
 
-  const refreshCredits = () => {
-    router.refresh()
-  }
+  // No need for manual refresh - credit manager handles this automatically
 
   return (
     <div className="container mx-auto p-6 max-w-4xl">
@@ -213,13 +196,6 @@ export default function ExampleToolClient({
           </Button>
         </CardFooter>
       </Card>
-
-      {/* Refresh Credits Button */}
-      <div className="mt-6 text-center">
-        <Button variant="outline" onClick={refreshCredits}>
-          Refresh Credit Status
-        </Button>
-      </div>
     </div>
   )
 }

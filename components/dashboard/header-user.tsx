@@ -3,7 +3,8 @@
 import {
   BadgeCheck,
   Bell,
-  CreditCard,
+  Coins,
+  Home,
   LogOut,
   Sparkles,
 } from "lucide-react"
@@ -24,29 +25,43 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
+import { useCreditManager } from "@/lib/credit-manager"
 
-export function HeaderUser({
-  user,
-}: {
+interface HeaderUserProps {
   user: {
     name: string
     email: string
     avatar: string
+    id: string
   }
-}) {
+  initialCreditBalance: number
+}
+
+export function HeaderUser({ user, initialCreditBalance }: HeaderUserProps) {
+  const { balance: creditBalance } = useCreditManager(user.id)
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          className="relative h-8 w-8 rounded-full"
-        >
-          <Avatar className="h-8 w-8">
-            <AvatarImage src={user.avatar} alt={user.name} />
-            <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
-          </Avatar>
-        </Button>
-      </DropdownMenuTrigger>
+    <div className="flex items-center gap-3">
+      {/* Credit Display */}
+      <div className="flex items-center gap-1.5 px-2 py-1 bg-muted/50 rounded-md">
+        <Coins className="h-4 w-4 text-amber-600" />
+        <span className="text-sm font-medium text-foreground">
+          {creditBalance.toLocaleString()}
+        </span>
+      </div>
+      
+      {/* User Dropdown */}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            className="relative h-8 w-8 rounded-full cursor-pointer"
+          >
+            <Avatar className="h-8 w-8">
+              <AvatarImage src={user.avatar} alt={user.name} />
+              <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
+            </Avatar>
+          </Button>
+        </DropdownMenuTrigger>
       <DropdownMenuContent
         className="w-56"
         align="end"
@@ -63,23 +78,33 @@ export function HeaderUser({
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <Sparkles className="mr-2 h-4 w-4" />
-            <span>Upgrade to Pro</span>
+            <a href="/buy-credits" className="flex items-center">
+              <Sparkles className="mr-2 h-4 w-4" />
+              Buy Credits
+            </a>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
+       
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <BadgeCheck className="mr-2 h-4 w-4" />
-            <span>Account</span>
+           <DropdownMenuItem>
+            <a href="/dashboard" className="flex items-center">
+              <Home className="mr-2 h-4 w-4" />
+              Dashboard
+            </a>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <CreditCard className="mr-2 h-4 w-4" />
-            <span>Billing</span>
+            <a href="/account" className="flex items-center">
+              <BadgeCheck className="mr-2 h-4 w-4" />
+              Account
+            </a>
           </DropdownMenuItem>
+          
           <DropdownMenuItem>
-            <Bell className="mr-2 h-4 w-4" />
-            <span>Notifications</span>
+            <a href="#" className="flex items-center">
+              <Bell className="mr-2 h-4 w-4" />
+              Notifications
+            </a>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
@@ -93,6 +118,7 @@ export function HeaderUser({
           <span>Log out</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
-    </DropdownMenu>
+      </DropdownMenu>
+    </div>
   )
 }

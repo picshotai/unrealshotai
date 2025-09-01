@@ -98,7 +98,7 @@ export function AccountDashboard({ user, payments, currentCredits, totalCreditsP
   return (
     <div className="space-y-6">
       <Tabs defaultValue="profile" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="profile" className="flex items-center gap-2">
             <UserIcon className="h-4 w-4" />
             Profile
@@ -111,10 +111,7 @@ export function AccountDashboard({ user, payments, currentCredits, totalCreditsP
             <Activity className="h-4 w-4" />
             Transactions
           </TabsTrigger>
-          <TabsTrigger value="billing" className="flex items-center gap-2">
-            <History className="h-4 w-4" />
-            Billing
-          </TabsTrigger>
+          
         </TabsList>
 
         <TabsContent value="profile" className="space-y-6">
@@ -154,23 +151,7 @@ export function AccountDashboard({ user, payments, currentCredits, totalCreditsP
                   <Label htmlFor="email">Email</Label>
                   <Input id="email" value={user.email || ''} disabled />
                 </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="name">Display Name</Label>
-                  <div className="flex gap-2">
-                    <Input 
-                      id="name" 
-                      value={displayName}
-                      onChange={(e) => setDisplayName(e.target.value)}
-                      disabled={!isEditing}
-                    />
-                    <Button 
-                      variant={isEditing ? "default" : "outline"}
-                      onClick={() => setIsEditing(!isEditing)}
-                    >
-                      {isEditing ? 'Save' : 'Edit'}
-                    </Button>
-                  </div>
-                </div>
+                
               </div>
             </CardContent>
           </Card>
@@ -333,57 +314,6 @@ export function AccountDashboard({ user, payments, currentCredits, totalCreditsP
           </Card>
         </TabsContent>
 
-        <TabsContent value="billing" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <History className="h-5 w-5" />
-                Payment History
-              </CardTitle>
-              <CardDescription>
-                View your recent payments and transactions
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {payments.length > 0 ? (
-                <div className="space-y-4">
-                  {payments.map((payment) => (
-                    <div key={payment.id} className="flex items-center justify-between p-4 border rounded-lg">
-                      <div className="space-y-1">
-                        <p className="font-medium">{payment.pricing_plan.name}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {new Date(payment.created_at).toLocaleDateString()}
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          {payment.credits} credits
-                        </p>
-                      </div>
-                      <div className="text-right space-y-1">
-                        <p className="font-medium">
-                          {new Intl.NumberFormat('en-US', {
-                            style: 'currency',
-                            currency: payment.currency.toUpperCase(),
-                          }).format(payment.amount / 100)}
-                        </p>
-                        <Badge variant={payment.status === 'completed' ? 'default' : payment.status === 'failed' ? 'destructive' : 'secondary'}>
-                          {payment.status}
-                        </Badge>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8">
-                  <CreditCard className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-medium mb-2">No Payment History</h3>
-                  <p className="text-muted-foreground">
-                    Your payment history will appear here once you make a purchase.
-                  </p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
 
 
       </Tabs>

@@ -11,6 +11,7 @@ interface DodoCheckoutButtonProps {
   userId: string;
   amount: number;
   credits: number;
+  planName?: string;
   className?: string;
   children?: React.ReactNode;
 }
@@ -20,6 +21,7 @@ export default function DodoCheckoutButton({
   userId,
   amount,
   credits,
+  planName,
   className = '',
   children
 }: DodoCheckoutButtonProps) {
@@ -49,7 +51,7 @@ export default function DodoCheckoutButton({
         body: JSON.stringify({
           planId,
           userId,
-          returnUrl: `${window.location.origin}/overview?payment=success`
+          returnUrl: `${window.location.origin}/payment-success?amount=${amount}&credits=${credits}&plan_name=${encodeURIComponent(planName || 'Credit Package')}`
         }),
       });
 
@@ -124,7 +126,7 @@ export function DodoInlineCheckout({
         body: JSON.stringify({
           planId,
           userId,
-          returnUrl: `${window.location.origin}/overview?payment=success`
+          returnUrl: `${window.location.origin}/dashboard?payment=success`
         }),
       });
 

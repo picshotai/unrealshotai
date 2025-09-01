@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/sidebar"
 import { LoadingProvider } from "@/components/loading-provider"
 import { createClient } from "@/utils/supabase/server"
+import { creditService } from "@/lib/credits"
 import { redirect } from "next/navigation"
 
 export default async function DashboardLayout({
@@ -27,6 +28,9 @@ export default async function DashboardLayout({
   if (!user) {
     redirect('/login')
   }
+
+  // Fetch user's credit balance for header display
+  const { balance: creditBalance } = await creditService.getUserCredits(user.id)
   return (
     <SidebarProvider>
       <AppSidebar 
@@ -52,7 +56,9 @@ export default async function DashboardLayout({
                 name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'User',
                 email: user.email || '',
                 avatar: user.user_metadata?.avatar_url || "/placeholder-user.jpg",
+                id: user.id,
               }}
+              initialCreditBalance={creditBalance}
             />
           </div>
         </header>
