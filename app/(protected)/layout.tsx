@@ -1,0 +1,67 @@
+import { AppSidebar } from "@/components/dashboard/app-sidebar"
+import { HeaderUser } from "@/components/dashboard/header-user"
+import { DynamicBreadcrumb } from "@/components/dashboard/dynamic-breadcrumb"
+import { Separator } from "@/components/ui/separator"
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar"
+import { LoadingProvider } from "@/components/loading-provider"
+import { createClient } from "@/utils/supabase/server"
+import { redirect } from "next/navigation"
+
+export default async function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const supabase = await createClient()
+  
+  // Check if user is authenticated
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  // If not authenticated, redirect to login
+  if (!user) {
+    redirect('/login')
+  }
+  return (
+    <SidebarProvider>
+      <AppSidebar 
+        user={{
+          name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'User',
+          email: user.email || '',
+          avatar: user.user_metadata?.avatar_url || "/placeholder-user.jpg",
+        }}
+      />
+      <SidebarInset>
+        <header className="flex h-16 shrink-0 items-center gap-2 justify-between">
+          <div className="flex items-center gap-2 px-4">
+            <SidebarTrigger className="-ml-1" />
+            <Separator
+              orientation="vertical"
+              className="mr-2 data-[orientation=vertical]:h-4"
+            />
+            <DynamicBreadcrumb />
+          </div>
+          <div className="px-4">
+            <HeaderUser
+              user={{
+                name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'User',
+                email: user.email || '',
+                avatar: user.user_metadata?.avatar_url || "/placeholder-user.jpg",
+              }}
+            />
+          </div>
+        </header>
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+          <LoadingProvider>
+            {children}
+          </LoadingProvider>
+        </div>
+      </SidebarInset>
+    </SidebarProvider>
+  )
+}
