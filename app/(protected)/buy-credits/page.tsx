@@ -3,7 +3,13 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
-// Utility functions moved inline to avoid server import issues
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Loader2, CreditCard, Star } from 'lucide-react';
+import { toast } from 'sonner';
+import DodoCheckoutButton from '@/components/dodopayments/DodoCheckoutButton';
+
+// Utility functions
 function formatPrice(price: number | string, currency: string = 'USD'): string {
   const numPrice = typeof price === 'string' ? parseFloat(price) : price;
   return new Intl.NumberFormat('en-US', {
@@ -15,11 +21,6 @@ function formatPrice(price: number | string, currency: string = 'USD'): string {
 function formatCredits(credits: number): string {
   return new Intl.NumberFormat('en-US').format(credits);
 }
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Loader2, CreditCard, Zap, Star } from 'lucide-react';
-import { toast } from 'sonner';
 
 type PricingPlan = {
   id: string;
@@ -35,7 +36,6 @@ type PricingPlan = {
 export default function BuyCreditsPage() {
   const [plans, setPlans] = useState<PricingPlan[]>([]);
   const [loading, setLoading] = useState(true);
-  const [processingPlan, setProcessingPlan] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
   const router = useRouter();
   const supabase = createClient();
@@ -46,7 +46,7 @@ export default function BuyCreditsPage() {
         // Check if user is authenticated
         const { data: { user }, error: userError } = await supabase.auth.getUser();
         if (userError || !user) {
-          router.push('/sign-in?redirect=/buy-credits');
+          router.push('/login?redirect=/buy-credits');
           return;
         }
         setUser(user);
@@ -69,48 +69,7 @@ export default function BuyCreditsPage() {
     loadData();
   }, [router, supabase.auth]);
 
-  const handlePurchase = async (plan: PricingPlan) => {
-    if (!user) {
-      router.push('/sign-in?redirect=/buy-credits');
-      return;
-    }
 
-    setProcessingPlan(plan.id);
-
-    try {
-      // Create checkout session
-      const response = await fetch('/api/dodopayments/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          pricing_plan_id: plan.id,
-          user_id: user.id,
-          success_url: `${window.location.origin}/account?purchase=success`,
-          cancel_url: `${window.location.origin}/buy-credits?purchase=cancelled`,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to create checkout session');
-      }
-
-      const { checkout_url } = await response.json();
-      
-      if (checkout_url) {
-        // Redirect to DodoPayments checkout
-        window.location.href = checkout_url;
-      } else {
-        throw new Error('No checkout URL received');
-      }
-    } catch (error) {
-      console.error('Error creating checkout session:', error);
-      toast.error('Failed to start checkout process');
-    } finally {
-      setProcessingPlan(null);
-    }
-  };
 
   if (loading) {
     return (
@@ -180,24 +139,15 @@ export default function BuyCreditsPage() {
               </CardContent>
               
               <CardFooter>
-                <Button
-                  className="w-full"
-                  onClick={() => handlePurchase(plan)}
-                  disabled={processingPlan === plan.id}
-                  variant={plan.isPopular ? 'default' : 'outline'}
+                <DodoCheckoutButton
+                  planId={plan.id}
+                  userId={user?.id || ''}
+                  amount={plan.price}
+                  credits={plan.credits}
+                  className={plan.isPopular ? 'w-full' : 'w-full border border-input bg-background hover:bg-accent hover:text-accent-foreground'}
                 >
-                  {processingPlan === plan.id ? (
-                    <>
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Processing...
-                    </>
-                  ) : (
-                    <>
-                      <Zap className="h-4 w-4 mr-2" />
-                      Buy Credits
-                    </>
-                  )}
-                </Button>
+                  Buy {formatCredits(plan.credits)} Credits
+                </DodoCheckoutButton>
               </CardFooter>
             </Card>
           ))}
