@@ -42,6 +42,11 @@ const data = {
       icon: Shield,
     },
     {
+      title: "Example Tool",
+      url: "/example-tool",
+      icon: Shield,
+    },
+    {
       title: "Reports",
       url: "/reports",
       icon: PieChart,

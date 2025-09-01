@@ -1,13 +1,10 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { createClient } from '@/utils/supabase/client';
+import { redirect } from 'next/navigation';
+import { createClient } from '@/utils/supabase/server';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, CreditCard, Star } from 'lucide-react';
-import { toast } from 'sonner';
+import { CreditCard, Star } from 'lucide-react';
 import DodoCheckoutButton from '@/components/dodopayments/DodoCheckoutButton';
+import { pricingPlanService } from '@/lib/pricing-plans';
 
 // Utility functions
 function formatPrice(price: number | string, currency: string = 'USD'): string {
@@ -33,56 +30,36 @@ type PricingPlan = {
   isPopular?: boolean;
 };
 
-export default function BuyCreditsPage() {
-  const [plans, setPlans] = useState<PricingPlan[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
-  const router = useRouter();
-  const supabase = createClient();
+export default async function BuyCreditsPage() {
+  // Server-side authentication check
+  const supabase = await createClient();
+  const { data: { user }, error } = await supabase.auth.getUser();
+  
+  if (error || !user) {
+    redirect('/login?redirect=/buy-credits');
+  }
 
-  useEffect(() => {
-    async function loadData() {
-      try {
-        // Check if user is authenticated
-        const { data: { user }, error: userError } = await supabase.auth.getUser();
-        if (userError || !user) {
-          router.push('/login?redirect=/buy-credits');
-          return;
-        }
-        setUser(user);
-
-        // Load pricing plans
-        const response = await fetch('/api/pricing-plans?withValue=true');
-        if (!response.ok) {
-          throw new Error('Failed to fetch pricing plans');
-        }
-        const { plans: plansData } = await response.json();
-        setPlans(plansData);
-      } catch (error) {
-        console.error('Error loading data:', error);
-        toast.error('Failed to load pricing plans');
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadData();
-  }, [router, supabase.auth]);
-
-
-
-  if (loading) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center justify-center min-h-[400px]">
-          <Loader2 className="h-8 w-8 animate-spin" />
-        </div>
-      </div>
-    );
+  // Server-side data fetching - no loading states needed
+  let plans: PricingPlan[] = [];
+  try {
+    const plansData = await pricingPlanService.getPlansWithValue();
+    plans = plansData.map((plan, index) => ({
+      id: plan.id,
+      name: plan.name,
+      description: plan.description,
+      price: parseFloat(plan.price.toString()),
+      credits: plan.credits,
+      currency: plan.currency,
+      creditsPerDollar: plan.creditsPerDollar,
+      isPopular: index === 1 // Make second plan popular
+    }));
+  } catch (error) {
+    console.error('Error loading pricing plans:', error);
+    // Handle error gracefully - could redirect to error page or show empty state
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 text-center">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold mb-4">Buy Credits</h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -144,7 +121,7 @@ export default function BuyCreditsPage() {
                   userId={user?.id || ''}
                   amount={plan.price}
                   credits={plan.credits}
-                  className={plan.isPopular ? 'w-full' : 'w-full border border-input bg-background hover:bg-accent hover:text-accent-foreground'}
+                  className="w-full border border-input bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer"
                 >
                   Buy {formatCredits(plan.credits)} Credits
                 </DodoCheckoutButton>

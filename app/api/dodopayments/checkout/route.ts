@@ -47,8 +47,28 @@ export async function POST(request: NextRequest) {
     const finalPrice = plan.price;
 
     // Initialize DodoPayments client
+    const apiKey = process.env.DODO_API_KEY;
+    const environment = process.env.DODO_ENVIRONMENT || 'test';
+    const baseURL = environment === 'production' 
+      ? 'https://live.dodopayments.com' 
+      : 'https://test.dodopayments.com';
+    
+    console.log('DodoPayments config:', {
+      hasApiKey: !!apiKey,
+      apiKeyLength: apiKey?.length || 0,
+      environment,
+      baseURL
+    });
+    
+    if (!apiKey) {
+      return NextResponse.json({ 
+        message: "DodoPayments API key is not configured" 
+      }, { status: 500 });
+    }
+    
     const client = new DodoPayments({
-      bearerToken: process.env.DODO_API_KEY,
+      bearerToken: apiKey,
+      baseURL: baseURL
     });
 
     // Create checkout session with DodoPayments SDK
@@ -80,15 +100,28 @@ export async function POST(request: NextRequest) {
             amount: Math.round(finalPrice * 100) // Convert to cents
           }
         ],
-        return_url: returnUrl || `${process.env.NEXT_PUBLIC_BASE_URL}/overview`,
+        return_url: returnUrl || `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard`,
         show_saved_payment_methods: true
       });
-    } catch (dodoError) {
-      console.error('DodoPayments SDK error:', dodoError);
+    } catch (dodoError: any) {
+      console.error('DodoPayments SDK error:', {
+        message: dodoError?.message,
+        status: dodoError?.status,
+        headers: dodoError?.headers,
+        error: dodoError?.error,
+        stack: dodoError?.stack
+      });
+      
+      // Return more specific error information
+      const errorMessage = dodoError?.status === 401 
+        ? "Authentication failed - please check your DodoPayments API key"
+        : "Failed to create checkout session";
+        
       return NextResponse.json({ 
-        message: "Failed to create checkout session", 
-        error: dodoError instanceof Error ? dodoError.message : 'Unknown error'
-      }, { status: 500 });
+        message: errorMessage, 
+        error: dodoError instanceof Error ? dodoError.message : 'Unknown error',
+        status: dodoError?.status || 500
+      }, { status: dodoError?.status || 500 });
     }
 
     // Store the checkout session in our database for tracking

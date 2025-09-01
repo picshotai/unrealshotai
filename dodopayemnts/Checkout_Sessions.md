@@ -41,7 +41,7 @@
 
     // Initialize the Dodo Payments client
     const client = new DodoPayments({
-      bearerToken: process.env.DODO_PAYMENTS_API_KEY,
+      bearerToken: process.env.DODO_API_KEY,
     });
 
     async function createCheckoutSession() {
@@ -112,7 +112,7 @@
 
     # Initialize the Dodo Payments client
     client = DodoPayments(
-        bearer_token=os.environ.get("DODO_PAYMENTS_API_KEY"),
+        bearer_token=os.environ.get("DODO_API_KEY"),
     )
 
     def create_checkout_session():
@@ -190,7 +190,7 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.DODO_PAYMENTS_API_KEY}`
+            'Authorization': `Bearer ${process.env.DODO_API_KEY}`
           },
           body: JSON.stringify({
             // Products to sell - use IDs from your Dodo Payments dashboard
