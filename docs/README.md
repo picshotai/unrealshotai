@@ -14,7 +14,7 @@ This documentation is organized into three main sections:
 - Real-time updates with Supabase
 - Payment integration with DodoPayments
 - Security and best practices
-- Troubleshooting guide
+- Troubleshooting guiide.
 
 ### 2. [Credit Utilities & Configuration](./CREDIT_UTILITIES.md)
 **Advanced utilities and system configuration**
