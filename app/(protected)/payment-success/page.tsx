@@ -6,14 +6,15 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { CheckCircle, CreditCard, ArrowRight, Home, Zap, AlertCircle } from 'lucide-react'
 import Link from 'next/link'
+import { RefreshButton } from './RefreshButton'
 
 interface PaymentSuccessPageProps {
-  searchParams: {
+  searchParams: Promise<{
     session_id?: string
     amount?: string
     credits?: string
     plan_name?: string
-  }
+  }>
 }
 
 export default async function PaymentSuccessPage({ searchParams }: PaymentSuccessPageProps) {
@@ -31,11 +32,14 @@ export default async function PaymentSuccessPage({ searchParams }: PaymentSucces
     console.error('Error fetching credits:', error)
   }
 
+  // Await search params before accessing properties
+  const params = await searchParams
+  
   // Extract payment details from search params
-  const sessionId = searchParams.session_id
-  const amount = searchParams.amount ? parseFloat(searchParams.amount) : 0
-  const credits = searchParams.credits ? parseInt(searchParams.credits) : 0
-  const planName = searchParams.plan_name || 'Credit Package'
+  const sessionId = params.session_id
+  const amount = params.amount ? parseFloat(params.amount) : 0
+  const credits = params.credits ? parseInt(params.credits) : 0
+  const planName = params.plan_name || 'Credit Package'
 
   // Fetch actual payment details from database if session_id is provided
   let paymentDetails = null
@@ -264,13 +268,10 @@ export default async function PaymentSuccessPage({ searchParams }: PaymentSucces
               </Button>
             </Link>
             
-            <Button 
+            <RefreshButton 
               variant="outline" 
               className="w-full sm:w-auto"
-              onClick={() => window.location.reload()}
-            >
-              Refresh Status
-            </Button>
+            />
           </>
         )}
       </div>
