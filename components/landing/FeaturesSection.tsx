@@ -95,6 +95,8 @@ const Feature = ({
         </span>
       </div>
       <p className="text-md text-gray-600 max-w-xs relative z-10 px-10 ">{description}</p>
+         <p className="text-md text-gray-600 max-w-xs relative z-10 px-10 ">soon we are launching the new feature for generating headshots</p>
+
     </div>
   )
 }
