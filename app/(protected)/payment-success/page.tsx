@@ -204,42 +204,7 @@ export default async function PaymentSuccessPage({ searchParams }: PaymentSucces
         </CardContent>
       </Card>
 
-      {/* Next Steps */}
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>What's Next?</CardTitle>
-          <CardDescription>
-            Start using your credits with our powerful AI tools and features.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Link href="/example-tool">
-              <Button variant="outline" className="w-full h-auto p-4 flex flex-col items-start space-y-2">
-                <div className="flex items-center space-x-2">
-                  <Zap className="h-4 w-4" />
-                  <span className="font-semibold">Try AI Generator</span>
-                </div>
-                <p className="text-sm text-muted-foreground text-left">
-                  Generate AI content using your credits
-                </p>
-              </Button>
-            </Link>
-            
-            <Link href="/dashboard">
-              <Button variant="outline" className="w-full h-auto p-4 flex flex-col items-start space-y-2">
-                <div className="flex items-center space-x-2">
-                  <Home className="h-4 w-4" />
-                  <span className="font-semibold">Go to Dashboard</span>
-                </div>
-                <p className="text-sm text-muted-foreground text-left">
-                  View your account and usage statistics
-                </p>
-              </Button>
-            </Link>
-          </div>
-        </CardContent>
-      </Card>
+
 
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center">

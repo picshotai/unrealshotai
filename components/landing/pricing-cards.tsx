@@ -51,7 +51,7 @@ export default function PricingCards() {
             Get a high quality landing page for your product.
           </p>
           <div className="flex items-baseline mb-8">
-            <span className="text-5xl font-bold text-gray-900 tracking-tighter">$1999</span>
+            <span className="text-5xl font-bold text-gray-900 tracking-tighter">$1400</span>
             <span className="text-gray-400 text-lg ml-1">/fixed</span>
           </div>
           <button className="w-full bg-[#111827] text-white py-4 rounded-xl font-semibold text-base hover:opacity-90 transition-opacity duration-200 flex items-center justify-center gap-2.5 shadow-[0_4px_20px_-5px_rgba(0,0,0,0.2)]">
@@ -80,7 +80,7 @@ export default function PricingCards() {
             Get a high quality landing page for your product.
           </p>
           <div className="flex items-baseline mb-8">
-            <span className="text-5xl font-bold text-white tracking-tighter">$1999</span>
+            <span className="text-5xl font-bold text-white tracking-tighter">$1400</span>
             <span className="text-gray-500 text-lg ml-1">/fixed</span>
           </div>
           <button className="w-full bg-white text-gray-900 py-4 rounded-xl font-semibold text-base hover:opacity-90 transition-opacity duration-200 flex items-center justify-center gap-2.5 shadow-[0_4px_20px_-5px_rgba(255,255,255,0.2)]">

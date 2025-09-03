@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { FramerButton } from "@/components/ui/framer-button"
+import { Button } from "@/components/ui/button"
 import { ChevronRight, Sparkles } from "lucide-react"
 
 export default function PricingSection() {
@@ -95,13 +95,11 @@ export default function PricingSection() {
               </div>
 
               <Link href="/login">
-                <FramerButton 
-                  variant="primary" 
-                  icon={<ChevronRight className="w-4 h-4" />} 
+                <Button 
                   className="text-md py-6 group relative overflow-hidden w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
                 >
                   Get Pro Access for $4.99
-                </FramerButton>
+                </Button>
               </Link>
               <p className="text-xs text-gray-500 mt-2">
                 30-day money-back guarantee • Launch price ends soon!
