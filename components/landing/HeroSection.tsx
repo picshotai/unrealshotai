@@ -69,7 +69,7 @@ export function HeroSection() {
                 Get $2.99 Launch Price now
               </Button>
             </Link>
-            <Link href="/demo">
+            <Link href="https://unrealshot.com">
               <Button
                 variant="secondary"
                 className="text-md py-6 group relative overflow-hidden w-full sm:w-auto"
