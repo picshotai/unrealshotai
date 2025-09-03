@@ -53,7 +53,7 @@ export function HeroSection() {
                 </span>
               </span>
               <br />
-              in 60 seconds
+              in 20 seconds, get the offer only at 900$
             </h1>
 
             <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-tight">
