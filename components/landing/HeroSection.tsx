@@ -66,7 +66,7 @@ export function HeroSection() {
               <Button
                 className="text-md py-6 group relative overflow-hidden w-full sm:w-auto "
               >
-                Get $4.99 Launch Price
+                Get $2.99 Launch Price now
               </Button>
             </Link>
             <Link href="/demo">
@@ -74,7 +74,7 @@ export function HeroSection() {
                 variant="secondary"
                 className="text-md py-6 group relative overflow-hidden w-full sm:w-auto"
               >
-                View Demo Portfolio              
+                Become the early adpoter of beta features
               </Button>
             </Link>
           </div>
