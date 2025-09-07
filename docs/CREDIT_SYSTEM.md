@@ -278,7 +278,7 @@ Seamless credit purchases:
 // components/dodopayments/DodoCheckoutButton.tsx
 export function DodoCheckoutButton({ planId, credits, price }: Props) {
   const handleCheckout = async () => {
-    const response = await fetch('/api/dodopayments/create-checkout-session', {
+    const response = await fetch('/api/dodopayments/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

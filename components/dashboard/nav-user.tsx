@@ -10,7 +10,7 @@ import {
   Sparkles,
 } from "lucide-react"
 import { signOut } from "@/app/auth/signout/actions"
-
+import Link from "next/link"
 import {
   Avatar,
   AvatarFallback,
@@ -83,30 +83,22 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem asChild>
-                <a href="/buy-credits" className="flex items-center">
+              <DropdownMenuItem asChild className="cursor-pointer">
+                <Link href="/buy-credits" className="flex items-center">
               <Sparkles className="mr-2 h-4 w-4" />
               Buy Credits
-            </a>
+            </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
              <DropdownMenuGroup>
-           <DropdownMenuItem>
+           <DropdownMenuItem className="cursor-pointer">
             <Home className="mr-2 h-4 w-4" />
-            <a href="/dashboard">Dashboard</a>
+            <Link href="/dashboard">Dashboard</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer">
             <BadgeCheck className="mr-2 h-4 w-4" />
-            <a href="/account">Account</a>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <CreditCard className="mr-2 h-4 w-4" />
-            <a href="/billing">Billing</a>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Bell className="mr-2 h-4 w-4" />
-            <a href="#">Notifications</a>
+            <Link href="/account">Account</Link>  
           </DropdownMenuItem>
         </DropdownMenuGroup>
             <DropdownMenuSeparator />
@@ -116,7 +108,7 @@ export function NavUser({
               }}
               className="cursor-pointer text-red-600 focus:text-red-600"
             >
-              <LogOut />
+              <LogOut className="mr-2 h-4 w-4 text-red-600" />
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>

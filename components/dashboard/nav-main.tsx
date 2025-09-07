@@ -1,7 +1,7 @@
 "use client"
 
 import { type LucideIcon } from "lucide-react"
-
+import Link from "next/link"
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -27,10 +27,10 @@ export function NavMain({
         {items.map((item) => (
           <SidebarMenuItem key={item.title}>
             <SidebarMenuButton asChild tooltip={item.title} isActive={item.isActive}>
-              <a href={item.url} className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors">
+              <Link href={item.url} className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors">
                 <item.icon />
                 <span>{item.title}</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         ))}

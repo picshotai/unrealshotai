@@ -83,60 +83,6 @@ export default function ExampleToolClient({
         </p>
       </div>
 
-      {/* Credit Status Card */}
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
-            <CreditCard className="h-5 w-5" />
-            <span>Credit Status</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div>
-                <p className="text-sm text-muted-foreground">Current Balance</p>
-                <p className="text-2xl font-bold">{currentBalance}</p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Required per Generation</p>
-                <p className="text-lg font-semibold">{requiredCredits}</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-2">
-              {hasCredits ? (
-                <Badge variant="default" className="flex items-center space-x-1">
-                  <CheckCircle className="h-3 w-3" />
-                  <span>Sufficient Credits</span>
-                </Badge>
-              ) : (
-                <Badge variant="destructive" className="flex items-center space-x-1">
-                  <AlertTriangle className="h-3 w-3" />
-                  <span>Insufficient Credits</span>
-                </Badge>
-              )}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Insufficient Credits Alert */}
-      {!hasCredits && (
-        <Alert className="mb-6 border-orange-200 bg-orange-50">
-          <AlertTriangle className="h-4 w-4" />
-          <AlertDescription className="flex items-center justify-between">
-            <span>
-              You need {requiredCredits} credits to use this tool. 
-              You currently have {currentBalance} credits.
-            </span>
-            <Link href="/buy-credits">
-              <Button size="sm" className="ml-4">
-                Buy Credits
-              </Button>
-            </Link>
-          </AlertDescription>
-        </Alert>
-      )}
 
       {/* Generation Tool */}
       <Card>

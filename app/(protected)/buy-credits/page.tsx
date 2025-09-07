@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { redirect } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -5,6 +6,11 @@ import { Badge } from '@/components/ui/badge';
 import { CreditCard, Star } from 'lucide-react';
 import DodoCheckoutButton from '@/components/dodopayments/DodoCheckoutButton';
 import { pricingPlanService } from '@/lib/pricing-plans';
+import { commonPageMetadata } from '@/lib/seo'
+import { StructuredData } from '@/components/seo/StructuredData'
+import { generateProductSchema } from '@/lib/seo'
+
+export const metadata: Metadata = commonPageMetadata.buyCredits()
 
 // Utility functions
 function formatPrice(price: number | string, currency: string = 'USD'): string {
@@ -59,7 +65,19 @@ export default async function BuyCreditsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 text-center">
+    <>
+      {plans.length > 0 && (
+        <StructuredData
+          data={JSON.parse(generateProductSchema({
+            name: 'Credit Packages',
+            description: 'Purchase credits to unlock premium features',
+            price: plans[0]?.price || 0,
+            currency: plans[0]?.currency || 'USD',
+            features: ['Premium Features', 'Extended Usage Limits', 'Priority Support']
+          }))}
+        />
+      )}
+      <div className="container mx-auto px-4 py-8 text-center">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold mb-4">Buy Credits</h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -151,6 +169,7 @@ export default async function BuyCreditsPage() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

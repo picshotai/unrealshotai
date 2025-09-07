@@ -1,6 +1,10 @@
+import { Metadata } from 'next'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { MiniAreaChart } from "@/components/dashboard/mini-stats"
 import { cn } from "@/lib/utils"
+import { commonPageMetadata } from '@/lib/seo'
+
+export const metadata: Metadata = commonPageMetadata.dashboard()
 
 export default function DashboardPage() {
   return (

@@ -11,6 +11,8 @@ import { RefreshButton } from './RefreshButton'
 interface PaymentSuccessPageProps {
   searchParams: Promise<{
     session_id?: string
+    payment_id?: string
+    status?: string
     amount?: string
     credits?: string
     plan_name?: string
@@ -37,15 +39,18 @@ export default async function PaymentSuccessPage({ searchParams }: PaymentSucces
   
   // Extract payment details from search params
   const sessionId = params.session_id
+  const paymentId = params.payment_id
+  const urlStatus = params.status
   const amount = params.amount ? parseFloat(params.amount) : 0
   const credits = params.credits ? parseInt(params.credits) : 0
   const planName = params.plan_name || 'Credit Package'
 
-  // Fetch actual payment details from database if session_id is provided
+  // Fetch actual payment details from database if session_id or payment_id is provided
   let paymentDetails = null
-  let paymentStatus = 'pending'
+  let paymentStatus = urlStatus || 'pending'
   
-  if (sessionId) {
+  const lookupId = sessionId || paymentId
+  if (lookupId) {
     try {
       const { data: payment, error: paymentError } = await supabase
         .from('dodo_payments')
@@ -57,23 +62,32 @@ export default async function PaymentSuccessPage({ searchParams }: PaymentSucces
             price
           )
         `)
-        .eq('dodo_payment_id', sessionId)
+        .eq('dodo_payment_id', lookupId)
         .single()
 
       if (!paymentError && payment) {
         paymentDetails = payment
-        paymentStatus = payment.status
+        // Use database status if available, otherwise fall back to URL status
+        paymentStatus = payment.status || urlStatus || 'pending'
       }
     } catch (error) {
       console.error('Error fetching payment details:', error)
+      // If database lookup fails but we have URL status, use it
+      paymentStatus = urlStatus || 'pending'
     }
   }
 
+  // Map URL status to internal status
+  const normalizedStatus = paymentStatus === 'succeeded' ? 'completed' : paymentStatus
+  
   // Use database details if available, otherwise fall back to URL parameters
   const displayAmount = paymentDetails?.amount || amount
   const displayCredits = paymentDetails?.credits || credits
   const displayPlanName = paymentDetails?.dodo_pricing_plans?.name || planName
-  const isPaymentCompleted = paymentStatus === 'completed'
+  const isPaymentCompleted = normalizedStatus === 'completed'
+  const isPaymentFailed = normalizedStatus === 'failed'
+  const isPaymentPending = normalizedStatus === 'pending'
+  const requiresCustomerAction = normalizedStatus === 'requires_customer_action'
 
   // Format currency
   const formatPrice = (price: number, currency: string = 'USD'): string => {
@@ -92,23 +106,27 @@ export default async function PaymentSuccessPage({ searchParams }: PaymentSucces
       <div className="text-center mb-8">
         <div className="flex justify-center mb-4">
           <div className={`rounded-full p-3 ${
-            isPaymentCompleted ? 'bg-green-100' : 'bg-yellow-100'
+            isPaymentCompleted ? 'bg-green-100' : isPaymentFailed ? 'bg-red-100' : 'bg-yellow-100'
           }`}>
             {isPaymentCompleted ? (
               <CheckCircle className="h-12 w-12 text-green-600" />
+            ) : isPaymentFailed ? (
+              <AlertCircle className="h-12 w-12 text-red-600" />
             ) : (
               <AlertCircle className="h-12 w-12 text-yellow-600" />
             )}
           </div>
         </div>
         <h1 className={`text-3xl font-bold mb-2 ${
-          isPaymentCompleted ? 'text-green-600' : 'text-yellow-600'
+          isPaymentCompleted ? 'text-green-600' : isPaymentFailed ? 'text-red-600' : 'text-yellow-600'
         }`}>
-          {isPaymentCompleted ? 'Payment Successful!' : 'Payment Processing'}
+          {isPaymentCompleted ? 'Payment Successful!' : isPaymentFailed ? 'Payment Failed' : 'Payment Processing'}
         </h1>
         <p className="text-muted-foreground">
           {isPaymentCompleted 
             ? 'Thank you for your purchase. Your credits have been added to your account.'
+            : isPaymentFailed
+            ? 'Unfortunately, your payment could not be processed. Please try again or contact support.'
             : 'Your payment is being processed. Credits will be added to your account shortly.'
           }
         </p>
@@ -122,7 +140,7 @@ export default async function PaymentSuccessPage({ searchParams }: PaymentSucces
             <span>Transaction Details</span>
           </CardTitle>
           <CardDescription>
-            {isPaymentCompleted ? 'Transaction completed successfully' : 'Transaction is being processed'}
+            {isPaymentCompleted ? 'Transaction completed successfully' : isPaymentFailed ? 'Transaction failed' : 'Transaction is being processed'}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -145,10 +163,10 @@ export default async function PaymentSuccessPage({ searchParams }: PaymentSucces
             </div>
           </div>
           
-          {sessionId && (
+          {(paymentId || sessionId) && (
             <div className="pt-4 border-t">
               <p className="text-sm text-muted-foreground">Transaction ID</p>
-              <p className="font-mono text-sm">{sessionId}</p>
+              <p className="font-mono text-sm">{paymentId || sessionId}</p>
             </div>
           )}
           
@@ -169,10 +187,10 @@ export default async function PaymentSuccessPage({ searchParams }: PaymentSucces
           
           <div className="pt-2">
             <p className="text-sm text-muted-foreground">Status</p>
-            <Badge variant={isPaymentCompleted ? 'default' : 'secondary'} className={
-              isPaymentCompleted ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+            <Badge variant={isPaymentCompleted ? 'default' : isPaymentFailed ? 'destructive' : 'secondary'} className={
+              isPaymentCompleted ? 'bg-green-100 text-green-800' : isPaymentFailed ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'
             }>
-              {isPaymentCompleted ? 'Completed' : 'Processing'}
+              {isPaymentCompleted ? 'Completed' : isPaymentFailed ? 'Failed' : 'Processing'}
             </Badge>
           </div>
         </CardContent>
@@ -183,24 +201,59 @@ export default async function PaymentSuccessPage({ searchParams }: PaymentSucces
         <CardHeader>
           <CardTitle>Your Credit Balance</CardTitle>
           <CardDescription>
-            You now have {formatCredits(balance)} credits available to use across all platform features.
+            {isPaymentCompleted 
+              ? `You now have ${formatCredits(balance)} credits available to use across all platform features.`
+              : `Your current balance is ${formatCredits(balance)} credits.`
+            }
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-between p-4 bg-green-50 rounded-lg">
-            <div className="flex items-center space-x-3">
-              <div className="rounded-full bg-green-100 p-2">
-                <CreditCard className="h-5 w-5 text-green-600" />
+          {isPaymentCompleted ? (
+            <div className="flex items-center justify-between p-4 bg-green-50 rounded-lg">
+              <div className="flex items-center space-x-3">
+                <div className="rounded-full bg-green-100 p-2">
+                  <CreditCard className="h-5 w-5 text-green-600" />
+                </div>
+                <div>
+                  <p className="font-semibold text-green-800">Credits Added Successfully</p>
+                  <p className="text-sm text-green-600">+{formatCredits(displayCredits)} credits</p>
+                </div>
               </div>
-              <div>
-                <p className="font-semibold text-green-800">Credits Added Successfully</p>
-                <p className="text-sm text-green-600">+{formatCredits(credits)} credits</p>
-              </div>
+              <Badge variant="secondary" className="bg-green-100 text-green-800">
+                Active
+              </Badge>
             </div>
-            <Badge variant="secondary" className="bg-green-100 text-green-800">
-              Active
-            </Badge>
-          </div>
+          ) : isPaymentFailed ? (
+            <div className="flex items-center justify-between p-4 bg-red-50 rounded-lg">
+              <div className="flex items-center space-x-3">
+                <div className="rounded-full bg-red-100 p-2">
+                  <AlertCircle className="h-5 w-5 text-red-600" />
+                </div>
+                <div>
+                  <p className="font-semibold text-red-800">Payment Failed</p>
+                  <p className="text-sm text-red-600">No credits were added to your account</p>
+                </div>
+              </div>
+              <Badge variant="destructive" className="bg-red-100 text-red-800">
+                Failed
+              </Badge>
+            </div>
+          ) : (
+            <div className="flex items-center justify-between p-4 bg-yellow-50 rounded-lg">
+              <div className="flex items-center space-x-3">
+                <div className="rounded-full bg-yellow-100 p-2">
+                  <AlertCircle className="h-5 w-5 text-yellow-600" />
+                </div>
+                <div>
+                  <p className="font-semibold text-yellow-800">Payment Processing</p>
+                  <p className="text-sm text-yellow-600">{formatCredits(displayCredits)} credits will be added once payment is confirmed</p>
+                </div>
+              </div>
+              <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+                Pending
+              </Badge>
+            </div>
+          )}
         </CardContent>
       </Card>
 
@@ -211,16 +264,32 @@ export default async function PaymentSuccessPage({ searchParams }: PaymentSucces
         {isPaymentCompleted ? (
           <>
             <Link href="/dashboard">
-              <Button className="w-full sm:w-auto">
+              <Button className="w-full sm:w-auto cursor-pointer">
                 <Home className="h-4 w-4 mr-2" />
                 Go to Dashboard
               </Button>
             </Link>
             
             <Link href="/example-tool">
-              <Button variant="outline" className="w-full sm:w-auto">
+              <Button variant="outline" className="w-full sm:w-auto cursor-pointer">
                 Start Using Credits
                 <ArrowRight className="h-4 w-4 ml-2" />
+              </Button>
+            </Link>
+          </>
+        ) : isPaymentFailed ? (
+          <>
+            <Link href="/buy-credits">
+              <Button className="w-full sm:w-auto">
+                Try Again
+                <ArrowRight className="h-4 w-4 ml-2" />
+              </Button>
+            </Link>
+            
+            <Link href="/dashboard">
+              <Button variant="outline" className="w-full sm:w-auto">
+                <Home className="h-4 w-4 mr-2" />
+                Go to Dashboard
               </Button>
             </Link>
           </>

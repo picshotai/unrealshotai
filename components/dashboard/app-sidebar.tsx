@@ -13,7 +13,7 @@ import {
   Shield,
   SquareTerminal,
 } from "lucide-react"
-
+import Link from "next/link"
 import { NavMain } from "@/components/dashboard/nav-main"
 import { NavProjects } from "@/components/dashboard/nav-projects"
 import { NavSecondary } from "@/components/dashboard/nav-secondary"
@@ -101,15 +101,15 @@ export function AppSidebar({
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <Link href="/">
                 <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                   <Command className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">DodoStarter</span>
+                  <span className="truncate font-medium">Unboilerplate</span>
                   <span className="truncate text-xs">By Harvansh Chaudhary</span>
                 </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

@@ -8,6 +8,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { LoadingProvider } from "@/components/loading-provider"
+import { NavigationProgress } from "@/components/navigation-progress"
 import { createClient } from "@/utils/supabase/server"
 import { creditService } from "@/lib/credits"
 import { redirect } from "next/navigation"
@@ -32,7 +33,9 @@ export default async function DashboardLayout({
   // Fetch user's credit balance for header display
   const { balance: creditBalance } = await creditService.getUserCredits(user.id)
   return (
-    <SidebarProvider>
+    <>
+      <NavigationProgress />
+      <SidebarProvider>
       <AppSidebar 
         user={{
           name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'User',
@@ -68,6 +71,7 @@ export default async function DashboardLayout({
           </LoadingProvider>
         </div>
       </SidebarInset>
-    </SidebarProvider>
+      </SidebarProvider>
+    </>
   )
 }

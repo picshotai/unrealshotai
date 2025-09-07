@@ -99,15 +99,15 @@ export function AccountDashboard({ user, payments, currentCredits, totalCreditsP
     <div className="space-y-6">
       <Tabs defaultValue="profile" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="profile" className="flex items-center gap-2">
+          <TabsTrigger value="profile" className="flex items-center gap-2 cursor-pointer">
             <UserIcon className="h-4 w-4" />
             Profile
           </TabsTrigger>
-          <TabsTrigger value="credits" className="flex items-center gap-2">
+          <TabsTrigger value="credits" className="flex items-center gap-2 cursor-pointer">
             <CreditCard className="h-4 w-4" />
             Credits
           </TabsTrigger>
-          <TabsTrigger value="transactions" className="flex items-center gap-2">
+          <TabsTrigger value="transactions" className="flex items-center gap-2 cursor-pointer">
             <Activity className="h-4 w-4" />
             Transactions
           </TabsTrigger>

@@ -9,7 +9,7 @@ import {
   Sparkles,
 } from "lucide-react"
 import { signOut } from "@/app/auth/signout/actions"
-
+import Link from "next/link"
 import {
   Avatar,
   AvatarFallback,
@@ -78,43 +78,38 @@ export function HeaderUser({ user, initialCreditBalance }: HeaderUserProps) {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <a href="/buy-credits" className="flex items-center">
+            <Link href="/buy-credits" className="flex items-center">
               <Sparkles className="mr-2 h-4 w-4" />
               Buy Credits
-            </a>
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
        
         <DropdownMenuGroup>
            <DropdownMenuItem>
-            <a href="/dashboard" className="flex items-center">
+            <Link href="/dashboard" className="flex items-center">
               <Home className="mr-2 h-4 w-4" />
               Dashboard
-            </a>
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <a href="/account" className="flex items-center">
+            <Link href="/account" className="flex items-center">
               <BadgeCheck className="mr-2 h-4 w-4" />
               Account
-            </a>
+            </Link>
           </DropdownMenuItem>
           
-          <DropdownMenuItem>
-            <a href="#" className="flex items-center">
-              <Bell className="mr-2 h-4 w-4" />
-              Notifications
-            </a>
-          </DropdownMenuItem>
+          
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={async () => {
             await signOut()
           }}
-          className="cursor-pointer text-red-600 focus:text-red-600"
+          className="cursor-pointer text-red-600 focus:text-red-800"
         >
-          <LogOut className="mr-2 h-4 w-4" />
+          <LogOut className="mr-2 h-4 w-4 text-red-600 focus:text-red-800" />
           <span>Log out</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
