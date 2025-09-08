@@ -12,6 +12,8 @@ import {
   Settings2,
   Shield,
   SquareTerminal,
+  Coins,
+  Sparkles,
 } from "lucide-react"
 import Link from "next/link"
 import { NavMain } from "@/components/dashboard/nav-main"
@@ -27,6 +29,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { useCreditManager } from "@/lib/credit-manager"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
 
 const data = {
   navMain: [
@@ -80,6 +85,39 @@ const data = {
   ],
 }
 
+// Credits Card Component
+function CreditsCard({ userId }: { userId?: string }) {
+  const { balance, loading } = useCreditManager(userId || null)
+  
+  if (loading) {
+    return (
+      <Card className="mb-4 py-2">
+        <CardContent className="p-3">
+          <div className="text-sm font-medium mb-1">Plan Usage</div>
+          <div className="text-xs text-muted-foreground mb-3 justify-between">Loading...</div>
+          <div className="w-full h-8 bg-muted rounded animate-pulse" />
+        </CardContent>
+      </Card>
+    )
+  }
+  
+  return (
+    <Card className="py-2">
+      <CardContent className="gap-1 flex flex-col px-3">
+        <div className="text-sm font-medium mb-1">Plan Usage</div>
+        <div className="text-xs text-muted-foreground mb-3 flex justify-between">
+          <span className="flex items-center gap-2"><Coins className="h-3 w-3" />Credits</span> <span className="text-amber-600"> {balance.toLocaleString()}</span>
+        </div>
+        <Button size="sm" className="w-full bg-black hover:bg-black/90 text-white border-0" asChild>
+          <Link href="/buy-credits">
+            <Sparkles className="h-3 w-3" /> Get Credits
+          </Link>
+        </Button>
+      </CardContent>
+    </Card>
+  )
+}
+
 export function AppSidebar({ 
   user,
   ...props 
@@ -88,6 +126,7 @@ export function AppSidebar({
     name: string
     email: string
     avatar: string
+    id?: string
   }
 }) {
   const userData = user || {
@@ -120,6 +159,7 @@ export function AppSidebar({
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
+        <CreditsCard userId={userData.id} />
         <NavUser user={userData} />
       </SidebarFooter>
     </Sidebar>

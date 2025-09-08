@@ -196,67 +196,6 @@ export default async function PaymentSuccessPage({ searchParams }: PaymentSucces
         </CardContent>
       </Card>
 
-      {/* Credit Balance Status */}
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>Your Credit Balance</CardTitle>
-          <CardDescription>
-            {isPaymentCompleted 
-              ? `You now have ${formatCredits(balance)} credits available to use across all platform features.`
-              : `Your current balance is ${formatCredits(balance)} credits.`
-            }
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {isPaymentCompleted ? (
-            <div className="flex items-center justify-between p-4 bg-green-50 rounded-lg">
-              <div className="flex items-center space-x-3">
-                <div className="rounded-full bg-green-100 p-2">
-                  <CreditCard className="h-5 w-5 text-green-600" />
-                </div>
-                <div>
-                  <p className="font-semibold text-green-800">Credits Added Successfully</p>
-                  <p className="text-sm text-green-600">+{formatCredits(displayCredits)} credits</p>
-                </div>
-              </div>
-              <Badge variant="secondary" className="bg-green-100 text-green-800">
-                Active
-              </Badge>
-            </div>
-          ) : isPaymentFailed ? (
-            <div className="flex items-center justify-between p-4 bg-red-50 rounded-lg">
-              <div className="flex items-center space-x-3">
-                <div className="rounded-full bg-red-100 p-2">
-                  <AlertCircle className="h-5 w-5 text-red-600" />
-                </div>
-                <div>
-                  <p className="font-semibold text-red-800">Payment Failed</p>
-                  <p className="text-sm text-red-600">No credits were added to your account</p>
-                </div>
-              </div>
-              <Badge variant="destructive" className="bg-red-100 text-red-800">
-                Failed
-              </Badge>
-            </div>
-          ) : (
-            <div className="flex items-center justify-between p-4 bg-yellow-50 rounded-lg">
-              <div className="flex items-center space-x-3">
-                <div className="rounded-full bg-yellow-100 p-2">
-                  <AlertCircle className="h-5 w-5 text-yellow-600" />
-                </div>
-                <div>
-                  <p className="font-semibold text-yellow-800">Payment Processing</p>
-                  <p className="text-sm text-yellow-600">{formatCredits(displayCredits)} credits will be added once payment is confirmed</p>
-                </div>
-              </div>
-              <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
-                Pending
-              </Badge>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
 
 
       {/* Action Buttons */}
@@ -318,15 +257,6 @@ export default async function PaymentSuccessPage({ searchParams }: PaymentSucces
             If you have any questions about your purchase or need assistance, 
             please don't hesitate to contact our support team.
           </p>
-          <div className="flex justify-center space-x-4 text-sm">
-            <Link href="/account" className="text-primary hover:underline">
-              View Account
-            </Link>
-            <span className="text-muted-foreground">•</span>
-            <Link href="/buy-credits" className="text-primary hover:underline">
-              Buy More Credits
-            </Link>
-          </div>
         </div>
       </div>
     </div>

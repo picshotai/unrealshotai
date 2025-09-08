@@ -41,6 +41,7 @@ export default async function DashboardLayout({
           name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'User',
           email: user.email || '',
           avatar: user.user_metadata?.avatar_url || "/placeholder-user.jpg",
+          id: user.id,
         }}
       />
       <SidebarInset>
