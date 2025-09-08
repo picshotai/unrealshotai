@@ -4,7 +4,7 @@ import { getDodoPaymentsClient } from "@/lib/dodopayments";
 import { createAdminClient } from "@/utils/supabase/admin";
 import crypto from "crypto";
 
-const webhook = new Webhook(process.env.DODO_PAYMENTS_WEBHOOK_KEY!);
+const webhook = new Webhook(process.env.DODO_WEBHOOK_SECRET!);
 
 // Webhook event types we care about
 const RELEVANT_EVENTS = [
