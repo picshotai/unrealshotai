@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -37,6 +37,29 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Framer Design System Variables */
+  --surface-primary: oklch(1 0 0);
+  --surface-secondary: oklch(0.985 0 0);
+  --surface-tertiary: oklch(0.97 0 0);
+  --text-primary: oklch(0.145 0 0);
+  --text-secondary: oklch(0.556 0 0);
+  --text-tertiary: oklch(0.708 0 0);
+  --accent-500-40: oklch(0.646 0.222 41.116 / 0.4);
+
+  /* Added slate color system for header component */
+  --slate-1: oklch(0.985 0 0);
+  --slate-2: oklch(0.97 0 0);
+  --slate-3: oklch(0.95 0 0);
+  --slate-4: oklch(0.93 0 0);
+  --slate-5: oklch(0.91 0 0);
+  --slate-6: oklch(0.88 0 0);
+  --slate-7: oklch(0.84 0 0);
+  --slate-8: oklch(0.78 0 0);
+  --slate-9: oklch(0.68 0 0);
+  --slate-10: oklch(0.58 0 0);
+  --slate-11: oklch(0.48 0 0);
+  --slate-12: oklch(0.145 0 0);
 }
 
 .dark {
@@ -72,6 +95,29 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+
+  /* Framer Design System Variables - Dark Mode */
+  --dark-surface-primary: oklch(0.145 0 0);
+  --dark-surface-secondary: oklch(0.205 0 0);
+  --dark-surface-tertiary: oklch(0.269 0 0);
+  --dark-text-primary: oklch(0.985 0 0);
+  --dark-text-secondary: oklch(0.708 0 0);
+  --dark-text-tertiary: oklch(0.556 0 0);
+  --dark-border: oklch(0.269 0 0);
+
+  /* Added dark mode slate colors */
+  --slate-1: oklch(0.145 0 0);
+  --slate-2: oklch(0.18 0 0);
+  --slate-3: oklch(0.22 0 0);
+  --slate-4: oklch(0.26 0 0);
+  --slate-5: oklch(0.3 0 0);
+  --slate-6: oklch(0.35 0 0);
+  --slate-7: oklch(0.42 0 0);
+  --slate-8: oklch(0.52 0 0);
+  --slate-9: oklch(0.62 0 0);
+  --slate-10: oklch(0.68 0 0);
+  --slate-11: oklch(0.78 0 0);
+  --slate-12: oklch(0.985 0 0);
 }
 
 @theme inline {
@@ -113,6 +159,20 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Added slate color definitions to theme */
+  --color-slate-1: var(--slate-1);
+  --color-slate-2: var(--slate-2);
+  --color-slate-3: var(--slate-3);
+  --color-slate-4: var(--slate-4);
+  --color-slate-5: var(--slate-5);
+  --color-slate-6: var(--slate-6);
+  --color-slate-7: var(--slate-7);
+  --color-slate-8: var(--slate-8);
+  --color-slate-9: var(--slate-9);
+  --color-slate-10: var(--slate-10);
+  --color-slate-11: var(--slate-11);
+  --color-slate-12: var(--slate-12);
 }
 
 @layer base {
@@ -122,4 +182,17 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Added custom grid styles for ultra-precise Framer-style layout */
+.framer-grid-line {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.framer-tick-mark {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.08);
+  width: 8px;
+  height: 1px;
 }
