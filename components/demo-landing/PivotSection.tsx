@@ -79,7 +79,7 @@ export default function PivotSection() {
                 </div>
 
                 <div className="space-y-6">
-                  <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                  <p className="text-xl text-muted-foregroundleading-relaxed mx-auto max-w-[85vw] sm:max-w-[80vw] px-2 text-center sm:px-6">
                     So why start with a rigid, opinionated framework that forces you to build <em>their</em> way?
                   </p>
 

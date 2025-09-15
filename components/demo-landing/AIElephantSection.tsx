@@ -25,7 +25,7 @@ export default function AIElephantSection() {
               </h2>
 
               {/* Visual Question Flow */}
-              <div className="max-w-4xl mx-auto space-y-8">
+              <div className="space-y-8 flex flex-col items-center justify-center mx-auto max-w-[90vw] sm:max-w-[80vw] px-2 sm:px-6">
                 {/* Setup */}
                 <div className="flex items-center justify-center gap-4 text-lg text-muted-foreground">
                   
@@ -35,7 +35,7 @@ export default function AIElephantSection() {
                 </div>
 
                 {/* The Big Question */}
-                <div className="relative p-8 border-primary/20 rounded-2xl bg-card/30 backdrop-blur-sm border">
+                <div className="relative p-6 flex items-center gap-4 p-4 border border-border/80 rounded-xl z-10 bg-background">
                   <div className="text-center space-y-4">
                     <p className="text-xl font-medium text-foreground">
                       Could you build this entire system yourself in 24 hours?
@@ -65,7 +65,7 @@ export default function AIElephantSection() {
                     ].map((item, i) => (
                       <div
                         key={i}
-                        className="flex items-center gap-4 p-4 border border-border/50 rounded-xl z-10 bg-background"
+                        className="flex items-center gap-4 p-4 border border-border/80 rounded-xl z-10 bg-background"
                       >
                         <div className="text-2xl">{item.icon}</div>
                         <div className="flex-1">
@@ -79,8 +79,8 @@ export default function AIElephantSection() {
 
                 {/* The Punch Line - Visual Impact */}
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 to-orange-500/5 rounded-2xl blur-xl" />
-                  <div className="relative p-8 border border-red-500/20 rounded-2xl bg-background/80 backdrop-blur-sm">
+                  <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 to-orange-500/5 rounded-2xl blur-xl " />
+                  <div className="relative p-8 border border-red-500/20 backdrop-blur-sm flex items-center gap-4 p-4 rounded-xl z-10 bg-background">
                     <div className="text-center space-y-6">
                       <div className="text-2xl">⚡</div>
                       <p className="text-xl font-semibold text-foreground">

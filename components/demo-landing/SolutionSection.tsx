@@ -18,7 +18,7 @@ export default function SolutionSection() {
         {/* Content */}
         <div className="relative z-10 flex flex-col divide-y divide-border">
           {/* Header with Timer */}
-          <div className="flex flex-col items-center justify-center py-20 border-t">
+          <div className="flex flex-col items-center justify-center py-20 border-t mx-auto max-w-[90vw] sm:max-w-[80vw] px-2 sm:px-6">
             <div className="text-center justify-center px-2 text-center sm:px-6 flex flex-col items-center">
               <Badge variant="outline" className="mb-8 bg-green-500/10 border-green-500/20">
                 <ZapIcon className="w-3 h-3 mr-1 text-green-500" />
@@ -45,7 +45,7 @@ export default function SolutionSection() {
           </div>
 
           {/* 3-Step Process */}
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center mx-auto max-w-[90vw] sm:max-w-[80vw] px-2 sm:px-6">
             <div className="max-w-4xl mx-auto space-y-8 py-12">
               {/* Progress Timeline */}
               <div className="mb-16 flex items-center justify-center">
