@@ -118,6 +118,15 @@
   --slate-10: oklch(0.68 0 0);
   --slate-11: oklch(0.78 0 0);
   --slate-12: oklch(0.985 0 0);
+
+    /* Updated font variables for better typography hierarchy */
+  --font-inter: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-instrument-serif: "Instrument Serif", "Times New Roman", ui-serif, serif;
+
+  /* Added custom spacing and shadow variables for consistency */
+  --shadow-soft: 0 2px 8px -2px oklch(0.15 0.01 85 / 0.08);
+  --shadow-medium: 0 4px 16px -4px oklch(0.15 0.01 85 / 0.12);
+  --shadow-strong: 0 8px 32px -8px oklch(0.15 0.01 85 / 0.16);
 }
 
 @theme inline {
@@ -181,7 +190,104 @@
   }
   body {
     @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
+   /* Enhanced heading styles for better hierarchy */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-balance;
+    letter-spacing: -0.025em;
+  }
+
+    /* Better paragraph spacing and readability */
+  p {
+    @apply text-pretty;
+  }
+
+}
+
+
+/* Custom styles for the landing page */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+.font-inter {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-instrument-serif {
+  font-family: var(--font-instrument-serif);
+  font-display: swap;
+}
+
+/* Added explicit font loading optimization */
+@supports (font-display: swap) {
+  @font-face {
+    font-family: "Instrument Serif";
+    font-display: swap;
+  }
+}
+
+.mix-blend-multiply {
+  mix-blend-mode: multiply;
+}
+
+.backdrop-blur-custom {
+  backdrop-filter: blur(8.25px);
+}
+
+/* Added sophisticated button and interaction styles */
+.btn-primary {
+  @apply bg-primary text-primary-foreground;
+  box-shadow: var(--shadow-medium);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary:hover {
+  @apply bg-primary/90;
+  box-shadow: var(--shadow-strong);
+  transform: translateY(-1px);
+}
+
+/* Enhanced focus states for better accessibility */
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+}
+
+/* Smooth animations for modern feel */
+.animate-fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced gradient utilities */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+}
+
+.gradient-subtle {
+  background: linear-gradient(135deg, var(--background) 0%, var(--muted) 100%);
 }
 
 /* Added custom grid styles for ultra-precise Framer-style layout */
@@ -195,4 +301,42 @@
   background: rgba(0, 0, 0, 0.08);
   width: 8px;
   height: 1px;
+}
+
+
+/* From Uiverse.io by SelfMadeSystem */ 
+.loader {
+  width: 12em;
+  height: 12em;
+}
+
+.loader path {
+  stroke: #000;
+  stroke-width: 0.6px;
+  animation: dashArray 4s ease-in-out infinite,
+    dashOffset 4s linear infinite;
+}
+
+@keyframes dashArray {
+  0% {
+    stroke-dasharray: 0 1 359 0;
+  }
+
+  50% {
+    stroke-dasharray: 0 359 1 0;
+  }
+
+  100% {
+    stroke-dasharray: 359 1 0 0;
+  }
+}
+
+@keyframes dashOffset {
+  0% {
+    stroke-dashoffset: 365;
+  }
+
+  100% {
+    stroke-dashoffset: 5;
+  }
 }

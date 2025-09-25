@@ -51,7 +51,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 function DefaultErrorFallback({ reset }: { error?: Error; reset: () => void }) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-6 text-center">
+      <div className="max-w-md w-full bg-white rounded-lg p-6 text-center">
         <div className="flex justify-center mb-4">
           <AlertCircle className="h-12 w-12 text-red-500" />
         </div>

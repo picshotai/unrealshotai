@@ -55,20 +55,20 @@ export function DynamicBreadcrumb() {
     <Breadcrumb>
       <BreadcrumbList>
         {/* Home link */}
-        <BreadcrumbItem className="hidden md:block">
+        <BreadcrumbItem className="hidden md:block text-xs md:text-sm">
           <BreadcrumbLink href="/dashboard">
             Home
           </BreadcrumbLink>
         </BreadcrumbItem>
         
         {breadcrumbItems.length > 0 && (
-          <BreadcrumbSeparator className="hidden md:block" />
+          <BreadcrumbSeparator className="hidden md:block text-xs md:text-sm" />
         )}
         
         {/* Dynamic breadcrumb items */}
         {breadcrumbItems.map((item, index) => (
           <div key={item.segment} className="flex items-center">
-            <BreadcrumbItem>
+            <BreadcrumbItem className="text-xs md:text-sm">
               {item.isLast ? (
                 <BreadcrumbPage>{item.displayName}</BreadcrumbPage>
               ) : (
@@ -77,7 +77,7 @@ export function DynamicBreadcrumb() {
                 </BreadcrumbLink>
               )}
             </BreadcrumbItem>
-            {!item.isLast && <BreadcrumbSeparator />}
+            {!item.isLast && <BreadcrumbSeparator className="text-xs md:text-sm" />}
           </div>
         ))}
       </BreadcrumbList>

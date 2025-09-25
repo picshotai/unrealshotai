@@ -12,6 +12,7 @@ import { NavigationProgress } from "@/components/navigation-progress"
 import { createClient } from "@/utils/supabase/server"
 import { creditService } from "@/lib/credits"
 import { redirect } from "next/navigation"
+import OnboardingGate from "@/components/OnboardingGate"
 
 export default async function DashboardLayout({
   children,
@@ -35,44 +36,46 @@ export default async function DashboardLayout({
   return (
     <>
       <NavigationProgress />
-      <SidebarProvider>
-      <AppSidebar 
-        user={{
-          name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'User',
-          email: user.email || '',
-          avatar: user.user_metadata?.avatar_url || "/placeholder-user.jpg",
-          id: user.id,
-        }}
-      />
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 justify-between">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator
-              orientation="vertical"
-              className="mr-2 data-[orientation=vertical]:h-4"
-            />
-            <DynamicBreadcrumb />
-          </div>
-          <div className="px-4">
-            <HeaderUser
-              user={{
-                name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'User',
-                email: user.email || '',
-                avatar: user.user_metadata?.avatar_url || "/placeholder-user.jpg",
-                id: user.id,
-              }}
-              initialCreditBalance={creditBalance}
-            />
-          </div>
-        </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <LoadingProvider>
-            {children}
-          </LoadingProvider>
-        </div>
-      </SidebarInset>
-      </SidebarProvider>
+      <OnboardingGate>
+        <SidebarProvider>
+          <AppSidebar 
+            user={{
+              name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'User',
+              email: user.email || '',
+              avatar: user.user_metadata?.avatar_url || "/placeholder-user.jpg",
+              id: user.id,
+            }}
+          />
+          <SidebarInset>
+            <header className="flex h-16 shrink-0 items-center gap-2 justify-between">
+              <div className="flex items-center gap-2 px-4">
+                <SidebarTrigger className="-ml-1" />
+                <Separator
+                  orientation="vertical"
+                  className="mr-2 data-[orientation=vertical]:h-4"
+                />
+                <DynamicBreadcrumb />
+              </div>
+              <div className="px-4">
+                <HeaderUser
+                  user={{
+                    name: user.user_metadata?.full_name || user.email?.split('@')[0] || 'User',
+                    email: user.email || '',
+                    avatar: user.user_metadata?.avatar_url || "/placeholder-user.jpg",
+                    id: user.id,
+                  }}
+                  initialCreditBalance={creditBalance}
+                />
+              </div>
+            </header>
+            <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+              <LoadingProvider>
+                {children}
+              </LoadingProvider>
+            </div>
+          </SidebarInset>
+        </SidebarProvider>
+      </OnboardingGate>
     </>
   )
 }

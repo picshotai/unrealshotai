@@ -46,14 +46,14 @@ interface MobileNavMenuProps {
 }
 
 export const Navbar = ({ children, className }: NavbarProps) => {
-  return <motion.div className={cn("fixed inset-x-0 top-0 z-60 w-full pt-2", className)}>{children}</motion.div>
+  return <motion.div className={cn("fixed inset-x-0 top-0 z-60 w-full pt-4", className)}>{children}</motion.div>
 }
 
 export const NavBody = ({ children, className }: NavBodyProps) => {
   return (
     <motion.div
       className={cn(
-        "relative z-[60] mx-auto w-[70%] max-w-6xl flex-row items-center justify-between self-start rounded-lg bg-white/95 border border-gray-200 px-6 py-3 hidden backdrop-blur-lg lg:flex",
+        "relative z-[60] mx-auto max-w-4xl flex-row items-center justify-between self-start rounded-lg bg-white/95 border border-gray-200 px-2 py-2 hidden backdrop-blur-lg lg:flex",
         className,
       )}
     >
@@ -79,7 +79,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
         <a
           onMouseEnter={() => setHovered(idx)}
           onClick={onItemClick}
-          className="relative px-3 py-2 text-gray-600 hover:text-black transition-colors cursor-pointer"
+          className="relative px-3 py-2 font-semibold transition-colors cursor-pointer"
           key={`link-${idx}`}
           href={item.link}
         >
@@ -170,9 +170,16 @@ function Header() {
         <div className="flex items-center gap-3">
           <Link href="/dashboard">
             <Button
-              className="text-md py-6 group relative overflow-hidden cursor-pointer"
+              className="text-md py-6 group relative bg-[#ff6f00] text-white rounded-md overflow-hidden cursor-pointer pr-12"
             >
-              Build My Portfolio
+              Start Your Photoshoot
+              <div className="bg-white rounded-sm p-3 absolute right-1 top-1/2 -translate-y-1/2">
+              <img
+                src="/arrow.svg"
+                alt="arrow-right"
+                className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
+              />
+              </div>
             </Button>
           </Link>
         </div>

@@ -1,7 +1,6 @@
 
 import { Metadata } from 'next'
 import PublicHeader from '@/components/Header'
-import Footer from '@/components/footer'
 import { HeroSection } from '@/components/landing/HeroSection'
 import { HowItWorks } from '@/components/landing/HowItWorks'
 import { FeaturesSection } from '@/components/landing/FeaturesSection'
@@ -25,7 +24,6 @@ export default function Home() {
         <FAQSection />
         <CTASection />
       </main>
-      <Footer />
       
       {/* WebApplication Schema - Home Page Only */}
       <StructuredData data={JSON.parse(generateWebApplicationJsonLd())} />

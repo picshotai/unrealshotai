@@ -2,22 +2,18 @@
 
 import * as React from "react"
 import {
-  BookOpen,
-  Bot,
   Command,
-  Frame,
-  LifeBuoy,
-  PieChart,
   Send,
-  Settings2,
-  Shield,
   SquareTerminal,
   Coins,
   Sparkles,
+  Image,
+  Upload,
+  Sparkles as SparklesIcon,
+  FolderOpen,
 } from "lucide-react"
 import Link from "next/link"
 import { NavMain } from "@/components/dashboard/nav-main"
-import { NavProjects } from "@/components/dashboard/nav-projects"
 import { NavSecondary } from "@/components/dashboard/nav-secondary"
 import { NavUser } from "@/components/dashboard/nav-user"
 import {
@@ -42,47 +38,37 @@ const data = {
       isActive: true,
     },
     {
-      title: "Credit Deduct Demo",
-      url: "/example-tool",
-      icon: Shield,
+      title: "Generate Photos",
+      url: "/generate-image",
+      icon: SparklesIcon,
     },
-   
+    
     {
-      title: "Documentation",
-      url: "/docs",
-      icon: BookOpen,
+      title: "Trained Models",
+      url: "/trained-models",
+      icon: FolderOpen,
     },
-    {
-      title: "Settings",
-      url: "/settings",
-      icon: Settings2,
+  {
+      title: "My Gallery",
+      url: "/gallery",
+      icon: Image,
     },
+{
+      title: "Photo Upload Guide",
+      url: "/photo-upload-guide",
+      icon: Upload,
+    },
+    
    ],
    navSecondary: [
+   
     {
       title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
+      url: "mailto:support@unrealshot.com",
       icon: Send,
     },
   ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    
-  ],
+ 
 }
 
 // Credits Card Component
@@ -145,8 +131,8 @@ export function AppSidebar({
                   <Command className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Unboilerplate</span>
-                  <span className="truncate text-xs">By Harvansh Chaudhary</span>
+                  <span className="truncate font-medium">Unrealshot AI</span>
+                  <span className="truncate text-xs">Realistic AI Photoshoots</span>
                 </div>
               </Link>
             </SidebarMenuButton>
@@ -155,7 +141,6 @@ export function AppSidebar({
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
