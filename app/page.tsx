@@ -2,6 +2,7 @@
 import { Metadata } from 'next'
 import PublicHeader from '@/components/Header'
 import { HeroSection } from '@/components/landing/HeroSection'
+import NewHowItWorks from '@/components/landing/NewHowItWorks'
 import ShowCase from '@/components/landing/ShowCase'
 import ProblemSolutionVariant2 from '@/components/landing/ProblemSolutionVariant2'
 import { HowItWorks } from '@/components/landing/HowItWorks'
@@ -21,6 +22,7 @@ export default function Home() {
       <PublicHeader />
       <main>
         <HeroSection />
+        <NewHowItWorks />
         <ShowCase />
         <ProblemSolutionVariant2 />
         <HowItWorks />

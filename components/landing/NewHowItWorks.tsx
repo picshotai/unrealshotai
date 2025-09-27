@@ -1,282 +1,179 @@
 "use client"
 
 import Image from "next/image"
-import { ArrowDown, Sparkles, ChevronRight } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
-import { useState } from "react"
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { UploadCloud, Cpu, Sparkles } from "lucide-react"
 
-// 16 unique image URLs (replace with your actual image URLs)
-const inputImages = [
-  "/images/demo1.jpg",
-  "/images/demo2.jpg",
-  "/images/demo3.jpg",
-  "/images/demo4.jpg",
-  "/images/demo5.jpg",
-  "/images/demo6.jpg",
-  "/images/demo7.jpg",
-  "/images/demo8.jpg",
-]
+// Using your specific image requests
+const womanInputImages = ["/images/demo1.jpg", "/images/demo2.jpg", "/images/demo3.jpg", "/images/demo4.jpg"];
+const manInputImages = ["/images/demo5.jpg", "/images/demo6.jpg", "/images/demo7.jpg", "/images/demo8.jpg"];
 
-const outputImages = [
+// Create array of all 16 unique output images
+const allOutputImages = [
   "/images/aimodel1.jpg",
-  "/images/aimodel2.jpg",
+  "/images/aimodel2.jpg", 
   "/images/aimodel3.jpg",
   "/images/aimodel4.jpg",
-  "/content/ai-generated-user-image.jpg",
+  "/images/aimodel5.jpg",
   "/images/aimodel6.jpg",
   "/images/aimodel7.jpg",
   "/images/aimodel8.jpg",
-]
+  "/images/aimodel9.jpg",
+  "/images/aimodel10.jpg", 
+  "/images/aimodel11.jpg",
+  "/images/aimodel12.jpg",
+  "/images/aimodel13.jpg",
+  "/images/aimodel14.jpg",
+  "/images/aimodel15.jpg",
+  "/images/aimodel16.jpg",
+];
 
-export default function HowItWorks() {
-  const [activeStep, setActiveStep] = useState(0)
-  const [hoveredPhoto, setHoveredPhoto] = useState<number | null>(null)
+// --- THE DEFINITIVE, REBUILT VISUAL FOR STEP 2 ---
+const AIModelVisual_Final = () => {
+    const themeVars = {
+        "--aiv-line-color": "#DCD9D6",
+        "--aiv-pulse-color": "#ff6f00",
+        "--aiv-core-bg": "#FFFFFF",
+        "--aiv-core-border": "#EAE8E6",
+        "--aiv-core-icon": "#605A57",
+    };
 
-  const steps = [
-    {
-      title: "1. Choose Pack & Upload Selfies",
-      description:
-        "Pick a style pack and upload 5+ clear selfies (front-facing, no accessories). Whether it’s solo or multi-person, we train a model that actually looks like you.",
-      icon: "📸",
-    },
-    {
-      title: "2. UnrealShot AI in Action",
-      description:
-        "No generic filters—our Photo AI analyzes every detail to create realistic photos that match your style, pose, and expression. You’re in full control with custom models and prompts.",
-      icon: "⚙️",
-    },
-    {
-      title: "3. Photoshoot Ready in 20 minutes",
-      description:
-        "Download stunning AI-generated photos that feel natural, not artificial. Perfect for dating, branding, professional images, or just cool pictures of you—without weird AI distortions.",
-      icon: "✨",
-    },
-  ]
+    return (
+        <div className="w-full h-full flex items-center justify-center p-8 bg-white rounded-lg border border-gray-200">
+            <svg width="100%" height="100%" viewBox="0 0 300 150" style={themeVars as React.CSSProperties}>
+                {/* The "Fixed Gray Lines" - The static structure */}
+                <path id="path1" d="M 50 75 H 130" fill="none" stroke="var(--aiv-line-color)" strokeWidth="2" />
+                <path id="path2" d="M 170 75 H 250" fill="none" stroke="var(--aiv-line-color)" strokeWidth="2" />
+                <path id="path3" d="M 150 55 V 20" fill="none" stroke="var(--aiv-line-color)" strokeWidth="2" />
+                <path id="path4" d="M 150 95 V 130" fill="none" stroke="var(--aiv-line-color)" strokeWidth="2" />
+
+                {/* The "Lightning" Pulses - Orange circles that move along the paths */}
+                <circle r="4" fill="var(--aiv-pulse-color)">
+                    <animateMotion dur="3s" begin="0s" repeatCount="indefinite" path="M 50 75 H 130" />
+                </circle>
+                <circle r="4" fill="var(--aiv-pulse-color)">
+                    <animateMotion dur="3s" begin="0.5s" repeatCount="indefinite" path="M 170 75 H 250" />
+                </circle>
+                <circle r="4" fill="var(--aiv-pulse-color)">
+                    <animateMotion dur="3s" begin="1s" repeatCount="indefinite" path="M 150 55 V 20" />
+                </circle>
+                 <circle r="4" fill="var(--aiv-pulse-color)">
+                    <animateMotion dur="3s" begin="1.5s" repeatCount="indefinite" path="M 150 95 V 130" />
+                </circle>
+
+                {/* The Central AI Core */}
+                <g>
+                    <circle cx="150" cy="75" r="25" fill="var(--aiv-core-bg)" stroke="var(--aiv-core-border)" strokeWidth="2" />
+                    <Cpu size={28} color="var(--aiv-core-icon)" x="136" y="61" />
+                </g>
+
+                 {/* Input/Output Nodes */}
+                <circle cx="50" cy="75" r="8" fill="var(--aiv-core-bg)" stroke="var(--aiv-line-color)" strokeWidth="1" />
+                <circle cx="250" cy="75" r="8" fill="var(--aiv-core-bg)" stroke="var(--aiv-line-color)" strokeWidth="1" />
+                <circle cx="150" cy="20" r="8" fill="var(--aiv-core-bg)" stroke="var(--aiv-line-color)" strokeWidth="1" />
+                <circle cx="150" cy="130" r="8" fill="var(--aiv-core-bg)" stroke="var(--aiv-line-color)" strokeWidth="1" />
+            </svg>
+        </div>
+    )
+}
+
+
+export default function HowItWorksShowcase() {
+  const styles = `
+    .step-section { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s ease-out forwards; }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+  `
 
   return (
-    <div className="relative text-gray-100 px-4 py-24 overflow-hidden">
-  
-      <div className="max-w-7xl mx-auto relative">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <Badge variant="outline" className="mb-6 px-4 py-2 border-indigo-500/30 bg-indigo-500/10 text-indigo-300">
-            <Sparkles className="w-4 h-4 mr-2 text-black" />
-            <span className="text-sm text-black font-medium">AI-Powered Photography</span>
-          </Badge>
-
-          <h2 className="text-4xl text-black md:text-6xl max-w-4xl mx-auto font-bold mb-6">
-            How Unrealshot AI Photoshoot Generator Works
+    <section className="relative mx-auto py-16 sm:py-24 overflow-hidden bg-[#F7F5F3]">
+      <style>{styles}</style>
+      <div className="px-4 max-w-4xl mx-auto">
+        {/* Header (Unchanged) */}
+        <div className="text-center mb-16 sm:mb-20">
+          <h2 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-tight mb-4 font-[var(--font-inter-tight)] text-gray-900">
+            Your Professional Photoshoot in <span className="text-[#ff6f00]">3 Simple Steps.</span>
           </h2>
-
-          <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-            Create stunning professional AI powered photoshoots in just minutes with our easy 3-step process.
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            Our process is designed to be effortless, transparent, and deliver stunning results every time.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Main Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-          {/* Left Column */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-10"
-          >
-            {/* Small Photos */}
-            <div className="flex gap-3 justify-center">
-              {inputImages.slice(0, 4).map((src, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ scale: 1.08, y: -5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  className="w-20 h-20 relative rounded-xl overflow-hidden shadow-lg shadow-indigo-900/20 hover:shadow-indigo-700/30 transition-all duration-300"
-                  onMouseEnter={() => setHoveredPhoto(i)}
-                  onMouseLeave={() => setHoveredPhoto(null)}
-                >
-                  <Image
-                    src={src || "/placeholder.svg?height=80&width=80"}
-                    alt={`Input photo ${i + 1}`}
-                    fill
-                    className="object-cover"
-                  />
-                  <AnimatePresence>
-                    {hoveredPhoto === i && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/40 flex items-center justify-center"
-                      >
-                        <span className="text-white text-xs font-bold">Selfie {i + 1}</span>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              ))}
+        {/* The Linear, Step-by-Step Flow */}
+        <div className="flex flex-col items-center">
+
+          {/* --- STEP 1: UPLOAD --- (Unchanged) */}
+          <div className="step-section w-full flex flex-col items-center text-center" style={{ animationDelay: '0.2s' }}>
+            <div className="flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-full shadow-sm">
+              <div className="bg-[#ff6f00]/10 p-2 rounded-full text-[#ff6f00]"><UploadCloud size={24} /></div>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900">1. Upload Your Selfies</h3>
             </div>
-
-            {/* Arrow */}
-            <div className="flex justify-center">
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-                className="bg-indigo-500/20 p-3 rounded-full"
-              >
-                <ArrowDown className="w-6 h-6 text-indigo-400" />
-              </motion.div>
+            <p className="mt-4 text-md text-gray-600 max-w-lg">Start by providing clear photos. Our AI learns from a diverse set of your images to ensure an authentic result.</p>
+            <div className="w-full max-w-xl flex flex-col md:flex-row gap-4 mt-8">
+              <div className="w-full grid grid-cols-2 gap-4">
+                {womanInputImages.map((src, i) => (
+                  <div key={i} className="aspect-square relative rounded-lg overflow-hidden shadow-md border border-gray-200"><Image src={src} alt={`Woman selfie ${i + 1}`} layout="fill" className="object-cover" /></div>
+                ))}
+              </div>
+              <div className="w-full grid grid-cols-2 gap-4">
+                {manInputImages.map((src, i) => (
+                  <div key={i} className="aspect-square relative rounded-lg overflow-hidden shadow-md border border-gray-200"><Image src={src} alt={`Man selfie ${i + 1}`} layout="fill" className="object-cover" /></div>
+                ))}
+              </div>
             </div>
-
-            {/* 2x2 Grid */}
-            <div className="grid grid-cols-2 gap-5">
-              {outputImages.slice(0, 4).map((src, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  className="group"
-                >
-                  <Card className="aspect-[3/4] relative rounded-xl overflow-hidden border-gray-800 bg-gray-800/50 shadow-lg shadow-indigo-900/20 hover:shadow-indigo-700/30 transition-all duration-300">
-                    <Image
-                      src={src || "/placeholder.svg?height=300&width=225"}
-                      alt={`AI Generated photo ${i + 1}`}
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm p-1.5 rounded-lg flex items-center space-x-1.5 border border-indigo-500/30">
-                      <div className="w-3 h-3 bg-gradient-to-br from-indigo-400 to-blue-500 rounded-sm" />
-                      <span className="text-[10px] font-medium text-gray-200">AI Generated</span>
-                    </div>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Center Column */}
-          <div className="space-y-6 text-center">
-            {steps.map((step, index) => (
-              <motion.div
-                key={index}
-                whileHover={{ scale: 1.02 }}
-                className={`relative group p-8 rounded-xl transition-all duration-300 cursor-pointer ${
-                  activeStep === index
-                    ? "bg-gradient-to-br from-indigo-900/90 to-blue-900/90 border text-gray-200 border-indigo-500/30 shadow-lg shadow-indigo-900/20"
-                    : "bg-gray-800 border border-gray-700/50 hover:border-indigo-500/20 hover:bg-gray-700"
-                }`}
-                onClick={() => setActiveStep(index)}
-              >
-               
-
-                <div className="mb-4 text-3xl">{step.icon}</div>
-
-                <h2 className="text-xl font-bold mb-3 text-gray-100 group-hover:text-white">
-                  {step.title.split(".")[1]}
-                </h2>
-
-                <p className="group-hover:text-gray-300 transition-colors duration-300">
-                  {step.description}
-                </p>
-
-                {activeStep === index && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="mt-4 inline-flex items-center text-sm font-medium text-indigo-400"
-                  >
-                    
-                  </motion.div>
-                )}
-              </motion.div>
-            ))}
           </div>
 
-          {/* Right Column */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="space-y-10"
-          >
-            {/* Small Photos */}
-            <div className="flex gap-3 justify-center">
-              {inputImages.slice(4, 8).map((src, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ scale: 1.08, y: -5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  className="w-20 h-20 relative rounded-xl overflow-hidden shadow-lg shadow-blue-900/20 hover:shadow-blue-700/30 transition-all duration-300"
-                  onMouseEnter={() => setHoveredPhoto(i + 4)}
-                  onMouseLeave={() => setHoveredPhoto(null)}
-                >
-                  <Image
-                    src={src || "/placeholder.svg?height=80&width=80"}
-                    alt={`Input photo ${i + 5}`}
-                    fill
-                    className="object-cover"
-                  />
-                  <AnimatePresence>
-                    {hoveredPhoto === i + 4 && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/40 flex items-center justify-center"
-                      >
-                        <span className="text-white text-xs font-bold">Selfie {i + 5}</span>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              ))}
-            </div>
+          {/* Arrow Connector (Unchanged) */}
+          <div className="step-section my-12 h-24 w-px bg-gray-300" style={{ animationDelay: '0.4s' }}></div>
 
-            {/* Arrow */}
-            <div className="flex justify-center">
-              <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-                className="bg-blue-500/20 p-3 rounded-full"
-              >
-                <ArrowDown className="w-6 h-6 text-blue-400" />
-              </motion.div>
+          {/* --- STEP 2: AI MAGIC --- (NOW WITH THE DEFINITIVE VISUAL) */}
+          <div className="step-section w-full flex flex-col items-center text-center" style={{ animationDelay: '0.6s' }}>
+            <div className="flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-full shadow-sm">
+              <div className="bg-[#ff6f00]/10 p-2 rounded-full text-[#ff6f00]"><Cpu size={24} /></div>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900">2. AI Builds Your Model</h3>
             </div>
+            <p className="mt-4 text-md text-gray-600 max-w-lg">This isn't a filter—it's a generative engine. Our system analyzes your features to create a hyper-realistic model trained exclusively on you.</p>
+            <div className="w-full max-w-md h-48 mt-8">
+              <AIModelVisual_Final />
+            </div>
+          </div>
 
-            {/* 2x2 Grid */}
-            <div className="grid grid-cols-2 gap-5">
-              {outputImages.slice(4, 8).map((src, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  className="group"
-                >
-                  <Card className="aspect-[3/4] relative rounded-xl overflow-hidden border-gray-800 bg-gray-800/50 shadow-lg shadow-blue-900/20 hover:shadow-blue-700/30 transition-all duration-300">
-                    <Image
-                      src={src || "/placeholder.svg?height=300&width=225"}
-                      alt={`AI Generated photo ${i + 5}`}
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm p-1.5 rounded-lg flex items-center space-x-1.5 border border-blue-500/30">
-                      <div className="w-3 h-3 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-sm" />
-                      <span className="text-[10px] font-medium text-gray-200">AI Generated</span>
-                    </div>
-                  </Card>
-                </motion.div>
-              ))}
+          {/* Arrow Connector (Unchanged) */}
+          <div className="step-section my-12 h-24 w-px bg-gray-300" style={{ animationDelay: '0.8s' }}></div>
+          
+          {/* --- STEP 3: GET RESULTS --- FULL WIDTH WITH GRADIENT OVERLAY */}
+          <div className="step-section w-full flex flex-col items-center text-center" style={{ animationDelay: '1s' }}>
+            <div className="flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-full shadow-sm">
+              <div className="bg-[#ff6f00]/10 p-2 rounded-full text-[#ff6f00]"><Sparkles size={24} /></div>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900">3. Receive Your Photoshoot</h3>
             </div>
-          </motion.div>
+            <p className="mt-4 text-md text-gray-600 max-w-lg mb-12">Get a diverse portfolio of studio-quality images in minutes, ready for any platform, from the boardroom to the bar.</p>
+          </div>
+
         </div>
       </div>
-    </div>
+
+      {/* Full Width Image Gallery with Subtle Bottom Gradient */}
+      <div className="relative w-full mt-8">
+        {/* 16 Unique Images Grid - Full Width */}
+        <div className="w-full">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-1 sm:gap-2">
+            {allOutputImages.map((src, i) => (
+              <div key={i} className="aspect-[3/4] relative overflow-hidden">
+                <Image 
+                  src={src} 
+                  alt={`AI Generated photo ${i + 1}`} 
+                  layout="fill" 
+                  className="object-cover" 
+                />
+                <div className="absolute top-2 right-2 bg-black/50 text-white text-[8px] sm:text-[10px] font-medium px-1.5 py-0.5 rounded-full backdrop-blur-sm">
+                  AI
+                </div>
+                {/* Individual image gradient overlay - only at bottom */}
+                <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#F7F5F3] to-transparent pointer-events-none"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
