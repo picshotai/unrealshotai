@@ -340,3 +340,208 @@
     stroke-dashoffset: 5;
   }
 }
+
+/* Carousel scroll animations */
+@keyframes scroll-right {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-scroll-right {
+  animation: scroll-right 20s linear infinite;
+}
+
+.animate-scroll-left {
+  animation: scroll-left 20s linear infinite;
+}
+
+/* Image stacking animations for phone mockup */
+@keyframes stack-images {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+    z-index: 1;
+  }
+  50% {
+    transform: translate(var(--center-x), var(--center-y)) scale(0.7);
+    opacity: 0.8;
+    z-index: 10;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+    z-index: 1;
+  }
+}
+
+.animate-stack-images {
+  animation: stack-images 4s ease-in-out infinite;
+}
+
+/* Professional 4-phase animation sequence for image upload */
+
+/* Phase 1: Images stack to exact center - FIXED */
+@keyframes stack-to-center {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+    z-index: 1;
+  }
+  100% {
+    transform: translate(var(--stack-x), var(--stack-y)) scale(0.9);
+    opacity: 1;
+    z-index: calc(10 + var(--stack-order));
+  }
+}
+
+/* Phase 2: Cursor appears and positions */
+@keyframes cursor-appear {
+  0% {
+    opacity: 0;
+    transform: translateX(150px) scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(75px) scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* Phase 3: Drag animation from center to upload area - FIXED with stacking maintained */
+@keyframes drag-to-upload {
+  0% {
+    transform: translate(var(--stack-x), var(--stack-y)) scale(0.9);
+    opacity: 1;
+    z-index: calc(10 + var(--stack-order));
+  }
+  25% {
+    transform: translate(var(--stack-x), calc(var(--stack-y) - 30px)) scale(0.85);
+    opacity: 1;
+    z-index: calc(10 + var(--stack-order));
+  }
+  50% {
+    transform: translate(var(--stack-x), calc(var(--stack-y) - 60px)) scale(0.8);
+    opacity: 1;
+    z-index: calc(10 + var(--stack-order));
+  }
+  75% {
+    transform: translate(var(--stack-x), calc(var(--stack-y) - 90px)) scale(0.75);
+    opacity: 1;
+    z-index: calc(10 + var(--stack-order));
+  }
+  100% {
+    transform: translate(var(--upload-x), var(--upload-y)) scale(0.7);
+    opacity: 1;
+    z-index: calc(10 + var(--stack-order));
+  }
+}
+
+/* Phase 4: Drop and settle in upload grid - FIXED */
+@keyframes drop-settle {
+  0% {
+    transform: translate(var(--upload-x), var(--upload-y)) scale(0.7);
+    opacity: 1;
+    z-index: calc(10 + var(--stack-order));
+  }
+  50% {
+    transform: translate(var(--final-x), var(--final-y)) scale(0.95);
+    opacity: 0.95;
+    z-index: 1;
+  }
+  100% {
+    transform: translate(var(--final-x), var(--final-y)) scale(1);
+    opacity: 1;
+    z-index: 1;
+  }
+}
+
+/* Cursor element animation - FIXED */
+@keyframes cursor-drag {
+  0% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, calc(-50% - 120px));
+    opacity: 0.9;
+  }
+}
+
+/* Animation classes with proper timing */
+.animate-stack-to-center {
+  animation: stack-to-center 1.5s ease-out forwards;
+  animation-fill-mode: forwards;
+}
+
+.animate-cursor-appear {
+  animation: cursor-appear 1s ease-out forwards;
+  animation-fill-mode: forwards;
+}
+
+.animate-drag-to-upload {
+  animation: drag-to-upload 2s ease-in-out forwards;
+  animation-fill-mode: forwards;
+}
+
+.animate-drop-settle {
+  animation: drop-settle 1s ease-out forwards;
+  animation-fill-mode: forwards;
+}
+
+.animate-cursor-drag {
+  animation: cursor-drag 2s ease-in-out forwards;
+  animation-fill-mode: forwards;
+}
+
+/* Cursor styling - IMPROVED */
+.upload-cursor {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #ff6f00;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  box-shadow: 0 4px 12px rgba(255, 111, 0, 0.4);
+  z-index: 200;
+  pointer-events: none;
+}
+
+.upload-cursor::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border: 2px solid #ff6f00;
+  border-radius: 50% 50% 50% 0;
+  opacity: 0.3;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.1;
+  }
+}

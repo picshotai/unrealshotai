@@ -10,8 +10,8 @@ interface CarouselProps {
 const Carousal: React.FC<CarouselProps> = ({ reverse = false, images }) => {
   return (
     <div className="pb-2 mb-4 mt-0 relative overflow-hidden">
-      <div className="absolute top-0 left-0 z-10 h-full w-16 bg-gradient-to-r from-white to-transparent pointer-events-none" />
-      <div className="absolute top-0 right-0 z-10 h-full w-16 bg-gradient-to-l from-white to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-0 z-10 h-full w-16 bg-gradient-to-r from-[#F7F5F3] to-transparent pointer-events-none" />
+      <div className="absolute top-0 right-0 z-10 h-full w-16 bg-gradient-to-l from-[#F7F5F3] to-transparent pointer-events-none" />
 
       <div
         className={`flex gap-4 will-change-transform ${
