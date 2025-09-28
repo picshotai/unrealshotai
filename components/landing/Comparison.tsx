@@ -1,10 +1,9 @@
-// components/PremiumComparison.tsx
 import React from 'react';
 import { ArrowRight, Star, Camera, Sparkles, Clock } from 'lucide-react';
 
 // Trustpilot Rating Component
 const TrustpilotRating = () => (
-  <div className="flex items-center justify-center mb-4">
+  <div className="flex items-center justify-center mb-8">
     <div className="flex">
       {[...Array(5)].map((_, i) => (
         <Star key={i} size={20} fill="#00B67A" stroke="#00B67A" />
@@ -14,25 +13,20 @@ const TrustpilotRating = () => (
   </div>
 );
 
-
 export default function PremiumComparison() {
   return (
-   
-    <section className="min-h-screen py-12 bg-gradient-to-b from-white-100 to-gray ">
-       {/* Full-width Testimonial Slider */}
+    <section className="relative mx-auto py-16 sm:py-24 overflow-hidden bg-[#F7F5F3]">
       {/* Hero Section */}
-      <div className="relative overflow-hidden ">
-        <div className="max-w-7xl mx-auto py-4 px-8 pb-12">
-        <TrustpilotRating />
-        <h2 className="text-4xl text-center md:text-6xl font-bold text-navy-900 mb-6">
-          From Casual Selfies to <span className="block text-indigo-800">
-              Professional AI Photos
-            </span>
-        </h2>
+      <div className="px-4 max-w-7xl mx-auto">
+        <div className="text-center mb-16 sm:mb-20">
+          <TrustpilotRating />
+          <h2 className="text-4xl sm:text-5xl md:text-6xl max-w-4xl mx-auto font-bold leading-tight mb-4 font-[var(--font-inter-tight)] text-gray-900">
+            From Casual Selfies to <span className="text-[#ff6f00]">Professional AI Photos</span>
+          </h2>
 
-        <p className="text-lg text-gray-800 text-center max-w-3xl mx-auto">
-        Cut Costs and Save Time with UnrealShot AI—Create Stunning AI-Generated Photos Quickly
-        </p>
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+            Cut Costs and Save Time with UnrealShot AI. Create Stunning AI-Generated Photos Quickly.
+          </p>
         </div>
       </div>
 
@@ -42,8 +36,8 @@ export default function PremiumComparison() {
           {/* AI Process */}
           <div className="space-y-12">
             <div>
-              <h3 className="text-xl sm:text-3xl text-indigo-800 font-bold mb-4 flex items-center gap-3">
-                <Sparkles className="text-indigo-600" />
+              <h3 className="text-xl sm:text-3xl font-bold mb-4 flex items-center gap-3" style={{ color: '#ff6f00' }}>
+                <Sparkles className="text-[#ff6f00]" />
                 Unrealshot AI Process
               </h3>
               <p className="text-gray-600">
@@ -54,10 +48,10 @@ export default function PremiumComparison() {
             <div className="space-y-8">
               {/* Step 1 */}
               <div className="relative">
-                <div className="absolute left-8 top-8 bottom-0 w-px bg-gray-100" />
+                <div className="z-0 absolute left-8 top-8 bottom-0 w-px bg-gradient-to-b from-[#ff6f00] to-transparent" />
                 <div className="relative flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center flex-shrink-0">
-                    <span className="text-xl font-semibold text-indigo-600">01</span>
+                  <div className="z-1 w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff6f00]/20 to-orange-400/20 flex items-center justify-center flex-shrink-0 border border-[#ff6f00]/20">
+                    <span className="text-xl font-bold text-[#ff6f00]">01</span>
                   </div>
                   <div className="pt-2">
                     <h3 className="text-xl font-semibold mb-2">Upload Your Photos</h3>
@@ -71,16 +65,16 @@ export default function PremiumComparison() {
 
               {/* Step 2 */}
               <div className="relative">
-                <div className="absolute left-8 top-8 bottom-0 w-px bg-gray-100" />
+                <div className="z-0 absolute left-8 top-8 bottom-0 w-px bg-gradient-to-b from-[#ff6f00] to-transparent" />
                 <div className="relative flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center flex-shrink-0">
-                    <span className="text-xl font-semibold text-indigo-600">02</span>
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff6f00]/20 to-orange-400/20 flex items-center justify-center flex-shrink-0 border border-[#ff6f00]/20 z-1">
+                    <span className="text-xl font-bold text-[#ff6f00]">02</span>
                   </div>
                   <div className="pt-2">
                     <h3 className="text-xl font-semibold mb-2">AI Processing</h3>
                     <p className="text-gray-600 mb-2">30-60 minutes</p>
                     <p className="text-gray-500">
-                    Our AI uses your photos to create professional, high-quality images with photogenic perfection.                    
+                      Our AI uses your photos to create professional, high-quality images with photogenic perfection.
                     </p>
                   </div>
                 </div>
@@ -89,27 +83,27 @@ export default function PremiumComparison() {
               {/* Step 3 */}
               <div className="relative">
                 <div className="relative flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center flex-shrink-0">
-                    <span className="text-xl font-semibold text-indigo-600">03</span>
+                  <div className="z-1 w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff6f00]/20 to-orange-400/20 flex items-center justify-center flex-shrink-0 border border-[#ff6f00]/20">
+                    <span className="text-xl font-bold text-[#ff6f00]">03</span>
                   </div>
                   <div className="pt-2">
                     <h3 className="text-xl font-semibold mb-2">Download & Shine</h3>
                     <p className="text-gray-600 mb-2">2 minutes</p>
                     <p className="text-gray-500">
-                    Download your AI-generated photo and enjoy a stunning, professional-quality image.
+                      Download your AI-generated photo and enjoy a stunning, professional-quality image.
                     </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-blue-50 rounded-2xl p-6">
+            <div className="bg-gradient-to-r from-[#ff6f00]/10 to-orange-400/10 rounded-2xl p-6 border border-[#ff6f00]/20">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="text-sm font-medium text-indigo-600 mb-1">TOTAL TIME</h4>
-                  <p className="text-2xl font-semibold">~1 hour</p>
+                  <h4 className="text-sm font-medium text-[#ff6f00] mb-1">TOTAL TIME</h4>
+                  <p className="text-2xl font-bold text-gray-900">~20 Minutes</p>
                 </div>
-                <ArrowRight className="text-indigo-600" />
+                <ArrowRight className="text-[#ff6f00]" />
               </div>
             </div>
           </div>
@@ -117,7 +111,7 @@ export default function PremiumComparison() {
           {/* Studio Process */}
           <div className="space-y-12">
             <div>
-              <h2 className="text-xl font-bold sm:text-3xl mb-4 flex items-center gap-3">
+              <h2 className="text-xl font-bold sm:text-3xl mb-4 flex items-center gap-3" style={{ color: '#6b7280' }}>
                 <Camera className="text-gray-600" />
                 Traditional Studio Process
               </h2>
@@ -126,7 +120,7 @@ export default function PremiumComparison() {
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-3xl p-8">
+            <div className="bg-gray-50 rounded-3xl p-8 border border-gray-200">
               {[
                 "Contact a photographer and wait for a reply",
                 "Decide on a date and time you're both available",
@@ -136,7 +130,7 @@ export default function PremiumComparison() {
                 "Update your professional profiles"
               ].map((step, index) => (
                 <div key={index} className="flex items-center gap-4 py-4 border-b border-gray-200 last:border-0">
-                  <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center flex-shrink-0 border border-gray-300">
                     <span className="text-sm font-medium text-gray-600">{(index + 1).toString().padStart(2, '0')}</span>
                   </div>
                   <p className="text-gray-600">{step}</p>
@@ -144,11 +138,11 @@ export default function PremiumComparison() {
               ))}
             </div>
 
-            <div className="bg-gray-100 rounded-2xl p-6">
+            <div className="bg-gray-100 rounded-2xl p-6 border border-gray-200">
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="text-sm font-medium text-gray-600 mb-1">TOTAL TIME</h4>
-                  <p className="text-2xl font-semibold">1-2 weeks</p>
+                  <p className="text-2xl font-bold text-gray-900">1-2 weeks</p>
                 </div>
                 <Clock className="text-gray-600" />
               </div>

@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Loader2, Mail } from "lucide-react"
 import { signInWithMagicLink, signInWithGoogle } from "./actions"
 import { Header } from "@/components/Header"
-import Footer from "@/components/footer"
+import Footer from "@/components/MainFooter"
 import { CSRFProvider, CSRFInput } from "@/components/csrf-provider"
 
 type AuthState = {

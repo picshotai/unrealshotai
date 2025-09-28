@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils"
 import { Zap, Palette, Shield, Sparkles, SlidersHorizontal, FileText } from 'lucide-react'
 
 export function FeaturesSection() {
-  // --- THIS IS THE CORE CHANGE: REPLACING DUMMY DATA WITH YOUR FEATURES ---
   const features = [
     {
       title: "Hyper-Realistic Authenticity",
@@ -56,12 +55,11 @@ export function FeaturesSection() {
             <div className="w-1.5 h-1.5 rounded-full bg-gray-400" />
             <span className="text-sm text-gray-400 font-medium">Core Features</span>
           </div>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4 ">
-            More Than a Headshot.
-            <br />
-            An Entire Photoshoot.
+          <h2 className="text-white text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
+            More Than a Headshot. <br />
+            <span className="text-[#ff6f00]">An Entire Photoshoot.</span>
           </h2>
-          <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto leading-tight mb-4 ">
+          <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto leading-tight mb-4 ">
             Unrealshot is a suite of powerful tools designed to give you complete creative control and stunning, authentic results.
           </p>
         </div>
@@ -73,33 +71,7 @@ export function FeaturesSection() {
           ))}
         </div>
 
-        {/* Why These Choices - Re-purposed to be about product philosophy */}
-        <div className="mt-16 pt-8 border-t border-[rgba(255,255,255,0.1)] max-w-4xl mx-auto">
-          <h4 className="text-2xl font-bold text-white mb-8 text-center">Our Core Philosophy</h4>
-          <div className="grid gap-6 md:grid-cols-3 text-center">
-            <div className="p-6 rounded-xl border border-[rgba(255,255,255,0.1)] bg-black/30">
-              <Shield className="w-8 h-8 text-[#ff6f00] mx-auto mb-3" />
-              <h5 className="font-bold text-white mb-2">Uncompromising Quality</h5>
-              <p className="text-sm text-gray-400">
-                If it doesn't look real, it isn't good enough. We prioritize authenticity above all else.
-              </p>
-            </div>
-            <div className="p-6 rounded-xl border border-[rgba(255,255,255,0.1)] bg-black/30">
-              <Zap className="w-8 h-8 text-[#ff6f00] mx-auto mb-3" />
-              <h5 className="font-bold text-white mb-2">Effortless Speed</h5>
-              <p className="text-sm text-gray-400">
-                Professional results should be accessible in minutes, not weeks of scheduling and waiting.
-              </p>
-            </div>
-            <div className="p-6 rounded-xl border border-[rgba(255,255,255,0.1)] bg-black/30">
-              <Palette className="w-8 h-8 text-[#ff6f00] mx-auto mb-3" />
-              <h5 className="font-bold text-white mb-2">Limitless Creativity</h5>
-              <p className="text-sm text-gray-400">
-                Your digital identity is diverse. We give you the tools to create the perfect look for every platform.
-              </p>
-            </div>
-          </div>
-        </div>
+   
       </div>
     </section>
   )
@@ -139,7 +111,7 @@ const Feature = ({
           {title}
         </span>
       </div>
-      <p className="text-md text-gray-400 max-w-xs relative z-10 px-10 mb-3">{description}</p>
+      <p className="text-md text-gray-300 max-w-xs relative z-10 px-10 mb-3">{description}</p>
       {tags && (
         <div className="flex flex-wrap gap-2 relative z-10 px-10">
            {/* --- AESTHETIC CHANGE: DARK MODE TAGS --- */}

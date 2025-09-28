@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import PremiumComparison from "@/components/PremiumComparison";
 import FourthSection from "@/components/Testimonial";
 import UserShowcase from "@/components/Content/user-showcase";
 import FloatingText from "./floating-text";
@@ -423,7 +422,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <PremiumComparison />
 
       <FourthSection />
        <UserShowcase />

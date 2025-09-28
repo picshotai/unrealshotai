@@ -3,15 +3,15 @@ import { Metadata } from 'next'
 import PublicHeader from '@/components/Header'
 import { HeroSection } from '@/components/landing/HeroSection'
 import NewHowItWorks from '@/components/landing/NewHowItWorks'
-import ShowCase from '@/components/landing/ShowCase'
-import { HowItWorks } from '@/components/landing/HowItWorks'
 import { FeaturesSection } from '@/components/landing/FeaturesSection'
+import PremiumComparison from "@/components/landing/Comparison";
+import StylePacks from '@/components/landing/StylePacks';
 import PricingCards from '@/components/landing/pricing-cards'
 import FAQSection from '@/components/landing/FAQSection'
 import { CTASection } from '@/components/landing/CTASection'
 import { commonPageMetadata, generateWebApplicationJsonLd } from '@/lib/seo'
 import { StructuredData } from '@/components/seo/StructuredData'
-
+import  Footer  from '@/components/MainFooter'
 
 export const metadata: Metadata = commonPageMetadata.home()
 
@@ -22,14 +22,14 @@ export default function Home() {
       <main>
         <HeroSection />
         <NewHowItWorks />
-        <ShowCase />
-        <HowItWorks />
+        <StylePacks />
+        <PremiumComparison />
         <FeaturesSection />
         <PricingCards />
         <FAQSection />
         <CTASection />
       </main>
-      
+      <Footer />
       {/* WebApplication Schema - Home Page Only */}
       <StructuredData data={JSON.parse(generateWebApplicationJsonLd())} />
     </div>
