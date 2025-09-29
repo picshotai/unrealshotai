@@ -51,10 +51,7 @@ export function FeaturesSection() {
       <div className="max-w-6xl mx-auto">
         {/* Header - Re-written for Unrealshot */}
         <div className="text-center mb-16 max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[rgba(255,255,255,0.1)] bg-black/30 backdrop-blur-sm mb-6">
-            <div className="w-1.5 h-1.5 rounded-full bg-gray-400" />
-            <span className="text-sm text-gray-400 font-medium">Core Features</span>
-          </div>
+          
           <h2 className="text-white text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
             More Than a Headshot. <br />
             <span className="text-[#ff6f00]">An Entire Photoshoot.</span>

@@ -38,7 +38,7 @@ export function CTASection() {
 
             {/* The Risk Reversal / Guarantee */}
             <div className="flex justify-center items-center gap-2 mt-8 text-sm text-gray-500">
-              <ShieldCheck size={16} />
+              <ShieldCheck size={16} className="hidden md:block" />
               <span>100% Satisfaction Guarantee. Love your photos or get a refund.</span>
             </div>
             

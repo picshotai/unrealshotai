@@ -80,7 +80,7 @@ export default function StylePacks() {
             </div>
 
             {/* Cards Grid */}
-            <div className="grid md:grid-cols-4 gap-4 mb-16">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
               {cardData.map((card, index) => (
                 <Card
                   key={index}
@@ -107,11 +107,11 @@ export default function StylePacks() {
                         </Button>
                       </Link>
                     </div>
-                    <div className="p-6">
+                    <div className="p-3 sm:p-6">
                       <h3 className="text-xl font-bold text-white mb-2">
                         {card.title}
                       </h3>
-                      <p className="text-gray-300 text-sm leading-relaxed">
+                      <p className="text-gray-300 text-sm leading-tight">
                         {card.description}
                       </p>
                     </div>

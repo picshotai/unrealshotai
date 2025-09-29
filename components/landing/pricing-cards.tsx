@@ -57,7 +57,7 @@ export default function PricingCards() {
   ]
 
   return (
-    <section className="relative mx-auto py-16 sm:py-24 overflow-hidden bg-[#F7F5F3]">
+    <section className="relative mx-auto py-16 sm:py-24 overflow-hidden bg-[#F7F5F3] px-4">
       {/* Heading Section */}
       <div className="w-full max-w-[820px] mx-auto">
         <div className="text-center mb-12">
