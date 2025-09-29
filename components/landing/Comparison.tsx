@@ -1,17 +1,7 @@
 import React from 'react';
 import { ArrowRight, Star, Camera, Sparkles, Clock } from 'lucide-react';
 
-// Trustpilot Rating Component
-const TrustpilotRating = () => (
-  <div className="flex items-center justify-center mb-8">
-    <div className="flex">
-      {[...Array(5)].map((_, i) => (
-        <Star key={i} size={20} fill="#00B67A" stroke="#00B67A" />
-      ))}
-    </div>
-    <span className="ml-2 text-[#00B67A] font-bold">Trusted by Thousands</span>
-  </div>
-);
+
 
 export default function PremiumComparison() {
   return (
@@ -19,7 +9,6 @@ export default function PremiumComparison() {
       {/* Hero Section */}
       <div className="px-4 max-w-7xl mx-auto">
         <div className="text-center mb-16 sm:mb-20">
-          <TrustpilotRating />
           <h2 className="text-4xl sm:text-5xl md:text-6xl max-w-4xl mx-auto font-bold leading-tight mb-4 font-[var(--font-inter-tight)] text-gray-900">
             From Casual Selfies to <span className="text-[#ff6f00]">Professional AI Photos</span>
           </h2>

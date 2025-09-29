@@ -42,12 +42,12 @@ export default function HowItWorksShowcase() {
           </div>
 
           {/* Text element */}
-          <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mt-2 mb-4">
+          <h3 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mt-2 mb-4">
             Upload your selfies
-          </div>
-          <div className="text-center text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+          </h3>
+          <p className="text-center text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
 Start by providing 5+ clear photos. Our AI learns from a diverse set of your images to ensure an authentic result.
-          </div>
+          </p>
 
           {/* Graphic element */}
           <div className="px-2 min-w-fit flex justify-center items-center mt-8">
@@ -237,12 +237,12 @@ Start by providing 5+ clear photos. Our AI learns from a diverse set of your ima
           </div>
 
           {/* Text element */}
-          <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mt-2 mb-4">
+          <h3 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mt-2 mb-4">
             Our AI gets to work
-          </div>
-          <div className="text-center text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+          </h3>
+          <p className="text-center text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
 This isn't a filter - it's a generative engine. Our system analyzes your features to create a hyper-realistic model trained exclusively on you.
-          </div>
+          </p>
 
           {/* AI Visual element */}
           <div className="flex justify-center items-center mt-8">
@@ -309,12 +309,12 @@ This isn't a filter - it's a generative engine. Our system analyzes your feature
           </div>
 
           {/* Text element */}
-          <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mt-10 mb-4">
+          <h3 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mt-10 mb-4">
             Get amazing photoshoots
-          </div>
-          <div className="text-center text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+          </h3>
+          <p className="text-center text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
 Get a diverse portfolio of studio-quality images in minutes, ready for any platform, from the boardroom to the bar.
-          </div>
+          </p>
           <div className="animate-fadeIn container mx-auto pt-10">
             <Carousal images={humans} />
             <Carousal images={humans2} reverse={true} />

@@ -13,6 +13,8 @@ import { commonPageMetadata, generateWebApplicationJsonLd } from '@/lib/seo'
 import { StructuredData } from '@/components/seo/StructuredData'
 import  Footer  from '@/components/MainFooter'
 import TestimonialSection from "@/components/landing/Testimonial";
+import PrivacySection from "@/components/landing/PrivacySection";
+
 
 
 export const metadata: Metadata = commonPageMetadata.home()
@@ -27,6 +29,7 @@ export default function Home() {
         <StylePacks />
         <PremiumComparison />
         <TestimonialSection />
+        <PrivacySection />
         <FeaturesSection />
         <PricingCards />
         <FAQSection />

@@ -53,7 +53,7 @@ export const NavBody = ({ children, className }: NavBodyProps) => {
   return (
     <motion.div
       className={cn(
-        "relative z-[60] mx-auto max-w-4xl flex-row items-center justify-between self-start rounded-lg bg-white/95 border border-gray-200 px-2 py-2 hidden backdrop-blur-lg lg:flex",
+        "relative z-[60] mx-auto max-w-4xl flex-row items-center justify-between self-start rounded-lg bg-white/95 border border-gray-200 px-3 py-2 hidden backdrop-blur-lg lg:flex",
         className,
       )}
     >
