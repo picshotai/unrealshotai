@@ -1,141 +1,81 @@
-import React from 'react';
-import { ArrowRight, Star, Camera, Sparkles, Clock } from 'lucide-react';
+"use client"
 
+import type React from "react"
+import { XCircle, CheckCircle } from "lucide-react"
 
+export default function TheVerdictFinal() {
 
-export default function PremiumComparison() {
+  const traditionalPainPoints = [
+    "Weeks of scheduling & waiting",
+    "Expensive photographer fees",
+    "Awkward, time-consuming poses",
+    "Inconsistent lighting & results",
+    "Limited shots to choose from",
+  ];
+
+  const unrealshotSolutions = [
+    "Done-for-you, in minutes.",
+    "A fraction of the cost.",
+    "From the comfort of your couch.",
+    "Perfect, studio-quality lighting.",
+    "A portfolio of hundreds of options.",
+  ];
+
   return (
     <section className="relative mx-auto py-16 sm:py-24 overflow-hidden bg-[#F7F5F3]">
-      {/* Hero Section */}
-      <div className="px-4 max-w-7xl mx-auto">
-        <div className="text-center mb-16 sm:mb-20">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl max-w-4xl mx-auto font-bold leading-tight mb-4 font-[var(--font-inter-tight)] text-gray-900">
-            From Casual Selfies to <span className="text-[#ff6f00]">Professional AI Photos</span>
+      <div className="px-4 max-w-5xl mx-auto">
+        {/* Header (Unchanged, as it works well) */}
+        <div className="text-center mb-12">
+          <h2 className="leading-none text-4xl sm:text-5xl md:text-6xl max-w-4xl mx-auto font-bold mb-4 font-[var(--font-inter-tight)] text-gray-900">
+            The Traditional Photoshoot <span className="text-[#ff6f00]">is obsolete.</span>
           </h2>
-
+        
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            Cut Costs and Save Time with UnrealShot AI. Create Stunning AI-Generated Photos Quickly.
+            See how the Unrealshot process delivers superior results with none of the friction.
           </p>
         </div>
-      </div>
 
-      {/* Main Comparison Section */}
-      <div className="max-w-6xl mx-auto px-4 py-2">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
-          {/* AI Process */}
-          <div className="space-y-12">
-            <div>
-              <h3 className="text-xl sm:text-3xl font-bold mb-4 flex items-center gap-3" style={{ color: '#ff6f00' }}>
-                <Sparkles className="text-[#ff6f00]" />
-                Unrealshot AI Process
-              </h3>
-              <p className="text-gray-600">
-                A streamlined, efficient process that delivers professional results in under an hour
-              </p>
-            </div>
+        {/* --- The Definitive Comparison Card with Nested Dashed Borders --- */}
+        <div className="bg-white rounded-3xl border-2 border-dashed border-gray-200 shadow-2xl shadow-gray-200/60 p-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+<div className="p-4 sm:p-6">
+                <h3 className="text-xl text-center font-bold text-gray-500 mb-6">Traditional Photoshoot</h3>
 
-            <div className="space-y-8">
-              {/* Step 1 */}
-              <div className="relative">
-                <div className="z-0 absolute left-8 top-8 bottom-0 w-px bg-gradient-to-b from-[#ff6f00] to-transparent" />
-                <div className="relative flex gap-8 group">
-                  <div className="z-1 w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff6f00]/20 to-orange-400/20 flex items-center justify-center flex-shrink-0 border border-[#ff6f00]/20">
-                    <span className="text-xl font-bold text-[#ff6f00]">01</span>
-                  </div>
-                  <div className="pt-2">
-                    <h3 className="text-xl font-semibold mb-2">Upload Your Photos</h3>
-                    <p className="text-gray-600 mb-2">2 minutes</p>
-                    <p className="text-gray-500">
-                      Choose from your existing photo library or snap some new selfies right away.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Step 2 */}
-              <div className="relative">
-                <div className="z-0 absolute left-8 top-8 bottom-0 w-px bg-gradient-to-b from-[#ff6f00] to-transparent" />
-                <div className="relative flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff6f00]/20 to-orange-400/20 flex items-center justify-center flex-shrink-0 border border-[#ff6f00]/20 z-1">
-                    <span className="text-xl font-bold text-[#ff6f00]">02</span>
-                  </div>
-                  <div className="pt-2">
-                    <h3 className="text-xl font-semibold mb-2">AI Processing</h3>
-                    <p className="text-gray-600 mb-2">30-60 minutes</p>
-                    <p className="text-gray-500">
-                      Our AI uses your photos to create professional, high-quality images with photogenic perfection.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Step 3 */}
-              <div className="relative">
-                <div className="relative flex gap-8 group">
-                  <div className="z-1 w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff6f00]/20 to-orange-400/20 flex items-center justify-center flex-shrink-0 border border-[#ff6f00]/20">
-                    <span className="text-xl font-bold text-[#ff6f00]">03</span>
-                  </div>
-                  <div className="pt-2">
-                    <h3 className="text-xl font-semibold mb-2">Download & Shine</h3>
-                    <p className="text-gray-600 mb-2">2 minutes</p>
-                    <p className="text-gray-500">
-                      Download your AI-generated photo and enjoy a stunning, professional-quality image.
-                    </p>
-                  </div>
-                </div>
+            {/* --- Left Pane: The Pain (Traditional) --- */}
+            <div className="p-4 sm:p-6 border border-dashed border-gray-300 rounded-2xl">
+              <ul className="space-y-2">
+                {traditionalPainPoints.map((point) => (
+                  <li key={point} className="flex items-start gap-3">
+                    <XCircle className="w-6 h-6 text-red-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-600">{point}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8 pt-6 border-t border-gray-200">
+                <p className="text-sm font-medium text-gray-400 mb-1">TOTAL TIME</p>
+                <p className="text-3xl font-bold text-gray-500">1-2 Weeks</p>
               </div>
             </div>
+</div>
+<div className="p-4 sm:p-6 ">
+                 <h3 className="text-center text-xl font-bold text-[#ff6f00] mb-6">The Unrealshot Way</h3>
 
-            <div className="bg-gradient-to-r from-[#ff6f00]/10 to-orange-400/10 rounded-2xl p-6 border border-[#ff6f00]/20">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h4 className="text-sm font-medium text-[#ff6f00] mb-1">TOTAL TIME</h4>
-                  <p className="text-2xl font-bold text-gray-900">~20 Minutes</p>
-                </div>
-                <ArrowRight className="text-[#ff6f00]" />
+            {/* --- Right Pane: The Cure (Unrealshot) --- */}
+            <div className="p-4 sm:p-6 bg-black border border-dashed border-gray-700 rounded-2xl">
+               <ul className="space-y-2">
+                {unrealshotSolutions.map((solution) => (
+                  <li key={solution} className="flex items-start gap-3">
+                    <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-200">{solution}</span>
+                  </li>
+                ))}
+              </ul>
+               <div className="mt-8 pt-6 border-t border-gray-700">
+                <p className="text-sm font-medium text-[#ff6f00]/80 mb-1">TOTAL TIME</p>
+                <p className="text-3xl font-bold text-white">~20 Minutes</p>
               </div>
             </div>
-          </div>
-
-          {/* Studio Process */}
-          <div className="space-y-12">
-            <div>
-              <h2 className="text-xl font-bold sm:text-3xl mb-4 flex items-center gap-3" style={{ color: '#6b7280' }}>
-                <Camera className="text-gray-600" />
-                Traditional Studio Process
-              </h2>
-              <p className="text-gray-600">
-                The conventional approach requiring multiple steps and coordination
-              </p>
-            </div>
-
-            <div className="bg-gray-50 rounded-3xl p-8 border border-gray-200">
-              {[
-                "Contact a photographer and wait for a reply",
-                "Decide on a date and time you're both available",
-                "Find the right clothing & Drive to the photo studio",
-                "Pose & Pick your favorite shots",
-                "Wait for the photographer to edit",
-                "Update your professional profiles"
-              ].map((step, index) => (
-                <div key={index} className="flex items-center gap-4 py-4 border-b border-gray-200 last:border-0">
-                  <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center flex-shrink-0 border border-gray-300">
-                    <span className="text-sm font-medium text-gray-600">{(index + 1).toString().padStart(2, '0')}</span>
-                  </div>
-                  <p className="text-gray-600">{step}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="bg-gray-100 rounded-2xl p-6 border border-gray-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h4 className="text-sm font-medium text-gray-600 mb-1">TOTAL TIME</h4>
-                  <p className="text-2xl font-bold text-gray-900">1-2 weeks</p>
-                </div>
-                <Clock className="text-gray-600" />
-              </div>
-            </div>
+</div>
           </div>
         </div>
       </div>

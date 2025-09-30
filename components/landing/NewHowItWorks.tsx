@@ -20,7 +20,7 @@ export default function HowItWorksShowcase() {
       <div className="px-4 max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16 sm:mb-20">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl max-w-4xl mx-auto font-bold leading-tight mb-4 font-[var(--font-inter-tight)] text-gray-900">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl max-w-4xl mx-auto font-bold leading-none mb-4 font-[var(--font-inter-tight)] text-gray-900">
             Your Professional Photoshoot in <span className="text-[#ff6f00]">3 Simple Steps.</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
@@ -58,51 +58,63 @@ Start by providing 5+ clear photos. Our AI learns from a diverse set of your ima
                  <div className="flex flex-col items-center justify-center">
                    <div className="hidden lg:flex gap-6 mb-1">
                      {/* Three images up */}
-                     <Image 
-                       src={womanInputImages[0]} 
-                       width={105} 
-                       height={105} 
-                       className="rounded-2xl shadow-custom-shadow"
-                       alt="woman image 1" 
-                     />
-                     <Image 
-                       src={womanInputImages[1]} 
-                       width={105} 
-                       height={105} 
-                       className="rounded-2xl shadow-custom-shadow"
-                       alt="woman image 2" 
-                     />
-                     <Image 
-                       src={womanInputImages[2]} 
-                       width={105} 
-                       height={105} 
-                       className="rounded-2xl shadow-custom-shadow"
-                       alt="woman image 3" 
-                     />
+                     <div className="w-[105px] h-[140px] rounded-2xl shadow-custom-shadow overflow-hidden">
+                       <Image 
+                         src={womanInputImages[0]} 
+                         width={105} 
+                         height={140} 
+                         className="w-full h-full object-cover"
+                         alt="woman image 1" 
+                       />
+                     </div>
+                     <div className="w-[105px] h-[140px] rounded-2xl shadow-custom-shadow overflow-hidden">
+                       <Image 
+                         src={womanInputImages[1]} 
+                         width={105} 
+                         height={140} 
+                         className="w-full h-full object-cover"
+                         alt="woman image 2" 
+                       />
+                     </div>
+                     <div className="w-[105px] h-[140px] rounded-2xl shadow-custom-shadow overflow-hidden">
+                       <Image 
+                         src={womanInputImages[2]} 
+                         width={105} 
+                         height={140} 
+                         className="w-full h-full object-cover"
+                         alt="woman image 3" 
+                       />
+                     </div>
                    </div>
                    <div className="hidden lg:flex gap-6 mt-6">
                      {/* Three images down */}
-                     <Image 
-                       src={womanInputImages[3]} 
-                       width={105} 
-                       height={105} 
-                       className="rounded-2xl shadow-custom-shadow"
-                       alt="woman image 4" 
-                     />
-                     <Image 
-                       src={womanInputImages[4]} 
-                       width={105} 
-                       height={105} 
-                       className="rounded-2xl shadow-custom-shadow"
-                       alt="woman image 5" 
-                     />
-                     <Image 
-                       src={womanInputImages[5]} 
-                       width={105} 
-                       height={105} 
-                       className="rounded-2xl shadow-custom-shadow"
-                       alt="woman image 6" 
-                     />
+                     <div className="w-[105px] h-[140px] rounded-2xl shadow-custom-shadow overflow-hidden">
+                       <Image 
+                         src={womanInputImages[3]} 
+                         width={105} 
+                         height={140} 
+                         className="w-full h-full object-cover"
+                         alt="woman image 4" 
+                       />
+                     </div>
+                     <div className="w-[105px] h-[140px] rounded-2xl shadow-custom-shadow overflow-hidden">
+                       <Image 
+                         src={womanInputImages[4]} 
+                         width={105} 
+                         height={140} 
+                         className="w-full h-full object-cover"
+                         alt="woman image 5" 
+                       />
+                     </div>
+                     <div className="w-[105px] h-[140px] rounded-2xl shadow-custom-shadow overflow-hidden">
+                       <Image 
+                         src={womanInputImages[5]} 
+                         width={105} 
+                         height={140} 
+                         className="w-full h-full object-cover"
+                         alt="woman image 6" 
+                       />
+                     </div>
                    </div>
                  </div>
 
@@ -174,51 +186,63 @@ Start by providing 5+ clear photos. Our AI learns from a diverse set of your ima
                  <div className="flex flex-col items-center justify-center">
                    <div className="hidden lg:flex gap-6 mb-1">
                      {/* Three images up */}
-                     <Image 
-                       src={manInputImages[0]} 
-                       width={105} 
-                       height={105} 
-                       className="rounded-2xl shadow-custom-shadow"
-                       alt="man image 1" 
-                     />
-                     <Image 
-                       src={manInputImages[1]} 
-                       width={105} 
-                       height={105} 
-                       className="rounded-2xl shadow-custom-shadow"
-                       alt="man image 2" 
-                     />
-                     <Image 
-                       src={manInputImages[2]} 
-                       width={105} 
-                       height={105} 
-                       className="rounded-2xl shadow-custom-shadow"
-                       alt="man image 3" 
-                     />
+                     <div className="w-[105px] h-[140px] rounded-2xl shadow-custom-shadow overflow-hidden">
+                       <Image 
+                         src={manInputImages[0]} 
+                         width={105} 
+                         height={140} 
+                         className="w-full h-full object-cover"
+                         alt="man image 1" 
+                       />
+                     </div>
+                     <div className="w-[105px] h-[140px] rounded-2xl shadow-custom-shadow overflow-hidden">
+                       <Image 
+                         src={manInputImages[1]} 
+                         width={105} 
+                         height={140} 
+                         className="w-full h-full object-cover"
+                         alt="man image 2" 
+                       />
+                     </div>
+                     <div className="w-[105px] h-[140px] rounded-2xl shadow-custom-shadow overflow-hidden">
+                       <Image 
+                         src={manInputImages[2]} 
+                         width={105} 
+                         height={140} 
+                         className="w-full h-full object-cover"
+                         alt="man image 3" 
+                       />
+                     </div>
                    </div>
-                   <div className="hidden sm:flex-col lg:flex-row sm:flex flex-col gap-6 lg:mt-6">
+                   <div className="hidden lg:flex gap-6 mt-6">
                      {/* Three images down */}
-                     <Image 
-                       src={manInputImages[3]} 
-                       width={105} 
-                       height={105} 
-                       className="rounded-2xl shadow-custom-shadow"
-                       alt="man image 4" 
-                     />
-                     <Image 
-                       src={manInputImages[4]} 
-                       width={105} 
-                       height={105} 
-                       className="rounded-2xl shadow-custom-shadow"
-                       alt="man image 5" 
-                     />
-                     <Image 
-                       src={manInputImages[5]} 
-                       width={105} 
-                       height={105} 
-                       className="rounded-2xl shadow-custom-shadow"
-                       alt="man image 6" 
-                     />
+                     <div className="w-[105px] h-[140px] rounded-2xl shadow-custom-shadow overflow-hidden">
+                       <Image 
+                         src={manInputImages[3]} 
+                         width={105} 
+                         height={140} 
+                         className="w-full h-full object-cover"
+                         alt="man image 4" 
+                       />
+                     </div>
+                     <div className="w-[105px] h-[140px] rounded-2xl shadow-custom-shadow overflow-hidden">
+                       <Image 
+                         src={manInputImages[4]} 
+                         width={105} 
+                         height={140} 
+                         className="w-full h-full object-cover"
+                         alt="man image 5" 
+                       />
+                     </div>
+                     <div className="w-[105px] h-[140px] rounded-2xl shadow-custom-shadow overflow-hidden">
+                       <Image 
+                         src={manInputImages[5]} 
+                         width={105} 
+                         height={140} 
+                         className="w-full h-full object-cover"
+                         alt="man image 6" 
+                       />
+                     </div>
                    </div>
                  </div>
               </div>

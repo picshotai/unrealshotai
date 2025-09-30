@@ -91,13 +91,13 @@ export function HeroSection() {
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
 Transform your casual photos into a professional-grade photoshoot that captures you at your absolute best. Get an entire portfolio of authentic photos for every profile.            </p>
           </div>
-          <div className="flex  sm:flex-row gap-4 justify-center items-center w-full relative">
+          <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             
             <Link href="/dashboard">
               <Button
                 className="text-sm sm:text-md py-5 sm:py-6 group relative bg-[#ff6f00] hover:bg-[#ff6f00]/90 text-white rounded-md overflow-hidden cursor-pointer pr-12"
               >
-                Start Your Photoshoot
+                Start Your Shoot
                 <div className="bg-white rounded-sm p-2 sm:p-3 absolute right-1 top-1/2 -translate-y-1/2">
                   <img
                     src="/arrow.svg"

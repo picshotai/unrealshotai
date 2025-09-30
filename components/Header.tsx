@@ -46,7 +46,7 @@ interface MobileNavMenuProps {
 }
 
 export const Navbar = ({ children, className }: NavbarProps) => {
-  return <motion.div className={cn("fixed inset-x-0 top-0 z-60 w-full pt-4", className)}>{children}</motion.div>
+  return <motion.div className={cn("fixed inset-x-0 top-0 z-60 w-full pt-4 px-4", className)}>{children}</motion.div>
 }
 
 export const NavBody = ({ children, className }: NavBodyProps) => {
@@ -138,8 +138,8 @@ export const MobileNavToggle = ({
   onClick: () => void
 }) => {
   return (
-    <Button onClick={onClick} className="text-sm py-1 group overflow-hidden pr-2 bg-white pl-2 border border-gray-200 hover:bg-gray-50">
-      {isOpen ? <X className="h-6 w-6 text-black" /> : <Menu className="h-6 w-6 text-black" />}
+    <Button onClick={onClick} className="text-sm py-1 group overflow-hidden bg-white hover:bg-gray-50">
+      {isOpen ? <X className="h-8 w-8 text-black" /> : <Menu className="h-8 w-8 text-black" />}
     </Button>
   )
 }
@@ -196,25 +196,33 @@ function Header() {
         </MobileNavHeader>
 
         <MobileNavMenu isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          {navItems.map((item, idx) => (
-            <a
-              key={idx}
-              href={item.link}
-              className="w-full px-2 py-2 text-gray-600 hover:text-black transition-colors cursor-pointer"
-              onClick={() => setIsOpen(false)}
-            >
-              {item.name}
-            </a>
-          ))}
-          <div className="flex flex-col gap-2 mt-4">
-            
-                        <Link href="/dashboard">
-                <Button                  
-                  className="text-md py-6 group relative overflow-hidden cursor-pointer"
+          <div className="flex flex-col items-center w-full">
+            {navItems.map((item, idx) => (
+              <a
+                key={idx}
+                href={item.link}
+                className="w-full px-2 py-2 text-gray-600 hover:text-black transition-colors cursor-pointer text-center"
+                onClick={() => setIsOpen(false)}
+              >
+                {item.name}
+              </a>
+            ))}
+            <div className="flex flex-col gap-2 mt-4 w-full items-center">
+              <Link href="/dashboard">
+                <Button
+                  className="text-md py-6 group relative bg-[#ff6f00] text-white rounded-md overflow-hidden cursor-pointer pr-12"
                 >
-                  Create My Website
+                  Start Your Photoshoot
+                  <div className="bg-white rounded-sm p-3 absolute right-1 top-1/2 -translate-y-1/2">
+                    <img
+                      src="/arrow.svg"
+                      alt="arrow-right"
+                      className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
+                    />
+                  </div>
                 </Button>
               </Link>
+            </div>
           </div>
         </MobileNavMenu>
       </MobileNav>
