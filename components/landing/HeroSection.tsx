@@ -89,16 +89,16 @@ export function HeroSection() {
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-Transform your casual photos into a professional-grade photoshoot that captures you at your absolute best. Get an entire portfolio of authentic, flattering images for every profile, from the boardroom to the bar.            </p>
+Transform your casual photos into a professional-grade photoshoot that captures you at your absolute best. Get an entire portfolio of authentic photos for every profile.            </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full relative">
+          <div className="flex  sm:flex-row gap-4 justify-center items-center w-full relative">
             
             <Link href="/dashboard">
               <Button
-                className="text-md py-6 group relative bg-[#ff6f00] hover:bg-[#ff6f00]/90 text-white rounded-md overflow-hidden cursor-pointer pr-12"
+                className="text-sm sm:text-md py-5 sm:py-6 group relative bg-[#ff6f00] hover:bg-[#ff6f00]/90 text-white rounded-md overflow-hidden cursor-pointer pr-12"
               >
                 Start Your Photoshoot
-                <div className="bg-white rounded-sm p-3 absolute right-1 top-1/2 -translate-y-1/2">
+                <div className="bg-white rounded-sm p-2 sm:p-3 absolute right-1 top-1/2 -translate-y-1/2">
                   <img
                     src="/arrow.svg"
                     alt="arrow-right"
@@ -109,10 +109,10 @@ Transform your casual photos into a professional-grade photoshoot that captures 
             </Link>
             <Link href="https://github.com/AINotSoSmart/dodostarter">
               <Button
-                className="text-md py-6 group relative bg-white hover:bg-white/90 text-black rounded-md overflow-hidden cursor-pointer pr-12"
+                className="text-sm sm:text-md py-5 sm:py-6 group relative bg-white hover:bg-white/90 text-black rounded-md overflow-hidden cursor-pointer pr-12"
               >
                 Watch Demo
-                <div className="bg-[#ff6f00] text-white rounded-sm p-3 absolute right-1 top-1/2 -translate-y-1/2">
+                <div className="bg-[#ff6f00] text-white rounded-sm p-2 sm:p-3 absolute right-1 top-1/2 -translate-y-1/2">
                   <Play className="w-6 h-6 transition-transform duration-200 group-hover:translate-x-1" />
                 </div>
               </Button>
@@ -124,7 +124,7 @@ Transform your casual photos into a professional-grade photoshoot that captures 
                 viewBox="0 0 59 42" 
                 fill="none" 
                 xmlns="http://www.w3.org/2000/svg" 
-                className="w-full h-full text-orange-500 opacity-70 transform scale-x-[-1] rotate-[40deg]"
+                className="w-full h-full text-orange-500 opacity-70 transform rotate-50"
               >
                 <path 
                   d="M7.66614 22.083C8.61245 23.967 9.50382 25.809 10.5502 27.8855C9.46822 27.9516 8.62906 27.273 8.11869 26.4189C6.58755 23.8566 5.08123 21.2357 3.75924 18.5229C2.99812 16.9739 3.65927 15.9282 5.04612 16.172C7.36079 16.5421 9.68076 17.0712 12.0256 17.5417C12.1602 17.5669 12.3348 17.5838 12.4048 17.6759C12.7097 17.9858 12.9498 18.3626 13.2298 18.7311C12.9958 18.9402 12.8221 19.3502 12.5678 19.35C11.6851 19.3744 10.8123 19.29 9.95444 19.2559C9.48565 19.2471 9.04169 19.1798 8.47894 19.5644C9.09834 20.0754 9.7328 20.6367 10.3522 21.1477C23.4279 31.1179 38.4176 30.6525 47.7967 20.0973C48.9958 18.7256 50.015 17.178 51.1441 15.7141C51.5421 15.2039 51.955 14.7439 52.353 14.2337C52.5027 14.3091 52.6277 14.4431 52.7774 14.5186C52.7934 14.9956 52.9342 15.6067 52.7454 15.9665C52.1844 17.2048 51.6234 18.443 50.8975 19.5556C43.7187 30.665 30.0661 33.8934 16.8279 27.4803C14.2971 26.248 11.87 24.5135 9.42336 22.9967C8.90409 22.6783 8.44951 22.2929 7.95505 21.9159C7.86023 21.8823 7.75566 21.9576 7.66614 22.083Z" 
@@ -136,7 +136,7 @@ Transform your casual photos into a professional-grade photoshoot that captures 
             </div>
 
             {/* Floating text */}
-            <p className={`hidden md:block text-white italic text-sm md:absolute md:transform md:rotate-6 md:right-40 md:top-full md:mt-8 md:w-48 sm:static sm:mt-2 sm:transform-none sm:rotate-0 sm:text-center sm:w-auto pointer-events-none ${caveat.className}`}>
+            <p className={`hidden md:block text-gray-300 text-lg font-semibold leading-none md:absolute md:transform md:rotate-6 md:right-40 md:top-full md:mt-8 md:w-48 sm:static sm:mt-2 sm:transform-none sm:rotate-0 sm:text-center sm:w-auto pointer-events-none ${caveat.className}`}>
               Watch it Live before you give your money to us
             </p>
           </div>
@@ -175,7 +175,7 @@ Transform your casual photos into a professional-grade photoshoot that captures 
                 ))}
               </div>
             </div>
-            <p className="text-gray-400 font-medium">Trusted by 1200+ Worldwide</p>
+            <p className="text-gray-400 text-md">Trusted by 1200+ Worldwide</p>
           </div>
         </div>
       </div>
