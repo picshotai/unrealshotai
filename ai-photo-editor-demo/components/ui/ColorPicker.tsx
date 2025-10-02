@@ -49,7 +49,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
             className="fixed inset-0 z-10"
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute top-12 left-0 z-20 p-3 bg-white rounded-lg shadow-lg border border-gray-200">
+          <div className="absolute top-12 left-0 z-20 p-3 bg-white rounded-lg shadow-xs border border-gray-200">
             <div className="grid grid-cols-5 gap-2 mb-3">
               {predefinedColors.map((color) => (
                 <button

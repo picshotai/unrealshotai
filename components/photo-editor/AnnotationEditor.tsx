@@ -558,13 +558,15 @@
 
                   {/* Desktop Properties Panel - tool options */}
                   {image && activeTool && (activeTool === "draw" || activeTool === "mask" || activeTool === "arrow" || activeTool === "text") && (
-                    <div className="absolute left-4 bottom-4 z-50 hidden md:block w-72">
+                    <div className="absolute top-4 left-4 z-50">
                       <PropertiesPanel
                         activeTool={activeTool as ToolType}
                         colors={colors}
                         sizes={sizes}
                         onColorChange={handleColorChange}
                         onSizeChange={handleSizeChange}
+                        compact
+                        className="p-2"
                       />
                     </div>
                   )}
@@ -814,7 +816,8 @@
       {/* Top Floating Toolbar - Drawing Tools */}
       {image && (
         <div className="fixed top-16 left-0 right-0 z-50 md:hidden px-4">
-          <div className="flex justify-center">
+          <div className="flex justify-center items-center gap-2">
+            {/* PropertiesPanel removed from toolbar area to use floating top-left panel */}
             <DrawingToolbar
               activeTool={activeTool}
               onToolSelect={setActiveTool}
@@ -828,7 +831,7 @@
       )}
 
       {/* Mobile Properties Panel - tool options */}
-      {image && activeTool && (activeTool === "draw" || activeTool === "mask" || activeTool === "arrow" || activeTool === "text") && (
+      {false && image && activeTool && (activeTool === "draw" || activeTool === "arrow" || activeTool === "text") && (
         <div className="fixed top-28 left-0 right-0 z-50 md:hidden px-4">
           <div className="flex justify-center">
             <PropertiesPanel

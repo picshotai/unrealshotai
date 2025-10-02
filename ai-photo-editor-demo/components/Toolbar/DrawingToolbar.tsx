@@ -33,7 +33,7 @@ export const DrawingToolbar: React.FC<DrawingToolbarProps> = ({
 
   return (
     <div
-      className={`flex flex-col gap-2 p-3 bg-white rounded-lg shadow-lg border border-gray-200 max-h-96 overflow-y-auto ${className}`}
+      className={`flex flex-col gap-2 p-3 bg-white rounded-lg shadow-xs border border-gray-200 max-h-96 overflow-y-auto ${className}`}
     >
       <h3 className="text-sm font-medium text-gray-700 mb-2">Drawing Tools</h3>
 

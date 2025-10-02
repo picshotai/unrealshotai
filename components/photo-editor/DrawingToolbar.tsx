@@ -45,7 +45,7 @@ const DrawingToolbarComponent: React.FC<DrawingToolbarProps> = ({
 
   return (
     <div
-      className={`flex ${isHorizontal ? "flex-row gap-3 items-center justify-center" : "flex-col gap-2"} p-3 bg-white/95 border border-slate-200 rounded-xl ${isHorizontal ? "" : "max-h-96 overflow-y-auto"} ${className || ""}`}
+      className={`flex ${isHorizontal ? "flex-row gap-3 items-center justify-center" : "flex-col gap-2"} p-2 bg-white/95 border border-slate-200 rounded-lg ${isHorizontal ? "" : "max-h-96 overflow-y-auto"} ${className || ""}`}
     >
       {/* Draw */}
       {!isToolHidden("draw") && (

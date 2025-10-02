@@ -37,7 +37,7 @@ export const ActionToolbar: React.FC<ActionToolbarProps> = ({
 }) => {
   return (
     <div
-      className={`flex gap-2 p-3 bg-white rounded-lg shadow-lg border border-gray-200 ${className}`}
+      className={`flex gap-2 p-3 bg-white rounded-lg shadow-xs border border-gray-200 ${className}`}
     >
       <Button
         variant="ghost"

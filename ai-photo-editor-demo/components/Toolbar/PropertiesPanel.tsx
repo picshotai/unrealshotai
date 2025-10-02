@@ -32,7 +32,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({
   if (!activeTool) {
     return (
       <div
-        className={`p-4 bg-white rounded-lg shadow-lg border border-gray-200 ${className}`}
+        className={`p-4 bg-white rounded-lg shadow-xs border border-gray-200 ${className}`}
       >
         <p className="text-sm text-gray-500 text-center">
           Select a tool to see properties
@@ -43,7 +43,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({
 
   return (
     <div
-      className={`p-4 bg-white rounded-lg shadow-lg border border-gray-200 space-y-4 ${className}`}
+      className={`p-4 bg-white rounded-lg shadow-xs border border-gray-200 space-y-4 ${className}`}
     >
       <h3 className="text-sm font-medium text-gray-700 capitalize">
         {activeTool} Properties
