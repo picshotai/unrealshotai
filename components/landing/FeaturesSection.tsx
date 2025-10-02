@@ -41,7 +41,7 @@ export function FeaturesSection() {
 	 return ( 
 	 	 <section className="py-16 md:py-20 bg-[#111111]"> 
 	 	 	 <div className="mx-auto w-full max-w-5xl space-y-8 px-4"> 
-	 	 	 	 <AnimatedContainer className="mx-auto max-w-3xl text-center mb-12"> 
+	 	 	 	 <div className="mx-auto max-w-3xl text-center mb-12"> 
 	 	 	 	 	 <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold mb-6"> 
 	 	 	 	 	 	 More Than a Headshot. <br /> 
 	 	 	 	 	 	 <span className="text-[#ff6f00]">An Entire Photoshoot.</span> 
@@ -49,16 +49,16 @@ export function FeaturesSection() {
 	 	 	 	 	 <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto leading-tight"> 
 	 	 	 	 	 	Unrealshot is a suite of powerful tools designed to give you complete creative control and stunning, authentic results.
 	 	 	 	 	 </p> 
-	 	 	 	 </AnimatedContainer> 
+	 	 	 	 </div> 
 
-	 	 	 	 <AnimatedContainer 
-				 delay={0.4} 
+	 	 	 	 <div 
+				
 				className="grid grid-cols-1 divide-x divide-y divide-dashed border border-dashed border-gray-600/30 sm:grid-cols-2 md:grid-cols-3"
 	 	 	 	 > 
 	 	 	 	 	 {features.map((feature, i) => ( 
 	 	 	 	 	 	 <FeatureCard key={i} feature={feature} /> 
 	 	 	 	 	 ))} 
-	 	 	 	 </AnimatedContainer> 
+	 	 	 	 </div> 
 	 	 	 </div> 
 	 	 </section> 
 	 ); 
@@ -70,16 +70,3 @@ type ViewAnimationProps = {
 	 children: React.ReactNode; 
 }; 
 
-function AnimatedContainer({ className, delay = 0.1, children }: ViewAnimationProps) { 
-	 return ( 
-	 	 <motion.div 
-	 	 	 initial={{ filter: 'blur(4px)', translateY: -8, opacity: 0 }} 
-	 	 	 whileInView={{ filter: 'blur(0px)', translateY: 0, opacity: 1 }} 
-	 	 	 viewport={{ once: true }} 
-	 	 	 transition={{ delay, duration: 0.8 }} 
-	 	 	 className={className} 
-	 	 > 
-	 	 	 {children} 
-	 	 </motion.div> 
-	 ); 
-}
