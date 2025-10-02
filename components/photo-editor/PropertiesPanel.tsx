@@ -51,7 +51,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({
 
   return (
     <div
-      className={`${compact ? "p-2" : "p-4"} bg-white rounded-lg border border-gray-200 space-y-1 ${className}`}
+      className="space-y-1"
     >
 
 
@@ -126,7 +126,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({
 
       {activeTool === "mask" && (
         <>
-          <div className="space-y-1">
+          <div className="space-y-1 pointer-events-auto">
             <ColorPicker
               value={colors.mask}
               onChange={(color) => onColorChange("mask", color)}
@@ -136,14 +136,14 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({
             <button
               type="button"
               onClick={() => setIsBrushOpen((prev) => !prev)}
-              className="w-10 h-10 flex items-center gap-2 px-2 py-2 rounded-md border border-gray-200 hover:bg-gray-50"
+              className="cursor-pointer w-8 h-8 flex items-center gap-2 px-2 py-2 rounded-md border border-gray-200 hover:bg-gray-50"
               aria-expanded={isBrushOpen}
               aria-controls="mask-brush-size-slider"
             >
-              <Brush className="text-gray-700 " />
+              <Brush className="text-gray-700" />
             </button>
             {isBrushOpen && (
-              <div id="mask-brush-size-slider" className="pt-1 flex justify-center">
+              <div id="mask-brush-size-slider" className="pt-1 flex justify-center bg-white rounded-md border border-gray-200 py-2">
                 <Slider
                   value={[sizes.brushSize]}
                   onValueChange={(value) => onSizeChange("brushSize", value[0])}

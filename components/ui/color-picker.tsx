@@ -34,7 +34,7 @@ export function ColorPicker({ value, onChange, label, className }: ColorPickerPr
 
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-10 h-10 rounded-lg border bg-background border-input shadow-sm hover:border-ring focus:outline-none focus:ring-2 focus:ring-ring/50 focus:ring-offset-2"
+        className="cursor-pointer w-8 h-8 rounded-lg border bg-background border-input shadow-sm hover:border-ring focus:outline-none focus:ring-2 focus:ring-ring/50 focus:ring-offset-2"
         style={{ backgroundColor: value }}
         type="button"
       />
@@ -52,7 +52,7 @@ export function ColorPicker({ value, onChange, label, className }: ColorPickerPr
                     setIsOpen(false);
                   }}
                   className={cn(
-                    "w-8 h-8 rounded border-2 transition-transform hover:scale-110",
+                    "cursor-pointer w-8 h-8 rounded border-2 transition-transform hover:scale-110",
                     value === color ? "border-blue-500" : "border-gray-300"
                   )}
                   style={{ backgroundColor: color }}

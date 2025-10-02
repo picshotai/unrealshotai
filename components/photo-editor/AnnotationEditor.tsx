@@ -533,13 +533,13 @@
               {image ? (
                 <div className="relative w-full h-full flex items-center justify-center">
                   {/* Zoom Controls - Top Right */}
-                  <div className="absolute top-4 right-4 z-50 flex flex-col gap-2">
+                  <div className="absolute top-4 right-4 z-[100] pointer-events-auto flex flex-col gap-2">
                     <button onClick={handleZoomIn} disabled={zoom >= MAX_ZOOM} aria-label="Zoom in"
-                      className="bg-white/90 border border-slate-200 rounded-md p-2 hover:bg-white disabled:opacity-50">
+                      className="cursor-pointer bg-white/90 border border-slate-200 rounded-md p-2 hover:bg-white disabled:opacity-50">
                       <Plus size={16} />
                     </button>
                     <button onClick={handleZoomOut} disabled={zoom <= MIN_ZOOM} aria-label="Zoom out"
-                      className="bg-white/90 border border-slate-200 rounded-md p-2 hover:bg-white disabled:opacity-50">
+                      className="cursor-pointer bg-white/90 border border-slate-200 rounded-md p-2 hover:bg-white disabled:opacity-50">
                       <Minus size={16} />
                     </button>
                   </div>
@@ -558,7 +558,7 @@
 
                   {/* Desktop Properties Panel - tool options */}
                   {image && activeTool && (activeTool === "draw" || activeTool === "mask" || activeTool === "arrow" || activeTool === "text") && (
-                    <div className="absolute top-4 left-4 z-50">
+                    <div className="absolute top-4 left-4 z-[100] pointer-events-auto">
                       <PropertiesPanel
                         activeTool={activeTool as ToolType}
                         colors={colors}
@@ -815,8 +815,8 @@
 
       {/* Top Floating Toolbar - Drawing Tools */}
       {image && (
-        <div className="fixed top-16 left-0 right-0 z-50 md:hidden px-4">
-          <div className="flex justify-center items-center gap-2">
+        <div className="fixed top-16 left-0 right-0 z-50 md:hidden px-4 pointer-events-none">
+          <div className="flex justify-center items-center gap-2 pointer-events-auto">
             {/* PropertiesPanel removed from toolbar area to use floating top-left panel */}
             <DrawingToolbar
               activeTool={activeTool}
