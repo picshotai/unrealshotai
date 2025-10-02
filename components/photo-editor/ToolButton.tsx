@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
 import type { ToolType } from "@/types/photo-editor";
 
 interface ToolButtonProps {
@@ -27,9 +26,9 @@ export const ToolButton: React.FC<ToolButtonProps> = ({
     <button
       disabled={disabled}
       onClick={() => onSelect(tool)}
-      className={`flex items-center gap-2 px-3 py-2.5 rounded-xl transition-all duration-200 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed ${
+      className={`cursor-pointer flex items-center gap-2 px-3 py-2.5 rounded-lg transition-all duration-200 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed ${
         isActive 
-          ? 'bg-blue-600 text-white shadow-lg' 
+          ? 'bg-primary text-white shadow-lg' 
           : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
       } ${className}`}
       title={label}

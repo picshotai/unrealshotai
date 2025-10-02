@@ -16,6 +16,7 @@
   } from "@/types/photo-editor";
   import { AnnotationCanvas } from "./AnnotationCanvas";
   import { DrawingToolbar } from "./DrawingToolbar";
+  import { PropertiesPanel } from "./PropertiesPanel";
   import { TextInputModal } from "./TextInputModal";
   import { PromptInputModal } from "./PromptInputModal";
   import { DottedCanvas } from "./DottedCanvas";
@@ -542,6 +543,31 @@
                       <Minus size={16} />
                     </button>
                   </div>
+
+                  {/* Desktop Left Toolbar - vertical, aligned to canvas */}
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 z-50 hidden md:block">
+                    <DrawingToolbar
+                      activeTool={activeTool}
+                      onToolSelect={setActiveTool}
+                      isMaskToolActive={activeTool === "mask"}
+                      isGenerating={isGenerating}
+                      hideTools={hiddenTools}
+                      orientation="vertical"
+                    />
+                  </div>
+
+                  {/* Desktop Properties Panel - tool options */}
+                  {image && activeTool && (activeTool === "draw" || activeTool === "mask" || activeTool === "arrow" || activeTool === "text") && (
+                    <div className="absolute left-4 bottom-4 z-50 hidden md:block w-72">
+                      <PropertiesPanel
+                        activeTool={activeTool as ToolType}
+                        colors={colors}
+                        sizes={sizes}
+                        onColorChange={handleColorChange}
+                        onSizeChange={handleSizeChange}
+                      />
+                    </div>
+                  )}
                   
                   {/* Outer wrapper for panning (not affected by scale) */}
                   <div
@@ -594,7 +620,7 @@
                     
                     <div className="space-y-4 bg-white/50">
                       <div
-                        className="border-input relative flex min-h-52 flex-col items-center justify-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors hover:bg-accent/50"
+                        className="border-input relative flex min-h-52 flex-col items-center justify-center overflow-hidden rounded-lg border border-dashed p-4 transition-colors hover:bg-accent/50"
                         onClick={() => fileInputRef.current?.click()}
                       >
                         <div className="flex flex-col items-center justify-center px-4 py-3 text-center cursor-pointer">
@@ -624,12 +650,12 @@
 
         {/* Bottom Toolbar - Main Actions */}
         <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-3xl px-4">
-          <div className="bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl shadow-2xl p-3">
+          <div className="bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl p-3">
             <div className="flex gap-3 items-center justify-center">
               {/* Upload Button */}
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all duration-200 text-sm font-medium shadow-lg"
+                className="cursor-pointer flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg hover:bg-gray-700 transition-all duration-200 text-sm font-medium"
               >
                 <Upload size={16} />
                 <span className="hidden sm:inline">Upload</span>
@@ -640,14 +666,14 @@
                 <button
                   onClick={undo}
                   disabled={!canUndo || isGenerating}
-                  className="flex items-center gap-2 px-3 py-2.5 bg-slate-100 hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed text-slate-700 rounded-xl transition-all duration-200 text-sm font-medium"
+                  className="cursor-pointer flex items-center gap-2 px-3 py-2.5 bg-slate-100 hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed text-slate-700 rounded-lg transition-all duration-200 text-sm font-medium"
                 >
                   <Undo size={16} />
                 </button>
                 <button
                   onClick={redo}
                   disabled={!canRedo || isGenerating}
-                  className="flex items-center gap-2 px-3 py-2.5 bg-slate-100 hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed text-slate-700 rounded-xl transition-all duration-200 text-sm font-medium"
+                  className="cursor-pointer flex items-center gap-2 px-3 py-2.5 bg-slate-100 hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed text-slate-700 rounded-lg transition-all duration-200 text-sm font-medium"
                 >
                   <Redo size={16} />
                 </button>
@@ -657,7 +683,7 @@
               <button
                 onClick={clearAll}
                 disabled={isGenerating}
-                className="flex items-center gap-2 px-3 py-2.5 bg-red-100 hover:bg-red-200 disabled:opacity-50 disabled:cursor-not-allowed text-red-700 rounded-xl transition-all duration-200 text-sm font-medium"
+                className="cursor-pointer flex items-center gap-2 px-3 py-2.5 bg-red-100 hover:bg-red-200 disabled:opacity-50 disabled:cursor-not-allowed text-red-700 rounded-lg transition-all duration-200 text-sm font-medium"
               >
                 <Trash2 size={16} />
               </button>
@@ -666,13 +692,13 @@
               <button
                 onClick={handleDownload}
                 disabled={!image || isGenerating}
-                className="flex items-center gap-2 px-3 py-2.5 bg-green-100 hover:bg-green-200 disabled:opacity-50 disabled:cursor-not-allowed text-green-700 rounded-xl transition-all duration-200 text-sm font-medium"
+                className="cursor-pointer flex items-center gap-2 px-3 py-2.5 bg-green-100 hover:bg-green-200 disabled:opacity-50 disabled:cursor-not-allowed text-green-700 rounded-lg transition-all duration-200 text-sm font-medium"
               >
                 <Download size={16} />
               </button>
 
               {/* Generate/Edit Button */}
-              <div className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 rounded-xl p-[1px] shadow-xl">
+              <div className="rounded-lg p-[1px]">
                 <button
                   onClick={() => {
                     if (
@@ -706,7 +732,7 @@
                     (activeTool === "mask" &&
                       (maskStrokes.length === 0 || !maskPrompt.trim()))
                   }
-                  className="w-full font-bold py-2.5 px-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-blue-600 whitespace-nowrap text-sm"
+                  className="cursor-pointer w-full font-bold py-2.5 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 bg-[#ff6f00] text-white hover:bg-gray-500 text-blue-600 whitespace-nowrap text-sm"
                 >
                   {isGenerating ? (
                     <>
@@ -787,93 +813,109 @@
 
       {/* Top Floating Toolbar - Drawing Tools */}
       {image && (
-        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50">
-          <DrawingToolbar
-            activeTool={activeTool}
-            onToolSelect={setActiveTool}
-            isMaskToolActive={activeTool === "mask"}
-            isGenerating={isGenerating}
-            hideTools={hiddenTools}
-            className="flex-row"
-          />
+        <div className="fixed top-16 left-0 right-0 z-50 md:hidden px-4">
+          <div className="flex justify-center">
+            <DrawingToolbar
+              activeTool={activeTool}
+              onToolSelect={setActiveTool}
+              isMaskToolActive={activeTool === "mask"}
+              isGenerating={isGenerating}
+              hideTools={hiddenTools}
+              orientation="horizontal"
+            />
+          </div>
         </div>
       )}
 
-      {/* Mask Prompt Modal */}
-        {activeTool === "mask" && (
-          <div className="fixed bottom-[13vh] left-1/2 transform -translate-x-1/2 z-50 w-full max-w-3xl px-4">
-            <div className="bg-white/95 backdrop-blur-xl border border-slate-200 rounded-xl shadow-2xl p-4">
-              <div className="flex flex-col gap-3">
-                <div className="flex items-center gap-2 text-sm text-slate-600">
-                  <Lasso size={16} />
-                  <span className="font-medium">
-                    {maskStrokes.length > 0
-                      ? "Edit Selected Area"
-                      : "Paint to Select Area"}
-                  </span>
-                </div>
+      {/* Mobile Properties Panel - tool options */}
+      {image && activeTool && (activeTool === "draw" || activeTool === "mask" || activeTool === "arrow" || activeTool === "text") && (
+        <div className="fixed top-28 left-0 right-0 z-50 md:hidden px-4">
+          <div className="flex justify-center">
+            <PropertiesPanel
+              activeTool={activeTool as ToolType}
+              colors={colors}
+              sizes={sizes}
+              onColorChange={handleColorChange}
+              onSizeChange={handleSizeChange}
+            />
+          </div>
+        </div>
+      )}
+      {activeTool === "mask" && (
+        <div className="fixed bottom-[13vh] left-1/2 transform -translate-x-1/2 z-50 w-full max-w-3xl px-4">
+          <div className="bg-white/95 backdrop-blur-xl border border-slate-200 rounded-lg shadow-xs p-4">
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-2 text-sm text-slate-600">
+                <Lasso size={16} />
+                <span className="font-medium">
+                  {maskStrokes.length > 0
+                    ? "Edit Selected Area"
+                    : "Paint to Select Area"}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  value={maskPrompt}
+                  onChange={(e) => setMaskPrompt(e.target.value)}
+                  placeholder={
+                    maskStrokes.length > 0
+                      ? "Describe how to change the selected area..."
+                      : "First paint an area to select, then describe changes..."
+                  }
+                  className="flex-1 px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  disabled={maskStrokes.length === 0}
+                  autoFocus
+                  onKeyDown={(e) => {
+                    if (
+                      e.key === "Enter" &&
+                      maskStrokes.length > 0 &&
+                      maskPrompt.trim()
+                    ) {
+                      e.preventDefault();
+                      if (apiClient) {
+                        handleGenerate(maskPrompt);
+                      } else {
+                        // Demo mode - show what would happen
+                        alert(
+                          `Demo Mode: Would generate with mask prompt: "${maskPrompt}"`
+                        );
+                      }
+                    }
+                  }}
+                />
 
                 <div className="flex items-center gap-2">
-                  <input
-                    type="text"
-                    value={maskPrompt}
-                    onChange={(e) => setMaskPrompt(e.target.value)}
-                    placeholder={
-                      maskStrokes.length > 0
-                        ? "Describe how to change the selected area..."
-                        : "First paint an area to select, then describe changes..."
-                    }
-                    className="flex-1 px-3 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    disabled={maskStrokes.length === 0}
-                    autoFocus
-                    onKeyDown={(e) => {
-                      if (
-                        e.key === "Enter" &&
-                        maskStrokes.length > 0 &&
-                        maskPrompt.trim()
-                      ) {
-                        e.preventDefault();
-                        if (apiClient) {
-                          handleGenerate(maskPrompt);
-                        } else {
-                          // Demo mode - show what would happen
-                          alert(
-                            `Demo Mode: Would generate with mask prompt: "${maskPrompt}"`
-                          );
-                        }
-                      }
-                    }}
-                  />
-
-                  <div className="flex items-center gap-2">
-                    {maskStrokes.length > 0 && (
-                      <button
-                        onClick={() => {
-                          clearMaskStrokes();
-                          setMaskPrompt("");
-                        }}
-                        className="px-3 py-2 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition-all duration-200 font-medium text-sm"
-                      >
-                        Clear
-                      </button>
-                    )}
-
+                  {maskStrokes.length > 0 && (
                     <button
                       onClick={() => {
-                        setActiveTool(null);
-                        setMaskPrompt("");
                         clearMaskStrokes();
+                        setMaskPrompt("");
                       }}
-                      className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-all duration-200 font-medium text-sm"
+                      className="px-3 py-2 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition-all duration-200 font-medium text-sm"
                     >
-                      Cancel
+                      Clear
                     </button>
-                  </div>
+                  )}
+
+                  <button
+                    onClick={() => {
+                      setActiveTool(null);
+                      setMaskPrompt("");
+                      clearMaskStrokes();
+                    }}
+                    className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-all duration-200 font-medium text-sm"
+                  >
+                    Cancel
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-        )}
-      </div>
-    );
-  };
+        </div>
+      )}
+    </div>
+  );
+};
+  

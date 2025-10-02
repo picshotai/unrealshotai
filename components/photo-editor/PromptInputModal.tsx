@@ -34,7 +34,7 @@ export const PromptInputModal: React.FC<PromptInputModalProps> = ({
 
   return (
     <div className="fixed bottom-[13vh] left-1/2 transform -translate-x-1/2 z-50 w-full max-w-2xl px-4">
-      <div className="bg-white/95 backdrop-blur-xl border border-slate-200 rounded-xl shadow-2xl p-4">
+      <div className="bg-white/95 backdrop-blur-xl border border-slate-200 rounded-xl shadow-xs p-4">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-slate-900">{title}</h2>

@@ -18,6 +18,7 @@ interface DrawingToolbarProps {
   isMaskToolActive?: boolean;
   isGenerating?: boolean;
   hideTools?: ToolType[]; // Tools to hide from UI
+  orientation?: "horizontal" | "vertical"; // explicit orientation control
 }
 
 const DrawingToolbarComponent: React.FC<DrawingToolbarProps> = ({
@@ -27,6 +28,7 @@ const DrawingToolbarComponent: React.FC<DrawingToolbarProps> = ({
   isMaskToolActive = false,
   isGenerating = false,
   hideTools = [],
+  orientation,
 }) => {
   const isToolDisabled = (tool: ToolType) => {
     if (isGenerating) return true;
@@ -36,15 +38,15 @@ const DrawingToolbarComponent: React.FC<DrawingToolbarProps> = ({
 
   const isToolHidden = (tool: ToolType) => hideTools.includes(tool);
 
-  // Check if className includes "flex-row" to determine horizontal layout
-  const isHorizontal = className?.includes("flex-row");
+  // Determine layout orientation
+  const isHorizontal = orientation
+    ? orientation === "horizontal"
+    : className?.includes("flex-row");
 
   return (
     <div
-      className={`flex ${isHorizontal ? 'flex-row gap-3 items-center justify-center' : 'flex-col gap-2'} p-3 bg-white/95 border border-slate-200 rounded-xl ${isHorizontal ? '' : 'max-h-96 overflow-y-auto'} ${className}`}
+      className={`flex ${isHorizontal ? "flex-row gap-3 items-center justify-center" : "flex-col gap-2"} p-3 bg-white/95 border border-slate-200 rounded-xl ${isHorizontal ? "" : "max-h-96 overflow-y-auto"} ${className || ""}`}
     >
-      {!isHorizontal}
-
       {/* Draw */}
       {!isToolHidden("draw") && (
         <ToolButton
