@@ -61,9 +61,7 @@ export const PromptInputModal: React.FC<PromptInputModalProps> = ({
               Generate
             </Button>
 
-            <Button type="button" variant="outline" onClick={onClose}>
-              Cancel
-            </Button>
+            
           </div>
         </form>
       </div>

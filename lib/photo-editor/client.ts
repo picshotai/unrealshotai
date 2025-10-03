@@ -33,6 +33,10 @@ export class APIClient {
           strength: request.strength || 0.8,
           guidance: request.guidance || 7,
           steps: request.steps || 20,
+          // Include optional mask data if provided
+          maskData: (request as any).maskData,
+          // Pass model if caller specified one (API may choose default)
+          model: (request as any).model,
         }),
       });
 

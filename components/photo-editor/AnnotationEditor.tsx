@@ -148,7 +148,7 @@
     // Image overlay
     const overlayImageInputRef = useRef<HTMLInputElement>(null);
 
-    const hiddenTools = useMemo(() => ["draw", "text", "arrow"] as ToolType[], []);
+    const hiddenTools = useMemo(() => ["draw", "text", "arrow", "image"] as ToolType[], []);
 
     // Annotations hook
     const {
@@ -362,6 +362,121 @@
       [isDrawing, activeTool, colors, sizes, endDrawing, isDraggingCanvas]
     );
 
+    // Touch handlers for mobile
+    const handleTouchStart = useCallback(
+      (event: React.TouchEvent<HTMLCanvasElement>) => {
+        const canvas = event.currentTarget;
+        const rect = canvas.getBoundingClientRect();
+        const touch = event.touches[0];
+        if (!touch) return;
+
+        const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
+        const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+        const point = { x, y, timestamp: Date.now() };
+
+        event.preventDefault();
+
+        // Handle tool-specific actions first
+        if (activeTool === "text") {
+          setEditingTextId(null);
+          setTextPosition({ x, y });
+          setShowTextModal(true);
+          return;
+        }
+
+        if (activeTool === "image") {
+          overlayImageInputRef.current?.click();
+          return;
+        }
+
+        if (activeTool === "prompt") {
+          setShowPromptModal(true);
+          return;
+        }
+
+        // Drag canvas if no tool is selected
+        if (!activeTool) {
+          setIsDraggingCanvas(true);
+          setDragStart({ x: touch.clientX, y: touch.clientY });
+          return;
+        }
+
+        // Start drawing for supported tools
+        if (activeTool === "draw" || activeTool === "arrow" || activeTool === "mask") {
+          startDrawing(point);
+        }
+      },
+      [activeTool, startDrawing]
+    );
+
+    const handleTouchMove = useCallback(
+      (event: React.TouchEvent<HTMLCanvasElement>) => {
+        const canvas = event.currentTarget;
+        const rect = canvas.getBoundingClientRect();
+        const touch = event.touches[0];
+        if (!touch) return;
+
+        const x = (touch.clientX - rect.left) * (canvas.width / rect.width);
+        const y = (touch.clientY - rect.top) * (canvas.height / rect.height);
+        const point = { x, y, timestamp: Date.now() };
+
+        event.preventDefault();
+
+        // Handle canvas dragging
+        if (isDraggingCanvas) {
+          const deltaX = touch.clientX - dragStart.x;
+          const deltaY = touch.clientY - dragStart.y;
+
+          setCanvasOffset((prev) => ({ x: prev.x + deltaX, y: prev.y + deltaY }));
+          setDragStart({ x: touch.clientX, y: touch.clientY });
+          return;
+        }
+
+        if (isDrawing) {
+          continueDrawing(point);
+          return;
+        }
+      },
+      [isDraggingCanvas, dragStart, isDrawing, continueDrawing]
+    );
+
+    const handleTouchEnd = useCallback(
+      (event: React.TouchEvent<HTMLCanvasElement>) => {
+        // End canvas dragging
+        if (isDraggingCanvas) {
+          setIsDraggingCanvas(false);
+          return;
+        }
+
+        const canvas = event.currentTarget;
+        const rect = canvas.getBoundingClientRect();
+        const changedTouch = event.changedTouches[0];
+        if (!changedTouch) return;
+
+        const x = (changedTouch.clientX - rect.left) * (canvas.width / rect.width);
+        const y = (changedTouch.clientY - rect.top) * (canvas.height / rect.height);
+        const point = { x, y, timestamp: Date.now() };
+
+        event.preventDefault();
+
+        if (isDrawing) {
+          const color = colors[activeTool as keyof typeof colors] || "#000000";
+          const thickness =
+            activeTool === "draw"
+              ? sizes.drawThickness
+              : activeTool === "arrow"
+              ? sizes.arrowThickness
+              : activeTool === "mask"
+              ? sizes.brushSize
+              : 3;
+
+          endDrawing(point, color, thickness);
+          return;
+        }
+      },
+      [isDraggingCanvas, isDrawing, activeTool, colors, sizes, endDrawing]
+    );
+
     // Handle text submission
     const handleTextSubmit = useCallback(
       (text: string, color: string, fontSize: number) => {
@@ -502,13 +617,20 @@
             setDimensions(newDimensions);
             clearMaskStrokes(); // Clear mask after generation
           } else {
-            throw new Error(response.error?.message || "Generation failed");
+            // Do not throw here; surface a clean error message via onError and return
+            const fallbackMessage = response.error?.message || "Generation failed";
+            const detailedMessage = response.error?.details
+              ? `${fallbackMessage}: ${response.error.details}`
+              : fallbackMessage;
+            onError?.(detailedMessage);
+            console.warn("Image generation did not return an image:", response.error);
+            return;
           }
         } catch (error) {
           const errorMessage =
             error instanceof Error ? error.message : "Generation failed";
           onError?.(errorMessage);
-          console.error("Generation failed:", error);
+          console.warn("Generation failed:", error);
         } finally {
           setIsGenerating(false);
         }
@@ -611,6 +733,9 @@
                         onMouseDown={handleMouseDown}
                         onMouseMove={handleMouseMove}
                         onMouseUp={handleMouseUp}
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleTouchEnd}
                         className="shadow-xl"
                       />
                     </div>
@@ -856,6 +981,7 @@
                     : "Paint to Select Area"}
                 </span>
               </div>
+              
 
               <div className="flex items-center gap-2">
                 <input

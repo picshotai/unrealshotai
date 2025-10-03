@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, Modality } from "@google/genai";
 import { createClient } from "@/utils/supabase/server";
 
 const GEMINI_API_KEY = process.env.GOOGLE_API_KEY;
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { imageData, prompt, strength = 0.8, guidance = 7, steps = 20 } = body;
+    const { imageData, prompt, strength = 0.8, guidance = 7, steps = 20, maskData, model } = body;
 
     if (!imageData) {
       return NextResponse.json({ error: "Image data is required" }, { status: 400 });
@@ -39,6 +39,7 @@ export async function POST(request: NextRequest) {
       contents.push({ text: "Enhance and improve this image while maintaining its original content and style." });
     }
 
+    // Provide the image to edit
     contents.push({
       inlineData: {
         mimeType: "image/png",
@@ -46,12 +47,24 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Generate image using Gemini
+    // Optional: include mask data metadata (not currently used directly by Gemini)
+    if (Array.isArray(maskData) && maskData.length > 0) {
+      contents.push({
+        text: `Apply mask edits to marked regions. Brush strokes count: ${maskData.length}.`,
+      });
+    }
+
+    // Choose default model for image generation unless caller specified one
+    const modelName = model || "gemini-2.5-flash-image";
+
+    // Generate image using Gemini (request image modality)
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash-image-preview",
+      model: modelName,
       contents,
       config: {
-        maxOutputTokens: 4096,
+        // Prefer image outputs from the model
+        responseModalities: [Modality.IMAGE],
+        candidateCount: 1,
       },
     });
 
@@ -68,7 +81,7 @@ export async function POST(request: NextRequest) {
           result: {
             output: outputDataUrl,
             metadata: {
-              model: "gemini-2.5-flash-image-preview",
+              model: modelName,
               processingTime: Date.now(),
               strength,
               guidance,
