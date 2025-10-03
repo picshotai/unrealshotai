@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { imageData, prompt, strength = 0.8, guidance = 7, steps = 20, maskData, model } = body;
+    const { imageData, prompt, strength = 0.8, guidance = 7, steps = 20, model } = body;
 
     if (!imageData) {
       return NextResponse.json({ error: "Image data is required" }, { status: 400 });
@@ -32,14 +32,13 @@ export async function POST(request: NextRequest) {
 
     // Prepare content for Gemini
     const contents: any[] = [];
-    
     if (prompt) {
-      contents.push({ text: `Edit this image: ${prompt}` });
+      contents.push({ text: prompt });
     } else {
       contents.push({ text: "Enhance and improve this image while maintaining its original content and style." });
     }
 
-    // Provide the image to edit
+    // Provide the composited image (with overlay if present)
     contents.push({
       inlineData: {
         mimeType: "image/png",
@@ -47,22 +46,12 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Optional: include mask data metadata (not currently used directly by Gemini)
-    if (Array.isArray(maskData) && maskData.length > 0) {
-      contents.push({
-        text: `Apply mask edits to marked regions. Brush strokes count: ${maskData.length}.`,
-      });
-    }
-
-    // Choose default model for image generation unless caller specified one
     const modelName = model || "gemini-2.5-flash-image";
 
-    // Generate image using Gemini (request image modality)
     const response = await ai.models.generateContent({
       model: modelName,
       contents,
       config: {
-        // Prefer image outputs from the model
         responseModalities: [Modality.IMAGE],
         candidateCount: 1,
       },

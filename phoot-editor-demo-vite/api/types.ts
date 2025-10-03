@@ -12,6 +12,7 @@ export interface APIConfig {
 // Generation request/response types
 export interface GenerationRequest {
   imageData: string; // base64 encoded image
+  maskData?: any[]; // mask strokes array (future use)
   prompt?: string;
   strength?: number; // 0-1, how much to change the image
   guidance?: number; // 1-20, how closely to follow the prompt

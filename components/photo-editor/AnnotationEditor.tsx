@@ -575,23 +575,56 @@
           const ctx = tempCanvas.getContext("2d");
           if (!ctx) throw new Error("Failed to get canvas context");
 
-          // Draw image at original size for API
-          ctx.drawImage(image, 0, 0, originalImageDimensions.width, originalImageDimensions.height);
+          // Draw image at original size
+          ctx.drawImage(
+            image,
+            0,
+            0,
+            originalImageDimensions.width,
+            originalImageDimensions.height
+          );
+
+          // Transform mask strokes from display coords to original image coords
+          const transformedMaskStrokes =
+            maskStrokes.length > 0
+              ? transformMaskStrokesToImageCoordinates(
+                  maskStrokes,
+                  dimensions,
+                  originalImageDimensions
+                )
+              : undefined;
+
+          // If we have a mask, draw a semi-transparent overlay onto the image
+          if (transformedMaskStrokes && transformedMaskStrokes.length > 0) {
+            ctx.save();
+            ctx.globalCompositeOperation = "source-over";
+            ctx.globalAlpha = 0.3; // similar to demo overlay alpha
+            ctx.fillStyle = config.colors.mask; // e.g., "#3b82f6"
+
+            for (const stroke of transformedMaskStrokes) {
+              const radius = Math.max(1, stroke.brushSize / 2);
+              for (const p of stroke.path) {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+                ctx.fill();
+              }
+            }
+            ctx.restore();
+          }
+
+          // Export composited image (with overlay if mask present)
           const imageData = canvasToDataURL(tempCanvas);
 
-          // Transform mask strokes from display coordinates to original image coordinates
-          const transformedMaskStrokes = maskStrokes.length > 0 
-            ? transformMaskStrokesToImageCoordinates(
-                maskStrokes, 
-                dimensions, 
-                originalImageDimensions
-              )
-            : undefined;
+          // Strengthen prompt if mask overlay present
+          const finalPrompt =
+            transformedMaskStrokes && transformedMaskStrokes.length > 0
+              ? `Only modify the regions indicated by the blue overlay (ignore the non-overlay areas). ${prompt}`
+              : prompt;
 
           const request = {
             imageData,
-            maskData: transformedMaskStrokes,
-            prompt,
+            // No maskImage/maskData — we rely on overlay + prompt
+            prompt: finalPrompt,
             strength: 0.8,
             guidance: 7.5,
             steps: 20,
