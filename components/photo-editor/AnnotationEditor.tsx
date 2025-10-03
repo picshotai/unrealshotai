@@ -35,9 +35,23 @@
   const loadImageFromUrl = (url: string): Promise<HTMLImageElement> => {
     return new Promise((resolve, reject) => {
       const img = new Image();
+      // Ensure cross-origin loading is allowed to avoid tainting canvas
+      img.crossOrigin = "anonymous";
       img.onload = () => resolve(img);
       img.onerror = reject;
-      img.src = url;
+      // Decide whether to proxy: avoid proxying data: and blob: URLs
+      const isDataOrBlob = url.startsWith("data:") || url.startsWith("blob:");
+      const origin = typeof window !== "undefined" ? window.location.origin : "";
+      const isAlreadyProxied = url.startsWith("/api/proxy-image");
+      const isAbsoluteHttp = /^https?:\/\//i.test(url);
+      const isSameOriginAbs = origin && isAbsoluteHttp && url.startsWith(origin);
+      const isRelative = !isAbsoluteHttp && !url.startsWith("data:") && !url.startsWith("blob:");
+      if (isDataOrBlob || isAlreadyProxied || isSameOriginAbs || isRelative) {
+        img.src = url;
+      } else {
+        // External absolute URL: route through same-origin proxy to prevent canvas tainting
+        img.src = `/api/proxy-image?url=${encodeURIComponent(url)}`;
+      }
     });
   };
 
@@ -75,6 +89,19 @@
 
   const canvasToDataURL = (canvas: HTMLCanvasElement): string => {
     return canvas.toDataURL('image/png');
+  };
+
+  // Reload an image via same-origin proxy if needed to avoid canvas tainting
+  const ensureSafeImage = async (img: HTMLImageElement): Promise<HTMLImageElement> => {
+    const src = img.src || "";
+    const origin = typeof window !== "undefined" ? window.location.origin : "";
+    const isBlobOrData = src.startsWith("blob:") || src.startsWith("data:");
+    const isProxied = src.startsWith("/api/proxy-image") || (origin && src.startsWith(`${origin}/api/proxy-image`));
+    if (isBlobOrData || isProxied) {
+      return img;
+    }
+    // Reload via proxy to ensure same-origin and set crossOrigin
+    return await loadImageFromUrl(src);
   };
 
   interface AnnotationEditorProps {
@@ -145,6 +172,10 @@
     // Mask state
     const [maskPrompt, setMaskPrompt] = useState("");
 
+    // Enhance settings state
+    const [enhanceUpscaling, setEnhanceUpscaling] = useState<number>(2);
+    const [enhanceFidelity, setEnhanceFidelity] = useState<number>(0.5);
+    const [enhanceFaceUpscale, setEnhanceFaceUpscale] = useState<boolean>(true);
     // Image overlay
     const overlayImageInputRef = useRef<HTMLInputElement>(null);
 
@@ -575,9 +606,10 @@
           const ctx = tempCanvas.getContext("2d");
           if (!ctx) throw new Error("Failed to get canvas context");
 
-          // Draw image at original size
+          // Draw image at original size (ensure safe image to avoid tainting)
+          const safeImage = await ensureSafeImage(image as HTMLImageElement);
           ctx.drawImage(
-            image,
+            safeImage,
             0,
             0,
             originalImageDimensions.width,
@@ -594,36 +626,66 @@
                 )
               : undefined;
 
-          // If we have a mask, draw a semi-transparent overlay onto the image
+          // Draw a semi-transparent colored overlay over masked regions before sending to Gemini
           if (transformedMaskStrokes && transformedMaskStrokes.length > 0) {
-            ctx.save();
-            ctx.globalCompositeOperation = "source-over";
-            ctx.globalAlpha = 0.3; // similar to demo overlay alpha
-            ctx.fillStyle = config.colors.mask; // e.g., "#3b82f6"
-
+            const maskCanvas = document.createElement("canvas");
+            maskCanvas.width = originalImageDimensions.width;
+            maskCanvas.height = originalImageDimensions.height;
+            const mctx = maskCanvas.getContext("2d");
+            if (!mctx) throw new Error("Failed to get canvas context");
+            mctx.fillStyle = "white";
+            mctx.globalCompositeOperation = "source-over";
+            // Scale brush size to original image scale and render continuous paths
+            const scaleX = originalImageDimensions.width / dimensions.width;
+            const scaleY = originalImageDimensions.height / dimensions.height;
+            const brushScale = Math.max(scaleX, scaleY);
             for (const stroke of transformedMaskStrokes) {
-              const radius = Math.max(1, stroke.brushSize / 2);
-              for (const p of stroke.path) {
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
-                ctx.fill();
+              const lineWidth = Math.max(2, Math.round(stroke.brushSize * brushScale));
+              mctx.lineCap = "round";
+              mctx.lineJoin = "round";
+              mctx.strokeStyle = "white";
+              mctx.lineWidth = lineWidth;
+              const pts = stroke.path;
+              if (pts.length > 0) {
+                mctx.beginPath();
+                mctx.moveTo(pts[0].x, pts[0].y);
+                for (let i = 1; i < pts.length; i++) {
+                  mctx.lineTo(pts[i].x, pts[i].y);
+                }
+                mctx.stroke();
+                // Cap ends to ensure solid coverage
+                mctx.beginPath();
+                mctx.arc(pts[0].x, pts[0].y, lineWidth / 2, 0, Math.PI * 2);
+                mctx.fill();
+                mctx.beginPath();
+                mctx.arc(pts[pts.length - 1].x, pts[pts.length - 1].y, lineWidth / 2, 0, Math.PI * 2);
+                mctx.fill();
               }
             }
-            ctx.restore();
+            // Create colored overlay and clip by mask
+            const overlayCanvas = document.createElement("canvas");
+            overlayCanvas.width = maskCanvas.width;
+            overlayCanvas.height = maskCanvas.height;
+            const octx = overlayCanvas.getContext("2d");
+            if (!octx) throw new Error("Failed to get canvas context");
+            octx.globalAlpha = 0.12; // lighter overlay for better AI interpretation
+            octx.fillStyle = colors.mask;
+            octx.fillRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+            octx.globalCompositeOperation = "destination-in";
+            octx.drawImage(maskCanvas, 0, 0);
+            // Composite overlay onto the base image
+            ctx.drawImage(overlayCanvas, 0, 0);
           }
-
-          // Export composited image (with overlay if mask present)
           const imageData = canvasToDataURL(tempCanvas);
 
-          // Strengthen prompt if mask overlay present
+          // Strengthen prompt if mask is present, but avoid mentioning overlay color
           const finalPrompt =
             transformedMaskStrokes && transformedMaskStrokes.length > 0
-              ? `Only modify the regions indicated by the blue overlay (ignore the non-overlay areas). ${prompt}`
+              ? `Please only modify the selected region; keep all other areas unchanged. ${prompt}`
               : prompt;
 
           const request = {
             imageData,
-            // No maskImage/maskData — we rely on overlay + prompt
             prompt: finalPrompt,
             strength: 0.8,
             guidance: 7.5,
@@ -633,21 +695,97 @@
           const response = await apiClient.generateImage(request);
 
           if (response.success && response.result) {
-            onImageGenerated?.(response.result.output);
-
-            // Load the generated image and update dimensions
+            // Load the generated image
             const generatedImg = await loadImageFromUrl(response.result.output);
-            setOriginalImageDimensions({ width: generatedImg.width, height: generatedImg.height });
-            
-            const newDimensions = calculateCanvasDimensions(
-              generatedImg.width,
-              generatedImg.height,
-              config.canvas.maxWidth,
-              config.canvas.maxHeight
-            );
-            
-            setImage(generatedImg);
-            setDimensions(newDimensions);
+
+            // If we have a mask, composite the generated image onto the original
+            // only within the masked region to prevent unintended global changes.
+            if (transformedMaskStrokes && transformedMaskStrokes.length > 0) {
+              // Result canvas (final composited image)
+              const resultCanvas = document.createElement("canvas");
+              resultCanvas.width = originalImageDimensions.width;
+              resultCanvas.height = originalImageDimensions.height;
+              const rctx = resultCanvas.getContext("2d");
+              if (!rctx) throw new Error("Failed to get canvas context");
+
+              // Draw original base image
+              rctx.drawImage(
+                safeImage,
+                0,
+                0,
+                resultCanvas.width,
+                resultCanvas.height
+              );
+
+              // Generated layer (scaled to original size)
+              const genCanvas = document.createElement("canvas");
+              genCanvas.width = originalImageDimensions.width;
+              genCanvas.height = originalImageDimensions.height;
+              const gctx = genCanvas.getContext("2d");
+              if (!gctx) throw new Error("Failed to get canvas context");
+              gctx.drawImage(
+                generatedImg,
+                0,
+                0,
+                genCanvas.width,
+                genCanvas.height
+              );
+
+              // Build a feathered mask to avoid hard outlines
+              const maskCanvas = document.createElement("canvas");
+              maskCanvas.width = originalImageDimensions.width;
+              maskCanvas.height = originalImageDimensions.height;
+              const mctx = maskCanvas.getContext("2d");
+              if (!mctx) throw new Error("Failed to get canvas context");
+              // Feather amount relative to brush size
+              const featherPx = Math.max(2, Math.round((sizes.brushSize || 30) * 0.3));
+              mctx.filter = `blur(${featherPx}px)`;
+              mctx.fillStyle = "#000";
+              mctx.globalAlpha = 1;
+              for (const stroke of transformedMaskStrokes) {
+                const radius = Math.max(1, stroke.brushSize / 2);
+                for (const p of stroke.path) {
+                  mctx.beginPath();
+                  mctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+                  mctx.fill();
+                }
+              }
+              mctx.filter = "none"; // reset filter
+
+              // Clip generated layer by the feathered mask
+              gctx.globalCompositeOperation = "destination-in";
+              gctx.drawImage(maskCanvas, 0, 0);
+
+              // Composite masked generated layer onto the original
+              rctx.drawImage(genCanvas, 0, 0);
+
+              const compositedDataUrl = resultCanvas.toDataURL("image/png");
+              onImageGenerated?.(compositedDataUrl);
+
+              const compositedImg = await loadImageFromUrl(compositedDataUrl);
+              setImage(compositedImg);
+              setDimensions(
+                calculateCanvasDimensions(
+                  resultCanvas.width,
+                  resultCanvas.height,
+                  config.canvas.maxWidth,
+                  config.canvas.maxHeight
+                )
+              );
+            } else {
+              // No mask: use the generated image as-is
+              onImageGenerated?.(response.result.output);
+              setOriginalImageDimensions({ width: generatedImg.width, height: generatedImg.height });
+              const newDimensions = calculateCanvasDimensions(
+                generatedImg.width,
+                generatedImg.height,
+                config.canvas.maxWidth,
+                config.canvas.maxHeight
+              );
+              setImage(generatedImg);
+              setDimensions(newDimensions);
+            }
+
             clearMaskStrokes(); // Clear mask after generation
           } else {
             // Do not throw here; surface a clean error message via onError and return
@@ -676,8 +814,76 @@
         onImageGenerated,
         onError,
         clearMaskStrokes,
+        sizes,
       ]
     );
+
+    // Enhance/Upscale current image via backend API
+    const handleEnhance = useCallback(async () => {
+      if (!apiClient || !image) {
+        onError?.("API client not configured or no image loaded");
+        return;
+      }
+
+      setIsGenerating(true);
+      try {
+        // Build a canvas sized to the original image to avoid scaled artifacts
+        const tempCanvas = document.createElement("canvas");
+        tempCanvas.width = originalImageDimensions.width;
+        tempCanvas.height = originalImageDimensions.height;
+        const ctx = tempCanvas.getContext("2d");
+        if (!ctx) throw new Error("Failed to get canvas context");
+
+        // Fill background to avoid transparent artifacts
+        ctx.fillStyle = config.canvas.backgroundColor;
+        ctx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+
+        // Draw the base image (ensure safe image to avoid tainting)
+        const safeImage = await ensureSafeImage(image as HTMLImageElement);
+        ctx.drawImage(safeImage, 0, 0, tempCanvas.width, tempCanvas.height);
+
+        const imageData = tempCanvas.toDataURL("image/png");
+
+        const response = await apiClient.enhanceImage({
+          imageData,
+          fidelity: enhanceFidelity,
+          upscaling: enhanceUpscaling,
+          face_upscale: enhanceFaceUpscale,
+        });
+
+        if (response.success && response.result?.output) {
+          const enhancedUrl = response.result.output;
+          try {
+            const newImg = await loadImageFromUrl(enhancedUrl);
+            setOriginalImageDimensions({ width: newImg.width, height: newImg.height });
+            const newDimensions = calculateCanvasDimensions(
+              newImg.width,
+              newImg.height,
+              config.canvas.maxWidth,
+              config.canvas.maxHeight
+            );
+            setImage(newImg);
+            setDimensions(newDimensions);
+            setCanvasOffset({ x: 0, y: 0 });
+            clearAll();
+            onImageGenerated?.(enhancedUrl);
+          } catch (loadErr) {
+            onError?.("Failed to load enhanced image");
+            console.error("Failed to load enhanced image:", loadErr);
+          }
+        } else {
+          const errMsg = response.error?.message || "Enhance failed";
+          onError?.(errMsg);
+          console.warn("Enhance failed:", response.error);
+        }
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : "Enhance failed";
+        onError?.(errorMessage);
+        console.warn("Enhance failed:", error);
+      } finally {
+        setIsGenerating(false);
+      }
+    }, [apiClient, image, originalImageDimensions, config.canvas.backgroundColor, config.canvas.maxWidth, config.canvas.maxHeight, enhanceFidelity, enhanceUpscaling, enhanceFaceUpscale, onImageGenerated, onError, clearAll, setImage, setDimensions, setCanvasOffset, setOriginalImageDimensions]);
 
     return (
       <div className={`flex flex-col h-full bg-white overflow-hidden ${className}`}>
@@ -861,6 +1067,15 @@
               <div className="rounded-lg p-[1px]">
                 <button
                   onClick={() => {
+                    if (activeTool === "enhance") {
+                      if (apiClient) {
+                        handleEnhance();
+                      } else {
+                        alert("Demo Mode: Would enhance/upscale the current image");
+                      }
+                      return;
+                    }
+
                     if (
                       activeTool === "mask" &&
                       maskStrokes.length > 0 &&
@@ -897,12 +1112,12 @@
                   {isGenerating ? (
                     <>
                       <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-                      <span className="hidden sm:inline">Generating...</span>
+                      <span className="hidden sm:inline">{activeTool === "enhance" ? "Enhancing..." : "Generating..."}</span>
                     </>
                   ) : (
                     <>
                       <Zap size={16} />
-                      {activeTool === "mask" ? "Edit Mask" : "Edit"}
+                      {activeTool === "enhance" ? "Enhance" : activeTool === "mask" ? "Edit Mask" : "Edit"}
                     </>
                   )}
                 </button>
@@ -1080,4 +1295,5 @@
     </div>
   );
 };
+  
   

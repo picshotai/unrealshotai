@@ -32,10 +32,12 @@ export async function POST(request: NextRequest) {
 
     // Prepare content for Gemini
     const contents: any[] = [];
+    // System-style instruction: only modify the semi-transparent colored overlay regions; preserve everything else.
+    contents.push({ text: "Only modify the object indicated by the semi-transparent colored overlay as per instructed by user prompt to make edits. Preserve all other regions exactly as the original image." });
     if (prompt) {
       contents.push({ text: prompt });
     } else {
-      contents.push({ text: "Enhance and improve this image while maintaining its original content and style." });
+      contents.push({ text: "Enhance and improve only the overlay region while maintaining original content and style elsewhere." });
     }
 
     // Provide the composited image (with overlay if present)

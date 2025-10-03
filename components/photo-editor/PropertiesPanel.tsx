@@ -159,6 +159,33 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({
           </div>
         </>
       )}
+
+      {activeTool === "enhance" && (
+        <>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Upscaling</label>
+            <Slider
+              value={[2]}
+              onValueChange={() => { /* No-op UI placeholder; handled server-side */ }}
+              min={1}
+              max={4}
+              step={1}
+              className={compact ? "w-32" : undefined}
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Fidelity</label>
+            <Slider
+              value={[5]}
+              onValueChange={() => { /* No-op UI placeholder */ }}
+              min={1}
+              max={10}
+              step={1}
+              className={compact ? "w-32" : undefined}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

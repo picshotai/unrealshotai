@@ -1,4 +1,4 @@
-import type { APIConfig, GenerationRequest, GenerationResponse } from "./types";
+import type { APIConfig, GenerationRequest, GenerationResponse, EnhanceRequest, EnhanceResponse } from "./types";
 
 /**
  * AI Image Client for Photo Editor
@@ -64,6 +64,56 @@ export class APIClient {
       }
     } catch (error: any) {
       console.error("Generation error:", error);
+      return {
+        success: false,
+        error: {
+          code: "NETWORK_ERROR",
+          message: error.message || "Failed to connect to API",
+          details: error,
+        },
+      };
+    }
+  }
+
+  /**
+   * Enhance/Upscale image using Fal AI Codeformer via Next.js API route
+   */
+  async enhanceImage(request: EnhanceRequest): Promise<EnhanceResponse> {
+    try {
+      const response = await fetch('/api/photo-editor/enhance', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          imageData: request.imageData,
+          fidelity: request.fidelity ?? 0.5,
+          upscaling: request.upscaling ?? 2,
+          face_upscale: request.face_upscale ?? true,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        return {
+          success: false,
+          error: data.error || { code: 'API_ERROR', message: `HTTP ${response.status}` },
+        };
+      }
+
+      if (data.success) {
+        return {
+          success: true,
+          result: data.result,
+        };
+      }
+
+      return {
+        success: false,
+        error: data.error || { code: 'UNKNOWN', message: 'Enhance failed' },
+      };
+    } catch (error: any) {
+      console.error("Enhance error:", error);
       return {
         success: false,
         error: {

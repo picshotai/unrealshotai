@@ -7,6 +7,7 @@ import {
   Image,
   Lasso,
   MessageSquare,
+  Sparkles,
 } from "lucide-react";
 import { ToolButton } from "./ToolButton";
 import type { ToolType } from "@/types/photo-editor";
@@ -116,6 +117,18 @@ const DrawingToolbarComponent: React.FC<DrawingToolbarProps> = ({
           icon={<MessageSquare size={18} />}
           label="Prompt"
           disabled={isToolDisabled("prompt")}
+        />
+      )}
+
+      {/* Enhance / Upscale */}
+      {!isToolHidden("enhance") && (
+        <ToolButton
+          tool="enhance"
+          activeTool={activeTool}
+          onSelect={isToolDisabled("enhance") ? () => {} : onToolSelect}
+          icon={<Sparkles size={18} />}
+          label="Enhance"
+          disabled={isToolDisabled("enhance")}
         />
       )}
     </div>

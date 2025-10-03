@@ -51,3 +51,30 @@ export interface PollStatusResponse {
   error?: GenerationResponse["error"];
   estimatedTimeRemaining?: number; // in seconds
 }
+
+// Add Enhance (Upscale) request/response types
+export interface EnhanceRequest {
+  imageData: string; // base64 encoded image data URL
+  fidelity?: number; // 0-1, default 0.5
+  upscaling?: number; // 1, 2, 4, default 2
+  face_upscale?: boolean; // default true
+}
+
+export interface EnhanceResponse {
+  success: boolean;
+  result?: {
+    output: string; // URL of enhanced/upscaled image
+    requestId?: string;
+    metadata?: {
+      fidelity?: number;
+      upscaling?: number;
+      face_upscale?: boolean;
+      model?: string;
+    };
+  };
+  error?: {
+    code: string;
+    message: string;
+    details?: unknown;
+  };
+}

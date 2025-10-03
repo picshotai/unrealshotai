@@ -1,6 +1,6 @@
 // Photo Editor Types consolidated into the project
 
-export type ToolType = "draw" | "arrow" | "text" | "image" | "mask" | "prompt" | null;
+export type ToolType = "draw" | "arrow" | "text" | "image" | "mask" | "prompt" | "enhance" | null;
 
 export interface Point {
   x: number;
