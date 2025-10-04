@@ -27,7 +27,7 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative mx-auto pb-12 overflow-hidden min-h-screen">
+    <section className="relative mx-auto pb-12 overflow-hidden min-h-screen bg-black">
       <div className="absolute inset-0 z-2 -pt-8" style={{ backgroundImage: `url('/bg-pattern.svg')`, backgroundPosition: 'top center', backgroundRepeat: 'no-repeat', backgroundSize: 'auto' }} />
       <div className="absolute inset-0 z-0" style={{ backgroundImage: `url('/bg-image.webp')` }} />
 
@@ -51,7 +51,7 @@ Classic Hollywood glamour is yours. Create elegant, nostalgic AI photos with a v
           <div className="flex sm:flex-row gap-2 justify-center items-center w-full relative">
             <Link href="/dashboard">
               <Button className="text-sm sm:text-md py-5 sm:py-6 group relative bg-[#ff6f00] hover:bg-[#ff6f00]/90 text-white rounded-md overflow-hidden cursor-pointer pr-12">
-                Get Resume Headshots
+                Get Your Portraits
                 <div className="bg-white rounded-sm p-2 sm:p-3 absolute right-1 top-1/2 -translate-y-1/2"><img src="/arrow.svg" alt="arrow-right" className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" /></div>
               </Button>
             </Link>

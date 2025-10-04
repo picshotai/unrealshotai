@@ -81,15 +81,15 @@ export function HeroSection() {
             </div>
             <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
               <span className="text-white">
-                AI Bat Mitzvah Portraits That Beautifully 
+                AI Bat Mitzvah Portraits That Beautify 
               </span>
               <span className="text-[#ff6f00] ml-2">
-                Commemorate Her Special Day
+                Your Special Day
               </span>
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-Create stunning, celebratory portraits for her special day, all from a few simple selfies. Perfect for invitations, decor, and creating a timeless keepsake to cherish forever.            </p>
+Create stunning, celebratory portraits for your special day, all from a few simple selfies. Perfect for invitations, decor, and creating a timeless keepsake to cherish forever.            </p>
           </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             

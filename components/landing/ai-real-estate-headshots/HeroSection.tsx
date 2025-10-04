@@ -48,7 +48,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative mx-auto pb-12 overflow-hidden min-h-screen">
+    <section className="relative mx-auto pb-12 overflow-hidden min-h-screen bg-black">
       {/* Paper Texture */}
       <div
         className="absolute inset-0 z-2 -pt-8"
@@ -96,7 +96,7 @@ Your face is your brand in real estate. Create trustworthy, approachable AI head
               <Button
                 className="text-sm sm:text-md py-5 sm:py-6 group relative bg-[#ff6f00] hover:bg-[#ff6f00]/90 text-white rounded-md overflow-hidden cursor-pointer pr-12"
               >
-                Start Your Shoot
+                Get Your Headshots
                 <div className="bg-white rounded-sm p-2 sm:p-3 absolute right-1 top-1/2 -translate-y-1/2">
                   <img
                     src="/arrow.svg"

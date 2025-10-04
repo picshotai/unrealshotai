@@ -37,7 +37,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative mx-auto pb-12 overflow-hidden min-h-screen">
+    <section className="relative mx-auto pb-12 overflow-hidden min-h-screen bg-black">
       {/* Paper Texture */}
       <div
         className="absolute inset-0 z-2 -pt-8"

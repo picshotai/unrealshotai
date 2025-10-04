@@ -27,7 +27,7 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative mx-auto pb-12 overflow-hidden min-h-screen">
+    <section className="relative mx-auto pb-12 overflow-hidden min-h-screen bg-black">
       <div className="absolute inset-0 z-2 -pt-8" style={{ backgroundImage: `url('/bg-pattern.svg')`, backgroundPosition: 'top center', backgroundRepeat: 'no-repeat', backgroundSize: 'auto' }} />
       <div className="absolute inset-0 z-0" style={{ backgroundImage: `url('/bg-image.webp')` }} />
 

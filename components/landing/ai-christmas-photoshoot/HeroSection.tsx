@@ -59,14 +59,17 @@ export function HeroSection() {
         }}
       />
 
-      <div className="px-4 pt-[150px] max-w-6xl mx-auto text-center flex flex-col justify-center">
+      <div className="px-4 pt-[150px] max-w-6xl mx-auto text-center flex flex-col justify-center bg-black">
         <div className="relative z-10 space-y-6">
           <div className="space-y-6">
             <div className="bg-white inline-block p-[2px] rounded">
               <div className="flex items-center">
                 <div className="bg-black text-white text-xs px-2 py-1 rounded leading-[1.2]">
-                  Limited time offer
+                  Limited time offer ends in
                 </div>
+                <span className="text-black text-sm px-1 mx-1">
+                  Time's up
+                </span>
               </div>
             </div>
             <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">

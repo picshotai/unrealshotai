@@ -48,7 +48,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative mx-auto pb-12 overflow-hidden min-h-screen">
+    <section className="relative mx-auto pb-12 overflow-hidden min-h-screen bg-black">
       {/* Paper Texture */}
       <div
         className="absolute inset-0 z-2 -pt-8"
@@ -81,7 +81,7 @@ export function HeroSection() {
             </div>
             <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
               <span className="text-white">
-                Denim Wear Photoshoot
+                Denim Wear Photoshoot - 
               </span>
               <span className="text-[#ff6f00] ml-2">
                 The Iconic Denim Look, Reimagined

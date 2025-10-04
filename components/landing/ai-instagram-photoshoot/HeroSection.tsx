@@ -33,7 +33,7 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative mx-auto pb-12 overflow-hidden min-h-screen">
+    <section className="relative mx-auto pb-12 overflow-hidden min-h-screen bg-black">
       <div
         className="absolute inset-0 z-2 -pt-8"
         style={{
@@ -59,7 +59,7 @@ export function HeroSection() {
               <span className="text-[#ff6f00] ml-2">Stop the Scroll</span>
             </h1>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-              Create thumb-stopping content with authentic, high-quality AI images tailored for your vibe. Perfect for reels, posts, and profile pictures that grow your audience.
+              Create thumb-stopping content with authentic, high-quality AI images tailored for your vibe. Perfect for reels, posts, and profile pictures that grow your instagram audience.
             </p>
           </div>
 
