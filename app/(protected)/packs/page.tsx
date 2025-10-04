@@ -32,7 +32,7 @@ export default async function Index() {
     <div className="w-full max-w-7xl mx-auto">
       <div
         id="train-model-container"
-        className="flex flex-1 flex-col gap-2 px-2"
+        className="flex flex-1 flex-col gap-2"
       >
         <Link href="/dashboard" className="text-sm w-fit">
           <Button variant={"outline"}>

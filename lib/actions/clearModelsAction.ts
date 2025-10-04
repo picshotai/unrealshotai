@@ -2,28 +2,27 @@
 "use server"; // Mark this file as server-only
 
 import { createClient } from '@/utils/supabase/server';
+import { revalidatePath } from 'next/cache';
 
-export async function clearAllModels() {
+export async function clearAllModels(_formData: FormData): Promise<void> {
   const supabase = await createClient();
-  
-  try {
-    const { data: { user } } = await supabase.auth.getUser();
-    const userID = user?.id ?? "";
-
-    const { error } = await supabase
-      .from("models")
-      .delete()
-      .eq("user_id", userID);
-
-    if (error) {
-      console.error("Error deleting models:", error);
-      throw new Error("Failed to delete models");
-    }
-
-    console.log("All models have been deleted.");
-    return { success: true };
-  } catch (error) {
-    console.error("We have an error:", error);
-    throw error; // Let the caller handle it
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user?.id) {
+    console.error("clearAllModels: No authenticated user found");
+    throw new Error("Not authenticated");
   }
+
+  const { error } = await supabase
+    .from("models")
+    .delete()
+    .eq("user_id", user.id);
+
+  if (error) {
+    console.error("Error deleting models:", error);
+    throw new Error("Failed to delete models");
+  }
+
+  console.log("All models have been deleted for user:", user.id);
+  // Ensure the models page reflects the latest DB state
+  revalidatePath('/trained-models');
 }

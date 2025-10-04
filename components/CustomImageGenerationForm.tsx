@@ -36,7 +36,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { InfoIcon } from "lucide-react";
+import { InfoIcon, CircleDollarSign } from "lucide-react";
 import AnimatedLoader from "./AnimatedLoader";
 
 const imageGenerationFormSchema = z.object({
@@ -56,6 +56,15 @@ const imageGenerationFormSchema = z.object({
   height: z.number().int().min(8).max(1024).multipleOf(8),
 });
 
+// Preset aspect ratios (all multiples of 8 and within current max 1024)
+const ASPECT_RATIOS = [
+  { key: "square", label: "Square", width: 768, height: 768 },
+  { key: "portrait_3_4", label: "Portrait 3:4", width: 768, height: 1024 },
+  { key: "portrait_9_16", label: "Portrait 9:16", width: 576, height: 1024 },
+  { key: "landscape_4_3", label: "Landscape 4:3", width: 1024, height: 768 },
+  // 16:9 kept within max width constraint -> 1024x576
+  { key: "landscape_16_9", label: "Landscape 16:9", width: 1024, height: 576 },
+] as const;
 type FormInput = z.infer<typeof imageGenerationFormSchema>;
 
 const InfoTooltip = ({ content }: { content: string }) => (
@@ -85,16 +94,28 @@ export default function CustomImageGenerationForm({
   const [generatedPrompt, setGeneratedPrompt] = useState<string | null>(null);
   const { toast } = useToast();
   const supabase = createClient();
-  
+  // Track selected aspect ratio preset
+  const [selectedAspect, setSelectedAspect] = useState<string | null>("portrait_3_4");
+
   const form = useForm<FormInput>({
     resolver: zodResolver(imageGenerationFormSchema),
     defaultValues: {
       modelId: preSelectedModelId || "",
       prompt: "",
       width: 768,
-      height: 960,
+      height: 1024,
     },
   });
+
+  // Helper to apply aspect ratio preset to width/height
+  const handleAspectSelect = (key: string) => {
+    const ratio = ASPECT_RATIOS.find((r) => r.key === key);
+    if (ratio) {
+      form.setValue("width", ratio.width, { shouldValidate: true });
+      form.setValue("height", ratio.height, { shouldValidate: true });
+      setSelectedAspect(key);
+    }
+  };
 
   useEffect(() => {
     const fetchModels = async () => {
@@ -315,11 +336,12 @@ export default function CustomImageGenerationForm({
       modelId: preSelectedModelId || "",
       prompt: "",
       width: 768,
-      height: 960,
+      height: 1024,
     });
     setGeneratedImage(null);
     setGeneratedPrompt(null);
     setIsLoading(false);
+    setSelectedAspect("portrait_3_4");
   };
 
   useEffect(() => {
@@ -331,11 +353,11 @@ export default function CustomImageGenerationForm({
   return (
     <div className="space-y-6">
       <Alert className="mb-6">
-        <AlertTitle>Important Information</AlertTitle>
+        <AlertTitle><InfoIcon className="inline h-4 w-4 mr-2" />Important Information</AlertTitle>
         <AlertDescription>
-          Please download your generated images as soon as possible. We
-          automatically delete all images and training data after 14 days as per
-          our policy.
+          Please download your generated images asap. We
+          automatically delete all images and training data after 07 days as per
+          our policy for no data retention.
         </AlertDescription>
       </Alert>
       
@@ -416,49 +438,46 @@ export default function CustomImageGenerationForm({
                     
                     return (
                       <FormItem>
-                        <div className="flex items-center justify-between">
-                          <Label htmlFor="prompt-input" className="text-sm font-medium">
+                        <div className="group relative">
+                          <Label htmlFor="prompt-input" className="bg-card text-foreground absolute start-1 top-0 z-10 block -translate-y-1/2 px-2 text-xs font-medium">
                             Prompt ({wordCount}/300 words)
                           </Label>
-                          {isOverLimit && (
-                            <span className="text-xs text-red-500 font-medium">
-                              Exceeds limit by {wordCount - 300} words
-                            </span>
-                          )}
+                          <div className={`border rounded-lg p-3 bg-background ${isOverLimit ? 'border-red-500' : ''}`}>
+                            <FormControl>
+                              <Textarea
+                                {...field}
+                                id="prompt-input"
+                                placeholder="Describe the image you want to generate in detail"
+                                className="h-[120px] resize-none bg-transparent border-0 outline-none focus-visible:ring-0 focus-visible:outline-none placeholder:text-sm"
+                                onChange={(e) => {
+                                  const value = e.target.value;
+                                  const words = value.trim().split(/\s+/).filter(Boolean);
+                                  
+                                  // Prevent typing if word limit exceeded
+                                  if (words.length <= 300) {
+                                    field.onChange(value);
+                                  } else {
+                                    // Allow deletion but prevent adding more words
+                                    const currentWords = field.value.trim().split(/\s+/).filter(Boolean);
+                                    if (value.length < field.value.length) {
+                                      field.onChange(value);
+                                    }
+                                  }
+                                }}
+                              />
+                            </FormControl>
+                          </div>
                         </div>
-                        <FormControl>
-                          <Textarea
-                            {...field}
-                            id="prompt-input"
-                            placeholder="Describe the image you want to generate in detail"
-                            className={`h-[120px] resize-none border rounded-lg overflow-y-auto placeholder:text-sm ${
-                              isOverLimit ? 'border-red-500 focus:border-red-500' : ''
-                            }`}
-                            onChange={(e) => {
-                              const value = e.target.value;
-                              const words = value.trim().split(/\s+/).filter(Boolean);
-                              
-                              // Prevent typing if word limit exceeded
-                              if (words.length <= 300) {
-                                field.onChange(value);
-                              } else {
-                                // Allow deletion but prevent adding more words
-                                const currentWords = field.value.trim().split(/\s+/).filter(Boolean);
-                                if (value.length < field.value.length) {
-                                  field.onChange(value);
-                                }
-                              }
-                            }}
-                          />
-                        </FormControl>
-                      
+                        {isOverLimit && (
+                          <span className="text-xs text-red-500 font-medium">
+                            Exceeds limit by {wordCount - 300} words
+                          </span>
+                        )}
                         <div className="flex justify-between items-center">
                           <p className="text-xs text-muted-foreground">
                             Be specific about the details you want in the generated image
                           </p>
-                          <span className={`text-xs ${isOverLimit ? 'text-red-500' : 'text-gray-500'}`}>
-                            {wordCount}/300 words
-                          </span>
+                          
                         </div>
                         <FormMessage />
                       </FormItem>
@@ -473,57 +492,26 @@ export default function CustomImageGenerationForm({
                       Image Dimensions
                     </Label>
                     <div className="border rounded-lg p-3 bg-background">
-                      <div className="grid grid-cols-2 gap-4">
-                        <FormField
-                          control={form.control}
-                          name="width"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-sm">Width</FormLabel>
-                              <FormControl>
-                                <Input
-                                  type="number"
-                                  {...field}
-                                  onChange={(e) =>
-                                    field.onChange(Number.parseInt(e.target.value))
-                                  }
-                                  min={8}
-                                  max={1024}
-                                  step={8}
-                                  className="h-9 text-sm"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="height"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-sm">Height</FormLabel>
-                              <FormControl>
-                                <Input
-                                  type="number"
-                                  {...field}
-                                  onChange={(e) =>
-                                    field.onChange(Number.parseInt(e.target.value))
-                                  }
-                                  min={8}
-                                  max={1024}
-                                  step={8}
-                                  className="h-9 text-sm"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                      {/* Aspect Ratio Presets */}
+                      <div className="mb-3">
+                        <FormItem>
+                          <Select value={selectedAspect || ""} onValueChange={handleAspectSelect}>
+                            <SelectTrigger className="h-9 text-sm">
+                              <SelectValue placeholder="Choose an aspect ratio" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {ASPECT_RATIOS.map((ar) => (
+                                <SelectItem key={ar.key} value={ar.key} className="cursor-pointer">
+                                  {ar.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormDescription className="text-xs">
+                            Selecting a preset automatically sets width and height.
+                          </FormDescription>
+                        </FormItem>
                       </div>
-                      <p className="text-xs text-muted-foreground mt-2">
-                        Dimensions must be multiples of 8 (max 1024px)
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -551,7 +539,7 @@ export default function CustomImageGenerationForm({
                     ) : (
                       <>
                         <Wand2 className="mr-2 h-4 w-4" />
-                        Generate Image (0.5<Coin className="inline h-3 w-3 -mx-1" />)
+                        Generate Image (0.5<CircleDollarSign className="inline h-2 w-2 -mx-1" />)
                       </>
                     )}
                   </Button>
@@ -562,11 +550,9 @@ export default function CustomImageGenerationForm({
             {/* Right Column - Generated Image Display */}
             <div className="space-y-6">
               {/* Generated Image Card */}
-              <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg p-6 space-y-6 mb-12">
+              <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg p-4 space-y-6 mb-12">
                 
-                  <h3 className="text-xl font-semibold text-black dark:text-white mb-2">Generated Image</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Your generated image will appear here</p>
-               
+
 
                 {/* Image Display Area */}
                 <div className="relative min-h-[400px] flex items-center justify-center rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
@@ -593,7 +579,7 @@ export default function CustomImageGenerationForm({
                         type="button"
                         variant="outline"
                         size="icon"
-                        className="absolute top-4 right-4 bg-white dark:bg-black text-black dark:text-white border-gray-300 dark:border-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                        className="absolute top-4 right-4 bg-white dark:bg-black text-black dark:text-white border-gray-300 dark:border-gray-700 opacity-100"
                         onClick={handleDownload}
                       >
                         <Download className="h-4 w-4" />
@@ -636,7 +622,7 @@ export default function CustomImageGenerationForm({
                 ) : (
                   <>
                     <Wand2 className="mr-2 h-4 w-4 flex-shrink-0" />
-                    <span className="truncate">Generate Image (0.5<Coin className="inline h-3 w-3 -mx-1" />)</span>
+                    <span className="truncate">Generate Image (0.5<CircleDollarSign className="inline h-2 w-2 ml-1"/>)</span>
                   </>
                 )}
               </Button>

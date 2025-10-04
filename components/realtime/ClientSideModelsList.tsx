@@ -30,23 +30,33 @@ export default function ClientSideModelsList({ serverModels }: ClientSideModelsL
     const channel = supabase
       .channel("realtime-models")
       .on("postgres_changes", { event: "*", schema: "public", table: "models" }, async (payload: any) => {
-        const samples = await supabase.from("samples").select("*").eq("modelId", payload.new.id)
+        // Handle DELETE events by removing the model from local state
+        if (payload.eventType === "DELETE") {
+          const deletedId = payload.old?.id
+          if (deletedId) {
+            setModels((prev) => prev.filter((model) => model.id !== deletedId))
+          }
+          return
+        }
+
+        // For INSERT/UPDATE, fetch samples and upsert the model in local state
+        const modelId = payload.new?.id
+        if (!modelId) return
+        const samples = await supabase.from("samples").select("*").eq("modelId", modelId)
         const newModel: modelRowWithSamples = {
           ...payload.new,
           samples: samples.data,
         }
-        const dedupedModels = models.filter((model) => model.id !== payload.old?.id)
-        setModels([...dedupedModels, newModel])
+        setModels((prev) => {
+          const filtered = prev.filter((m) => m.id !== (payload.old?.id ?? newModel.id))
+          return [...filtered, newModel]
+        })
       })
       .subscribe()
     return () => {
       supabase.removeChannel(channel)
     }
-  }, [supabase, models])
-
-  const handleDeleteModels = () => {
-    setModels([])
-  }
+  }, [supabase])
 
   const openModal = () => setIsModalOpen(true)
   const closeModal = () => setIsModalOpen(false)
@@ -63,7 +73,7 @@ export default function ClientSideModelsList({ serverModels }: ClientSideModelsL
                 {models.length} model{models.length !== 1 ? 's' : ''} ready for photo generation
               </p>
             </div>
-            <ClearModels onClear={handleDeleteModels} />
+            <ClearModels />
           </div>
 
           {/* Models Table */}

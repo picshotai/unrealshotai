@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Loader2, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { modelRowWithSamples } from "@/types/utils";
+import { Button } from "@/components/ui/button";
 
 type ModelsTableProps = {
   models: modelRowWithSamples[];
@@ -31,8 +32,8 @@ export default function ModelsTable({ models }: ModelsTableProps) {
           <TableRow className="bg-gradient-to-r from-gray-50 to-gray-100">
             <TableHead className="py-3 px-4 font-semibold text-gray-900 w-1/4">Name</TableHead>
             <TableHead className="py-3 px-4 font-semibold text-gray-900 w-1/4">Status</TableHead>
-            <TableHead className="py-3 px-4 font-semibold text-gray-900 w-1/4">Type</TableHead>
             <TableHead className="py-3 px-4 font-semibold text-gray-900 w-1/4">Samples</TableHead>
+            <TableHead className="py-3 px-4 font-semibold text-gray-900 w-1/4">Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -58,7 +59,6 @@ export default function ModelsTable({ models }: ModelsTableProps) {
                   )}
                 </div>
               </TableCell>
-              <TableCell className="py-4 px-4 text-gray-700 truncate">{model.type}</TableCell>
               <TableCell className="py-4 px-4">
                 <div className="flex items-center space-x-2 overflow-x-auto">
                   {model.samples.slice(0, 3).map((sample, index) => (
@@ -77,6 +77,19 @@ export default function ModelsTable({ models }: ModelsTableProps) {
                   )}
                 </div>
               </TableCell>
+              <TableCell className="py-4 px-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleRedirect(model.id);
+                  }}
+                >
+                  View
+                </Button>
+              </TableCell>
+              
             </TableRow>
           ))}
         </TableBody>

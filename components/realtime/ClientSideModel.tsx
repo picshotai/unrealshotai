@@ -75,14 +75,14 @@ export default function ClientSideModel({ serverModel, serverImages, samples }: 
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-8">
           {samples && (
             <div className="flex w-full lg:w-1/2 flex-col gap-4">
-              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200">Training Data</h2>
-              <div className="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200">Your Training Data</h2>
+              <div className="grid grid-cols-4 gap-2 md:grid-cols-4 lg:grid-cols-6">
                 {samples.map((sample, index) => (
                   <img
                     key={sample.id}
                     src={sample.uri || "/placeholder.svg"}
                     alt={`Training sample ${index + 1}`}
-                    className="rounded-lg w-60 aspect-[2/3] object-cover shadow-md hover:shadow-xl transition-shadow duration-300"
+                    className="rounded-md w-20 aspect-[2/3] object-cover hover:shadow-sm transition-shadow duration-300"
                   />
                 ))}
               </div>
@@ -91,7 +91,7 @@ export default function ClientSideModel({ serverModel, serverImages, samples }: 
           <div className="flex flex-col w-full lg:w-1/2 rounded-lg">
             {model.status === "finished" && (
               <div className="flex flex-1 flex-col gap-4">
-                <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-200">Results</h1>
+                <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-200">Your Photoshots</h2>
                 <div className="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {images.map((image) => (
                     <div key={image.id} className="relative group w-full">

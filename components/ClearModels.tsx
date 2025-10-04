@@ -1,24 +1,14 @@
 // components/ClearModels.tsx
 import { Button } from "@/components/ui/button";
-import { clearAllModels } from "@/lib/actions/clearModelsAction"; // Import the action
+import { clearAllModels } from "@/lib/actions/clearModelsAction"; // Server Action
 
 export const dynamic = "force-dynamic";
 
-type ClearAllButtonProps = {
-  onClear: () => void;
-};
-
-export default function ClearModels({ onClear }: ClearAllButtonProps) {
-  // Bind the action with a wrapper to call onClear after success
-  const handleSubmit = async () => {
-    await clearAllModels(); // Call the Server Action
-    onClear(); // Update client-side state
-  };
-
+export default function ClearModels() {
   return (
-    <form action={handleSubmit}>
+    <form action={clearAllModels}>
       <Button variant="outline" size="sm" type="submit">
-        Clear all
+        Delete all models
       </Button>
     </form>
   );

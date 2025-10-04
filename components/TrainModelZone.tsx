@@ -281,7 +281,7 @@ export default function TrainModelZone({ packSlug }: { packSlug: string }) {
             {/* Left Column - Configuration */}
             <div className="space-y-6">
               {/* Model Configuration Card */}
-              <div className="bg-card border rounded-xl p-4 space-y-6 mb-0">
+              <div className="bg-card border rounded-xl p-4 space-y-6">
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Model Configuration</h3>
                   <p className="text-sm text-muted-foreground">Set up your model details</p>
@@ -309,7 +309,7 @@ export default function TrainModelZone({ packSlug }: { packSlug: string }) {
                           />
                         </FormControl>
                       </div>
-                      <FormDescription>Choose a descriptive name for your model</FormDescription>
+                      <FormDescription className="text-sm text-muted-foreground">Choose a descriptive name for your model</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -360,7 +360,7 @@ export default function TrainModelZone({ packSlug }: { packSlug: string }) {
               <div className="space-y-4 hidden md:block">
                 <Button 
                   type="submit" 
-                  className="w-full h-12 text-lg" 
+                  className="w-full text-md" 
                   disabled={isLoading || files.length < 4 || files.length > 10 || userCredits < 30}
                   size="lg"
                 >
@@ -492,7 +492,7 @@ export default function TrainModelZone({ packSlug }: { packSlug: string }) {
           <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-background border-t border-border z-50">
             <Button 
               type="submit" 
-              className="w-full h-12 text-lg" 
+              className="w-full text-md" 
               disabled={isLoading || files.length < 4 || files.length > 10 || userCredits < 30}
               size="lg"
             >

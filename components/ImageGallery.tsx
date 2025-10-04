@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { motion } from "framer-motion"
 import { ImagePlaceholder } from "./ImagePlaceholder"
+import { toast as sonnerToast } from "sonner"
 
 interface Image {
   id: number;
@@ -208,17 +209,10 @@ export default function ImageGallery() {
 
       setImages((prevImages) => prevImages.filter((img) => img.id !== imageToDelete.id))
       updateCacheAfterDelete(imageToDelete.id)
-      toast({
-        title: "Success",
-        description: "Image deleted successfully.",
-      })
+      sonnerToast.success("Image removed from your gallery.")
     } catch (error) {
       console.error("Error deleting image:", error)
-      toast({
-        title: "Error",
-        description: "Failed to delete image. Please try again.",
-        variant: "destructive",
-      })
+      sonnerToast.error("Could not delete the image. Please try again.")
     } finally {
       setDeletingImageId(null)
       setShowDeleteDialog(false)
@@ -278,7 +272,7 @@ export default function ImageGallery() {
                   onLoad={() => handleImageLoad(image.id)}
                   onError={() => handleImageError(image)}
                 />
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex flex-col justify-between p-4">
+                <div className="absolute inset-0 bg-transparent rounded-lg flex flex-col justify-between p-4">
                   <div className="flex justify-end">
                     <Button
                       variant="ghost"

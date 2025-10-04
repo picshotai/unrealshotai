@@ -10,6 +10,8 @@ import {
   generateOrganizationJsonLd, 
   generateWebsiteJsonLd
 } from "@/lib/seo"
+import { Toaster } from "@/components/ui/sonner"
+import { Toaster as ShadcnToaster } from "@/components/ui/toaster"
 
 
 const inter = Inter({
@@ -96,6 +98,8 @@ export default async function RootLayout({
             {children}
           </Suspense>
         </ErrorBoundary>
+        <Toaster richColors closeButton />
+        <ShadcnToaster />
       </body>
     </html>
   )

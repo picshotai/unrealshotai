@@ -258,19 +258,13 @@ export default function CustomModelTrainingZone() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto">
         <div className="max-w-6xl mx-auto">
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">Train Custom Model</h1>
-            <p className="text-muted-foreground">
-              Upload your photos to create a personalized AI model for generating images
-            </p>
-          </div>
+       
 
           {/* Insufficient Credits Section - Replaces form when user doesn't have enough credits */}
           {hasInsufficientCredits && (
-            <div className="bg-white border border-gray-200 rounded-xl p-8 text-center ">
+            <div className="bg-white border border-gray-200 rounded-xl text-center ">
               <div className="mb-6">
                 <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CreditCard className="w-8 h-8 text-red-600" />
@@ -422,7 +416,7 @@ export default function CustomModelTrainingZone() {
                   <div className="space-y-4 hidden md:block">
                     <Button 
                       type="submit" 
-                      className="w-full h-12 text-lg" 
+                      className="w-full text-md" 
                       disabled={isLoading || files.length < 4 || files.length > 10}
                       size="lg"
                     >
@@ -552,7 +546,7 @@ export default function CustomModelTrainingZone() {
           <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-background border-t border-border z-40">
             <Button 
               type="submit" 
-              className="w-full h-12 text-lg" 
+              className="w-full text-md" 
               disabled={isLoading || files.length < 4 || files.length > 10}
               size="lg"
             >

@@ -106,14 +106,14 @@ export default function PacksGalleryZone() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="p-4">
-              <h3 className="text-gray-900 font-semibold text-base capitalize leading-tight line-clamp-2 mb-3 text-md">
+            <div className="p-2 sm:p-4">
+              <h3 className="text-gray-900 font-semibold text-base capitalize leading-tight line-clamp-2 mb-3 text-sm sm:text-md">
                 {pack.title}
               </h3>
               
               {/* Train Button */}
               <Link href={`/models/train/${pack.slug}`} className="block">
-                <button className="text-sm w-full bg-gray-900 hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                <button className="text-sm w-full bg-gray-900 hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 flex items-center justify-center gap-2 cursor-pointer">
                   <Play className="h-4 w-4" />
                   Start Training
                 </button>
