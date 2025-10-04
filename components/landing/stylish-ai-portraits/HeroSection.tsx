@@ -84,13 +84,12 @@ export function HeroSection() {
                 Stylish AI Portraits
               </span>
               <span className="text-[#ff6f00] ml-2">
-                Fashion-Forward. Editorial. You.
+                That Stop the Scroll
               </span>
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-Refined, contemporary AI portraits that elevate your brand—perfect for profiles, lookbooks, and standout social content.
-            </p>
+Go beyond the standard portrait. Create artistic, magazine-worthy AI portraits that capture your unique style and personality, ready for any platform.            </p>
           </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             

@@ -84,13 +84,12 @@ export function HeroSection() {
                 Office Outfit Photoshoot
               </span>
               <span className="text-[#ff6f00] ml-2">
-                Smart. Polished. Professional.
+                Power Dressing, Perfected by AI
               </span>
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-Showcase tailored blazers, crisp shirts, and business-casual fits with clean, modern AI portraits. Ideal for LinkedIn, portfolios, team pages, and personal branding.
-            </p>
+Showcase your professional style beyond the basic headshot. Generate polished, full-body shots in your best office wear for a modern, confident corporate brand.            </p>
           </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             

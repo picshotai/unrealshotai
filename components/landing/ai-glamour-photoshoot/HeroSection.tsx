@@ -71,16 +71,15 @@ export function HeroSection() {
             </div>
             <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
               <span className="text-white">
-                Stunning AI Glamour
+                AI Glamour Photoshoot Generator
               </span>
               <span className="text-[#ff6f00] ml-2">
-                Photoshoots
+                – Selfies to Model-Quality Portraits
               </span>
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-            Elevate your look with a professional AI-powered glamour photoshoot. Get a portfolio of stunning, high-fashion images that showcase your best self.
-            </p>
+Unleash your inner celebrity. Get stunning, high-fashion glamour shots without a team of stylists. Perfect for when you need to look and feel absolutely incredible.            </p>
           </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             

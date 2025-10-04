@@ -81,16 +81,15 @@ export function HeroSection() {
             </div>
             <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
               <span className="text-white">
-                Black Swan Photoshoot
+                AI Black Swan Photoshoot
               </span>
               <span className="text-[#ff6f00] ml-2">
-                Bold. Dramatic. Editorial.
+                That Unleash Your Dark Elegance
               </span>
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-High-contrast, moody AI portraits inspired by fashion editorials—perfect for standout profiles, campaigns, and creative storytelling.
-            </p>
+Capture the breathtaking artistry of the Black Swan. This AI photoshoot creates stunning, dramatic, and elegant portraits that are a true work of art.            </p>
           </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             

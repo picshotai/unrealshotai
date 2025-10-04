@@ -84,12 +84,13 @@ export function HeroSection() {
                 AI Dating Photoshoot
               </span>
               <span className="text-[#ff6f00] ml-2">
-                Real. Charming. Swipe-Worthy.
+                That Get Noticed
               </span>
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-Stand out with natural, confidence-boosting AI portraits that feel like you—ideal for dating profiles and socials.            </p>
+Stop using old selfies. We turn your photos into a magnetic AI dating photoshoot that shows your best self, boosts your confidence, and gets you more matches.
+            </p>
           </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             

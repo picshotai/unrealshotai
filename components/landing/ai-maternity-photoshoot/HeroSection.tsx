@@ -30,8 +30,8 @@ const images = [
   { src: "/landing/landingphoto14.jpg", alt: "AI-generated stylish photoshoot of a man - Unrealshot AI" },
   { src: "/landing/landingphoto15.jpg", alt: "AI realtor headshot of Mr. adward from california - Unrealshot AI" },
   { src: "/landing/landingphoto16.jpg", alt: "AI MD Doctor Headshot of Dr. James H. - Unrealshot AI" },
-   { src: "/landing/landingphoto8.jpg", alt: "AI-generated headshot 8 - Unrealshot AI" },
- { src: "/landing/landingphoto17.jpg", alt: "AI-generated headshot 17 - Unrealshot AI" },
+  { src: "/landing/landingphoto8.jpg", alt: "AI-generated headshot 8 - Unrealshot AI" },
+  { src: "/landing/landingphoto17.jpg", alt: "AI-generated headshot 17 - Unrealshot AI" },
   { src: "/landing/landingphoto18.jpg", alt: "AI-generated headshot 18 - Unrealshot AI" },
   { src: "/landing/landingphoto19.jpg", alt: "AI-generated headshot 19 - Unrealshot AI" },
 ]
@@ -81,15 +81,14 @@ export function HeroSection() {
             </div>
             <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
               <span className="text-white">
-                AI Speaker Photoshoots
-              </span>
+AI Maternity Photoshoots That          </span>
               <span className="text-[#ff6f00] ml-2">
-                That Win Audiences
+               Beautifully Capture Your Glow     
               </span>
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-Get dynamic, engaging speaker photos for your bio, website, and event promos. Our AI creates shots that show your stage presence and command attention.            </p>
+Celebrate your journey with a beautiful AI maternity shoot. Get stunning, tasteful, and timeless portraits that capture your glow, all from the comfort of your home.            </p>
           </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             

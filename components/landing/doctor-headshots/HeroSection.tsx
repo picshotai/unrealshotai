@@ -78,8 +78,7 @@ export function HeroSection() {
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-              Elevate your professional image with AI-powered headshots. Get a portfolio of realistic, high-quality photos that project confidence and expertise, perfect for your practice, profile, and publications.
-            </p>
+Project the compassion and professionalism you're known for. Get warm, high-quality AI headshots for your practice, hospital profile, or speaking engagements instantly.            </p>
           </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             

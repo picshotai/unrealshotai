@@ -76,8 +76,7 @@ export function HeroSection() {
               <span className="text-[#ff6f00] ml-2">Inspire Trust</span>
             </h1>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-              Present your best self to investors, press, and customers. Get studio-quality, authentic portraits that align with your brand across LinkedIn, pitch decks, and your website.
-            </p>
+You're paid for your decisions, not your time. Make the right one for your brand. Generate confident AI founder headshots for press, pitches, and profiles.            </p>
           </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             <Link href="/dashboard">

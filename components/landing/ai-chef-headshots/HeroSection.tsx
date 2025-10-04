@@ -89,7 +89,7 @@ export function HeroSection() {
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-Present a credible, camera-ready image with clean, modern portraits tailored to your kitchen’s vibe—ideal for menus, press features, and personal branding.
+Present a credible, camera-ready image with clean, modern portraits tailored to your kitchen’s vibe - ideal for menus, press features, and personal branding.
             </p>
           </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">

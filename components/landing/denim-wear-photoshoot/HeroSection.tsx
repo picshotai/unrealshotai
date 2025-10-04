@@ -84,13 +84,12 @@ export function HeroSection() {
                 Denim Wear Photoshoot
               </span>
               <span className="text-[#ff6f00] ml-2">
-                Casual. Cool. Iconic.
+                The Iconic Denim Look, Reimagined
               </span>
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-Show off your best denim looks—jackets, jeans, and fits that feel effortless. Get editorial-style AI portraits perfect for lookbooks, profiles, and fashion posts.
-            </p>
+Get that timeless, effortlessly cool denim photoshoot. From classic portraits to modern styles, create stunning images that showcase this iconic wardrobe staple.            </p>
           </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             

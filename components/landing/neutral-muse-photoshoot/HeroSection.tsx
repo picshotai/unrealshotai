@@ -81,16 +81,15 @@ export function HeroSection() {
             </div>
             <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
               <span className="text-white">
-                Neutral Muse Photoshoot
+                AI Neutral Muse Portraits 
               </span>
               <span className="text-[#ff6f00] ml-2">
-                Minimal. Modern. Chic.
+                That Embody Quiet Luxury
               </span>
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-Clean lines, soft tones, and editorial AI portraits that elevate your fashion aesthetic—ideal for lookbooks, profiles, and brand storytelling.
-            </p>
+Embrace the power of minimalism. This AI photoshoot creates sophisticated portraits with a clean, neutral palette that highlights your features with timeless style.            </p>
           </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             

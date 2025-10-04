@@ -71,10 +71,10 @@ export function HeroSection() {
             </div>
             <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
               <span className="text-white">
-                Magical AI Christmas
+                Create Magical AI Christmas Photoshoots 
               </span>
               <span className="text-[#ff6f00] ml-2">
-                Photoshoots
+                Online
               </span>
             </h1>
 

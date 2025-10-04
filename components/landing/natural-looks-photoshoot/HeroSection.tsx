@@ -81,16 +81,15 @@ export function HeroSection() {
             </div>
             <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
               <span className="text-white">
-                Natural Looks Photoshoot
+                AI Portraits That Showcase Your 
               </span>
               <span className="text-[#ff6f00] ml-2">
-                Effortlessly You
+               True Natural Beauty
               </span>
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-Get fresh, minimal, and true-to-you portraits. Soft lighting, clean tones, and authentic expressions—perfect for profiles, portfolios, and brand storytelling.
-            </p>
+Your natural beauty, perfectly captured. This AI photoshoot creates authentic, minimalist portraits that look like you on your very best day. Simple, clean, and real.            </p>
           </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             

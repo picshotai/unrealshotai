@@ -81,16 +81,15 @@ export function HeroSection() {
             </div>
             <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
               <span className="text-white">
-                AI Real Estate Headshots That Actually
+                AI Real Estate Headshots That Help 
               </span>
               <span className="text-[#ff6f00] ml-2">
-                Look Like You
+                Close the Deal
               </span>
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-Transform your casual photos into professional real estate headshots that build trust with clients. Get an entire portfolio of authentic photos perfect for your listings and marketing materials.            </p>
-          </div>
+Your face is your brand in real estate. Create trustworthy, approachable AI headshots that help you win more listings and connect with clients instantly.</p>          </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             
             <Link href="/dashboard">

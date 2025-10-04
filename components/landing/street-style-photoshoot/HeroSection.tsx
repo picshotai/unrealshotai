@@ -81,16 +81,15 @@ export function HeroSection() {
             </div>
             <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
               <span className="text-white">
-                Elegant Street Style Photoshoot
+                Elegant AI Street Style Photos 
               </span>
               <span className="text-[#ff6f00] ml-2">
-                Effortlessly Cool. City-Ready.
+                from Your Selfies
               </span>
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-Own the streets with editorial, fashion-forward AI portraits—perfect for Instagram, lookbooks, and personal branding.
-            </p>
+Capture that effortless urban edge. Turn your selfies into a high-fashion street style photoshoot that looks like it was ripped from a magazine.            </p>
           </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             

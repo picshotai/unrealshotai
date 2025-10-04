@@ -81,16 +81,15 @@ export function HeroSection() {
             </div>
             <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
               <span className="text-white">
-                Personal Branding Photoshoot
+                Personal Branding Photos That Attract 
               </span>
               <span className="text-[#ff6f00] ml-2">
-                Authentic. Credible. Memorable.
+                Your Next Big Opportunity
               </span>
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-Elevate your brand with consistent, professional AI portraits—perfect for LinkedIn, websites, press kits, and portfolios.            </p>
-          </div>
+Stop using outdated headshots. Build a powerful personal brand by turning selfies into professional photos that build credibility and help you attract clients, partners, and gigs.</p>          </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             
             <Link href="/dashboard">

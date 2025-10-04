@@ -81,16 +81,15 @@ export function HeroSection() {
             </div>
             <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
               <span className="text-white">
-                Vintage AI Yearbook
+                Create Your 90s AI Yearbook Photos 
               </span>
               <span className="text-[#ff6f00] ml-2">
-                Nostalgia, Perfected
+                that capture Nostalgia
               </span>
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-Recreate timeless yearbook looks with retro-style AI portraits. Choose classic themes and get a shareable set for socials, gifts, and throwback memories—no old camera required.
-            </p>
+Relive the glory days. Get hilarious and iconic 90s-style AI yearbook photos that are perfect for sharing. The only thing missing is the bad hair gel.            </p>
           </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             

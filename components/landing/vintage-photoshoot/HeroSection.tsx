@@ -41,12 +41,11 @@ export function HeroSection() {
               </div>
             </div>
             <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
-              <span className="text-white">AI Resume Headshots That</span>
-              <span className="text-[#ff6f00] ml-2">Land Interviews</span>
+              <span className="text-white">Vintage AI Portraits That Bring </span>
+              <span className="text-[#ff6f00] ml-2">Old Hollywood to Life</span>
             </h1>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-              Make your application stand out with clean, realistic headshots optimized for resumes, job portals, and personal websites—no studio booking required.
-            </p>
+Classic Hollywood glamour is yours. Create elegant, nostalgic AI photos with a vintage aesthetic that captures the charm and style of another time.            </p>
           </div>
 
           <div className="flex sm:flex-row gap-2 justify-center items-center w-full relative">
