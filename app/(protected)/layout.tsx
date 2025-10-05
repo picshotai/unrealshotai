@@ -34,7 +34,7 @@ export default async function DashboardLayout({
   // Fetch user's credit balance for header display
   const { balance: creditBalance } = await creditService.getUserCredits(user.id)
   return (
-    <>
+    <div className="protected-scope">
       <NavigationProgress />
       <OnboardingGate>
         <SidebarProvider>
@@ -76,6 +76,6 @@ export default async function DashboardLayout({
           </SidebarInset>
         </SidebarProvider>
       </OnboardingGate>
-    </>
+    </div>
   )
 }

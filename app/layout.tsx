@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Instrument_Serif, Inter_Tight } from "next/font/google"
+import { Inter, Instrument_Serif, Inter_Tight, Bricolage_Grotesque } from "next/font/google"
 import "./globals.css"
 import { Suspense } from "react"
 import ErrorBoundary from "@/components/error-boundary"
@@ -37,6 +37,14 @@ const interTight = Inter_Tight({
   preload: true,
 })
 
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-bricolage",
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+  preload: true,
+})
+
 
 export const metadata: Metadata = generateMetadata()
 
@@ -47,7 +55,7 @@ export default async function RootLayout({
 }>) {
 
   return (
-    <html lang="en" className={`${inter.variable} ${instrumentSerif.variable} ${interTight.variable} antialiased`}>
+    <html lang="en" className={`${inter.variable} ${instrumentSerif.variable} ${interTight.variable} ${bricolage.variable} antialiased`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -92,7 +100,7 @@ export default async function RootLayout({
         />
         {/* Note: WebApplication schema is page-specific and added only to home page */}
       </head>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased public-headings">
         <ErrorBoundary>
           <Suspense fallback={null}>
             {children}

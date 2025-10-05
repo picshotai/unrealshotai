@@ -111,8 +111,8 @@ function LoginFormWithSearchParams() {
                 <CardContent className="grid p-0 md:grid-cols-2">
                   <div className="p-6 md:p-8">
                     <div className="space-y-2 text-center">
-                      <h1 className="text-4xl font-semibold tracking-tight text-black">Welcome to DodoStarter.com</h1>
-                      <p className="text-lg text-gray-600">Sign in to create your professional resume</p>
+                      <h1 className="text-4xl font-semibold tracking-tight text-black">Welcome to Unrealshot AI</h1>
+                      <p className="text-lg text-gray-600">Sign in to pretend you're a model</p>
                     </div>
 
                     {/* Error & success messages */}
@@ -164,9 +164,9 @@ function LoginFormWithSearchParams() {
               <div className="mt-4 text-center">
                 <p className="text-sm text-gray-600">
                   By signing in, you agree to our{' '}
-                  <a href="#" className="text-black hover:underline">Terms of Service</a>
+                  <a href="/terms" className="text-black hover:underline">Terms of Service</a>
                   {' '}and{' '}
-                  <a href="#" className="text-black hover:underline">Privacy Policy</a>
+                  <a href="/privacy-policy" className="text-black hover:underline">Privacy Policy</a>
                 </p>
               </div>
             </div>

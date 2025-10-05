@@ -194,7 +194,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
-   /* Enhanced heading styles for better hierarchy */
+  /* Enhanced heading styles for better hierarchy */
   h1,
   h2,
   h3,
@@ -205,11 +205,26 @@
     letter-spacing: -0.025em;
   }
 
-    /* Better paragraph spacing and readability */
+  /* Public pages: use Bricolage for headings only */
+  .public-headings h1,
+  .public-headings h2,
+  .public-headings h3,
+  .public-headings h4,
+  .public-headings h5,
+  .public-headings h6 {
+    font-family: var(--font-bricolage);
+    font-weight: 700;
+  }
+
+  /* Better paragraph spacing and readability */
   p {
     @apply text-pretty;
   }
+}
 
+/* Utility class for explicit usage if needed */
+.font-bricolage {
+  font-family: var(--font-bricolage);
 }
 
 
@@ -544,4 +559,15 @@
     transform: scale(1.1);
     opacity: 0.1;
   }
+}
+
+/* Protected pages: explicitly keep default heading font */
+.protected-scope h1,
+.protected-scope h2,
+.protected-scope h3,
+.protected-scope h4,
+.protected-scope h5,
+.protected-scope h6 {
+  font-family: var(--font-inter);
+  font-weight: 700;
 }
