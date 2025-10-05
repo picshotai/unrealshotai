@@ -35,8 +35,7 @@ export default function PrivacySection() {
           <span className="block mt-2 text-[#ff6f00]"> But We're The Best.</span>
         </h2>      
         <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto text-center">
-          Founded in India, with a commitment to protecting your privacy at every step.
-        </p>
+We deliver hyper-realistic results without the subscription trap or data retention risks.        </p>
       </div>
      
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">

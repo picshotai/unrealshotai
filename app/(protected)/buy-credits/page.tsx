@@ -25,6 +25,11 @@ function formatCredits(credits: number): string {
   return new Intl.NumberFormat('en-US').format(credits);
 }
 
+// Normalize plan names to avoid casing/spacing mismatches
+function normalizePlanName(name: string) {
+  return name.trim().toLowerCase();
+}
+
 type PricingPlan = {
   id: string;
   name: string;
@@ -84,9 +89,10 @@ export default async function BuyCreditsPage() {
     '60 credits included'
   ];
 
+  // Use normalized keys so minor plan name differences don't break mapping
   const featuresByPlanName: Record<string, string[]> = {
-    Starter: starterFeatures,
-    Pro: proFeatures,
+    starter: starterFeatures,
+    pro: proFeatures,
   };
 
   return (
@@ -143,10 +149,10 @@ export default async function BuyCreditsPage() {
                 </div>
               </CardHeader>
               
-              <CardContent>
+              <CardContent className="pb-2">
                 <ul className="space-y-2 text-sm">
-                  {(featuresByPlanName[plan.name] || []).map((feature) => (
-                    <li key={feature} className="flex items-center gap-2">
+                  {(featuresByPlanName[normalizePlanName(plan.name)] || []).map((feature, idx) => (
+                    <li key={`${plan.id}-${idx}`} className="flex items-center gap-2">
                       <Check className="h-4 w-4 text-[#111827]" />
                       <span className="text-muted-foreground">{feature}</span>
                     </li>

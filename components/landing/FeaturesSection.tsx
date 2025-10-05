@@ -43,8 +43,8 @@ export function FeaturesSection() {
 	 	 	 <div className="mx-auto w-full max-w-5xl space-y-8 px-4"> 
 	 	 	 	 <div className="mx-auto max-w-3xl text-center mb-12"> 
 	 	 	 	 	 <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold mb-6"> 
-	 	 	 	 	 	 More Than a Headshot. <br /> 
-	 	 	 	 	 	 <span className="text-[#ff6f00]">An Entire Photoshoot.</span> 
+	 	 	 	 	 	 The Full Studio Experience.  <br /> 
+	 	 	 	 	 	 <span className="text-[#ff6f00]">Zero Studio Hassle.</span> 
 	 	 	 	 	 </h2> 
 	 	 	 	 	 <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto leading-tight"> 
 	 	 	 	 	 	Unrealshot is a suite of powerful tools designed to give you complete creative control and stunning, authentic results.

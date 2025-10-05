@@ -13,6 +13,7 @@ import { Header } from "@/components/Header"
 import Footer from "@/components/MainFooter"
 import { CSRFProvider, CSRFInput } from "@/components/csrf-provider"
 import { Card, CardContent } from "@/components/ui/card"
+import Image from "next/image"
 
 type AuthState = {
   error?: string
@@ -101,12 +102,12 @@ function LoginFormWithSearchParams() {
 
   return (
     <CSRFProvider>
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-[#F7F5F3]">
         <Header />
         {/* Spacer to account for fixed header height */}
         <main className="flex-1 pt-24 md:pt-28 px-4 pb-12 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl">
-            <div className="grid min-h-[calc(100vh-16rem)] place-items-center">
+          <div className="mx-auto max-w-4xl px-4 sm:px-1">
+            <div className="grid  place-items-center">
               <Card className="overflow-hidden p-0 shadow-xs w-full">
                 <CardContent className="grid p-0 md:grid-cols-2">
                   <div className="p-6 md:p-8">
@@ -180,14 +181,13 @@ function LoginFormWithSearchParams() {
 
 function LoginShowcase() {
   const images = [
-    "/images/demo1.jpg",
-    "/images/demo2.jpg",
-    "/images/demo3.jpg",
-    "/images/demo4.jpg",
-    "/images/demo5.jpg",
-    "/images/demo6.jpg",
-    "/images/demo7.jpg",
-    "/images/demo8.jpg",
+    "/landing/landingphoto4.jpg",
+    "/landing/landingphoto6.jpg",
+    "/content/ai-generated-sachin2.webp",
+    "/content/ai-generated-shreya.jpg",
+    "/content/ai-generated-sumesh3.webp",
+    "/content/christmas1.jpg",
+
   ]
   const [index, setIndex] = useState(0)
 
@@ -212,8 +212,14 @@ function LoginShowcase() {
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-none md:rounded-r-xl" />
       <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-        <div className="inline-flex items-center gap-2 bg-black/50 text-white px-3 py-1 rounded-full text-xs">
-          <span className="w-2 h-2 rounded-full bg-[#ff6a00]" />
+        <div className="inline-flex items-center gap-2 bg-white/60 text-black p-1 rounded text-xs">
+          <Image
+        src="/site-logo.png"
+        alt="Unrealshot AI Logo"
+        width={24}
+        height={24}
+        className="w-6 h-6 rounded"
+      />
           <span>Real results from our users</span>
         </div>
       </div>
