@@ -12,49 +12,14 @@ export default function Footer() {
     { href: '/terms', label: 'Terms' },
     { href: '/refund-policy', label: 'Refund Policy' },
   ];
-
-  // Photoshoot landing pages (public)
-  const photoshootLinks = [
-    { href: '/founder-headshots', label: 'Founder Headshots' },
-    { href: '/corporate-headshots', label: 'Corporate Headshots' },
-    { href: '/professional-headshots', label: 'Professional Headshots' },
-    { href: '/linkedin-headshots', label: 'LinkedIn Headshots' },
-    { href: '/resume-headshots', label: 'Resume Headshots' },
-    { href: '/doctor-headshots', label: 'Doctor Headshots' },
-    { href: '/lawyer-headshots', label: 'Lawyer Headshots' },
-    { href: '/ai-real-estate-headshots', label: 'Real Estate Headshots' },
-    { href: '/ai-chef-headshots', label: 'Chef Headshots ' },
-
-    { href: '/ai-influencer-generator', label: 'Influencer Generator' },
-    { href: '/ai-instagram-photoshoot', label: 'Instagram Photoshoot ' },
-    { href: '/ai-yearbook', label: 'AI Yearbook' },
-
-    { href: '/personal-branding-photoshoot', label: 'Personal Branding Photoshoot' },
-    { href: '/street-style-photoshoot', label: 'Street Style Photoshoot' },
-    { href: '/office-outfit-photoshoot', label: 'Office Outfit Photoshoot' },
-    { href: '/denim-wear-photoshoot', label: 'Denim Wear Photoshoot' },
-    { href: '/natural-looks-photoshoot', label: 'Natural Looks Photoshoot' },
-    { href: '/neutral-muse-photoshoot', label: 'Neutral Muse Photoshoot' },
-    { href: '/vintage-photoshoot', label: 'Vintage Photoshoot' },
-    { href: '/stylish-ai-portraits', label: 'Stylish AI Portraits' },
-    { href: '/black-swan-photoshoot', label: 'Black Swan Photoshoot' },
-
-    { href: '/ai-christmas-photoshoot', label: 'Christmas Photoshoot' },
-    { href: '/ai-halloween-photoshoot', label: 'Halloween Photoshoot' },
-    { href: '/ai-diwali-photoshoot', label: 'Diwali Photoshoot' },
-    { href: '/ai-bat-mitzvah-photoshoot', label: 'Bat Mitzvah Photoshoot' },
-    { href: '/ai-dating-photoshoot', label: 'Dating Photoshoot' },
-    { href: '/ai-glamour-photoshoot', label: 'Glamour Photoshoot' },
-    { href: '/ai-fantasy-photoshoot', label: 'Fantasy Photoshoot' },
-    { href: '/ai-maternity-photoshoot', label: 'Maternity Photoshoot ' },
-  ];
-
+  
   return (
     <footer className="w-full py-8 px-6 mt-auto bg-white border-t border-gray-100">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-center md:text-left">
-            <Link href="/">
+            
+            <Link href="/" className="flex items-center gap-2">
              <Image
         src="/site-logo.png"
         alt="Unrealshot AI Logo"
@@ -66,6 +31,7 @@ export default function Footer() {
               Unrealshot AI
             </h3>
             </Link>
+            
             <p className="text-gray-600 text-sm mt-1">
               Professional AI photoshoots
             </p>
@@ -143,16 +109,23 @@ export default function Footer() {
           {/* Photoshoot styles */}
           <div className="md:col-span-2">
             <h3 className="text-sm font-semibold text-gray-900">Photoshoot styles</h3>
-            {/* Responsive multi-column list for minimal, clean layout */}
-            <ul className="mt-3 columns-2 sm:columns-3 lg:columns-4 gap-4">
-              {photoshootLinks.map((link) => (
-                <li key={link.href} className="break-inside-avoid mb-2">
-                  <Link href={link.href} className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
-                    {link.label}
-                  </Link>
-                </li>
+            {/* Category grid - minimal & responsive */}
+            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Object.entries(photoshootCategories).map(([category, links]) => (
+                <div key={category}>
+                  <h4 className="text-xs font-semibold text-gray-700">{category}</h4>
+                  <ul className="mt-2 space-y-2">
+                    {links.map((link) => (
+                      <li key={link.href}>
+                        <Link href={link.href} className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
 
@@ -166,3 +139,47 @@ export default function Footer() {
     </footer>
   );
 }
+
+
+  // Photoshoot landing pages grouped into subcategories (keep wording as-is)
+  const photoshootCategories = {
+    'Headshots': [
+      { href: '/founder-headshots', label: 'Founder Headshots' },
+      { href: '/corporate-headshots', label: 'Corporate Headshots' },
+      { href: '/professional-headshots', label: 'Professional Headshots' },
+      { href: '/linkedin-headshots', label: 'LinkedIn Headshots' },
+      { href: '/resume-headshots', label: 'Resume Headshots' },
+      { href: '/doctor-headshots', label: 'Doctor Headshots' },
+      { href: '/lawyer-headshots', label: 'Lawyer Headshots' },
+      { href: '/ai-real-estate-headshots', label: 'Real Estate Headshots' },
+      { href: '/ai-chef-headshots', label: 'Chef Headshots' },
+    ],
+    'AI Events': [
+      { href: '/ai-christmas-photoshoot', label: 'Christmas' },
+      { href: '/ai-halloween-photoshoot', label: 'Halloween' },
+      { href: '/ai-diwali-photoshoot', label: 'Diwali' },
+      { href: '/ai-bat-mitzvah-photoshoot', label: 'Bat Mitzvah' },
+      { href: '/ai-yearbook', label: 'AI Yearbook' },
+    ],
+    'Lifestyle': [
+      { href: '/personal-branding-photoshoot', label: 'Personal Branding' },
+      { href: '/street-style-photoshoot', label: 'Street Style' },
+      { href: '/office-outfit-photoshoot', label: 'Office Outfit' },
+      { href: '/denim-wear-photoshoot', label: 'Denim Wear' },
+      { href: '/natural-looks-photoshoot', label: 'Natural Looks' },
+      { href: '/vintage-photoshoot', label: 'Vintage' },
+      { href: '/ai-maternity-photoshoot', label: 'Maternity' },
+      { href: '/ai-glamour-photoshoot', label: 'Glamour' },
+    ],
+    'Social & Influencer': [
+      { href: '/ai-influencer-generator', label: 'Influencer Generator' },
+      { href: '/ai-instagram-photoshoot', label: 'Instagram Photoshoot' },
+      { href: '/ai-dating-photoshoot', label: 'Dating' },
+    ],
+    'Artistic & Themes': [
+      { href: '/stylish-ai-portraits', label: 'Stylish AI Portraits' },
+      { href: '/black-swan-photoshoot', label: 'Black Swan' },
+      { href: '/ai-fantasy-photoshoot', label: 'Fantasy' },
+      { href: '/neutral-muse-photoshoot', label: 'Neutral Muse' },
+    ],
+  } as const;
