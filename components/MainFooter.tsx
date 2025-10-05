@@ -30,10 +30,16 @@ export default function Footer() {
               Terms
             </Link>
             <Link 
-              href="/privacy" 
+              href="/privacy-policy" 
               className="text-gray-600 hover:text-gray-900 transition-colors"
             >
               Privacy
+            </Link>
+             <Link 
+              href="/refund-policy" 
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              Refunds
             </Link>
           </div>
 

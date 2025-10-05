@@ -1,5 +1,7 @@
 "use client"
 
+import { Shield } from "lucide-react"
+
 export default function PricingCards() {
  
 
@@ -158,6 +160,9 @@ export default function PricingCards() {
         </div>
       </div>
     </div>
+    <p className="text-center text-gray-600 text-base leading-relaxed mt-8"><Shield className="w-4 h-4 inline-block mr-2" />
+     Secure payments with <span className="font-semibold text-[#ff6f00]"> Dodopayments</span>
+    </p>
   </div>
   </section>
   )
