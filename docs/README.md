@@ -139,3 +139,19 @@ For existing applications:
 
 **Last Updated**: January 2024
 **Version**: 1.0.0
+
+
+use this for cron job 
+
+{
+  "crons": [
+    {
+      "path": "/api/cron/cleanup-models",
+      "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/send-followup-emails?key=shadf892yr398hq23h",
+      "schedule": "0 0 */2 * *"
+    }
+  ]
+}
