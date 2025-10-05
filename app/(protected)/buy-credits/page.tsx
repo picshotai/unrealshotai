@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { CreditCard, Star } from 'lucide-react';
+import { CreditCard, Star, Check } from 'lucide-react';
 import DodoCheckoutButton from '@/components/dodopayments/DodoCheckoutButton';
 import { pricingPlanService } from '@/lib/pricing-plans';
 import { commonPageMetadata } from '@/lib/seo'
@@ -64,6 +64,31 @@ export default async function BuyCreditsPage() {
     // Handle error gracefully - could redirect to error page or show empty state
   }
 
+  // Plan feature bullets (aligned with pricing cards)
+  const starterFeatures = [
+    '20 AI-generated photos',
+    '1 model training included',
+    '20 unique styles & backgrounds',
+    '20 different outfits',
+    'Full commercial license',
+    '30 credits included'
+  ];
+
+  const proFeatures = [
+    '80 AI-generated photos',
+    '1 model training included',
+    '80 unique styles & backgrounds',
+    '80 different outfits',
+    'Priority processing',
+    'Premium customer support',
+    '60 credits included'
+  ];
+
+  const featuresByPlanName: Record<string, string[]> = {
+    Starter: starterFeatures,
+    Pro: proFeatures,
+  };
+
   return (
     <>
       {plans.length > 0 && (
@@ -119,18 +144,14 @@ export default async function BuyCreditsPage() {
               </CardHeader>
               
               <CardContent>
-                <div className="space-y-2 text-sm text-muted-foreground">
-                  <div className="flex justify-between">
-                    <span>Credits per dollar:</span>
-                    <span className="font-medium">{plan.creditsPerDollar.toFixed(1)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Cost per credit:</span>
-                    <span className="font-medium">
-                      {formatPrice(plan.price / plan.credits, plan.currency)}
-                    </span>
-                  </div>
-                </div>
+                <ul className="space-y-2 text-sm">
+                  {(featuresByPlanName[plan.name] || []).map((feature) => (
+                    <li key={feature} className="flex items-center gap-2">
+                      <Check className="h-4 w-4 text-[#111827]" />
+                      <span className="text-muted-foreground">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
               </CardContent>
               
               <CardFooter>

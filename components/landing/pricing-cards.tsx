@@ -1,11 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { Calendar } from "lucide-react"
-
 export default function PricingCards() {
-  const [lightFastDelivery, setLightFastDelivery] = useState(false)
-  const [darkFastDelivery, setDarkFastDelivery] = useState(false)
+ 
 
   const LightCheckIcon = ({ className }: { className?: string }) => (
     <svg

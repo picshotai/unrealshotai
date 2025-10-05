@@ -7,11 +7,12 @@ import { useSearchParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Loader2, Mail } from "lucide-react"
+import { Loader2 } from "lucide-react"
 import { signInWithMagicLink, signInWithGoogle } from "./actions"
 import { Header } from "@/components/Header"
 import Footer from "@/components/MainFooter"
 import { CSRFProvider, CSRFInput } from "@/components/csrf-provider"
+import { Card, CardContent } from "@/components/ui/card"
 
 type AuthState = {
   error?: string
@@ -21,21 +22,38 @@ type AuthState = {
 function MagicLinkSubmit() {
   const { pending } = useFormStatus()
   return (
-    <Button type="submit" disabled={pending} className="w-full bg-black hover:bg-gray-800 text-white py-3 text-base font-medium rounded-lg h-12 cursor-pointer">
-      {pending ? (<><Loader2 className="mr-2 h-4 w-4 animate-spin" />Sending link...</>) : (<><Mail className="mr-2 h-4 w-4" />Send Magic Link</>)}
+    <Button
+      type="submit"
+      disabled={pending}
+      className="w-full text-md font-semibold py-5 sm:py-6 group relative bg-[#ff6f00] hover:bg-[#ff6f00]/90 text-white rounded-md overflow-hidden cursor-pointer pr-12"
+    >
+      {pending ? (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Sending link...
+        </>
+      ) : (
+        <>Send Magic Link</>
+      )}
+      <div className="bg-white rounded-sm p-2 sm:p-3 absolute right-1 top-1/2 -translate-y-1/2">
+        <img
+          src="/arrow.svg"
+          alt="arrow-right"
+          className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
+        />
+      </div>
     </Button>
   )
 }
 
 function GoogleSignInButton() {
   const { pending } = useFormStatus()
-  
   return (
     <Button
       type="submit"
       variant="outline"
       disabled={pending}
-      className="w-full border-gray-300 hover:bg-gray-50 text-black py-3 text-base font-medium rounded-lg h-12 bg-transparent cursor-pointer"
+      className="w-full text-md py-5 sm:py-6 group relative bg-white hover:bg-white/90 text-black rounded-md overflow-hidden cursor-pointer pr-12 border border-gray-300"
     >
       {pending ? (
         <>
@@ -44,7 +62,14 @@ function GoogleSignInButton() {
         </>
       ) : (
         <>
-          <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24"><path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" /><path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" /><path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" /><path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" /></svg>
+          <svg className="mr-2 h-5 w-5" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <g fill="none" fillRule="evenodd">
+              <path d="M9.82727273,24 C9.82727273,22.4757333 10.0804318,21.0144 10.5322727,19.6437333 L2.62345455,13.6042667 C1.08206818,16.7338667 0.213636364,20.2602667 0.213636364,24 C0.213636364,27.7365333 1.081,31.2608 2.62025,34.3882667 L10.5247955,28.3370667 C10.0772273,26.9728 9.82727273,25.5168 9.82727273,24" fill="#FBBC05"/>
+              <path d="M23.7136364,10.1333333 C27.025,10.1333333 30.0159091,11.3066667 32.3659091,13.2266667 L39.2022727,6.4 C35.0363636,2.77333333 29.6954545,0.533333333 23.7136364,0.533333333 C14.4268636,0.533333333 6.44540909,5.84426667 2.62345455,13.6042667 L10.5322727,19.6437333 C12.3545909,14.112 17.5491591,10.1333333 23.7136364,10.1333333" fill="#EB4335"/>
+              <path d="M23.7136364,37.8666667 C17.5491591,37.8666667 12.3545909,33.888 10.5322727,28.3562667 L2.62345455,34.3946667 C6.44540909,42.1557333 14.4268636,47.4666667 23.7136364,47.4666667 C29.4455,47.4666667 34.9177955,45.4314667 39.0249545,41.6181333 L31.5177727,35.8144 C29.3995682,37.1488 26.7323182,37.8666667 23.7136364,37.8666667" fill="#34A853"/>
+              <path d="M46.1454545,24 C46.1454545,22.6133333 45.9318182,21.12 45.6113636,19.7333333 L23.7136364,19.7333333 L23.7136364,28.8 L36.3181818,28.8 C35.6879545,31.8912 33.9724545,34.2677333 31.5177727,35.8144 L39.0249545,41.6181333 C43.3393409,37.6138667 46.1454545,31.6490667 46.1454545,24" fill="#4285F4"/>
+            </g>
+          </svg>
           Continue with Google
         </>
       )}
@@ -78,63 +103,121 @@ function LoginFormWithSearchParams() {
     <CSRFProvider>
       <div className="min-h-screen flex flex-col bg-gray-50">
         <Header />
-        <main className="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-          <div className="w-full max-w-md space-y-8">
-            <div className="space-y-2 text-center">
-              <h1 className="text-4xl font-semibold tracking-tight text-black">Welcome to DodoStarter.com</h1>
-              <p className="text-lg text-gray-600">Sign in to create your professional resume</p>
-            </div>
+        {/* Spacer to account for fixed header height */}
+        <main className="flex-1 pt-24 md:pt-28 px-4 pb-12 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-4xl">
+            <div className="grid min-h-[calc(100vh-16rem)] place-items-center">
+              <Card className="overflow-hidden p-0 shadow-xs w-full">
+                <CardContent className="grid p-0 md:grid-cols-2">
+                  <div className="p-6 md:p-8">
+                    <div className="space-y-2 text-center">
+                      <h1 className="text-4xl font-semibold tracking-tight text-black">Welcome to DodoStarter.com</h1>
+                      <p className="text-lg text-gray-600">Sign in to create your professional resume</p>
+                    </div>
 
-            <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm">
-            {displayError && (
-              <div className="mb-4 px-4 py-3 rounded-lg text-sm bg-red-50 border border-red-200 text-red-700">
-                {displayError}
-                {displayError.includes('expired') && (
-                  <p className="mt-2 text-xs text-red-600">
-                    💡 Simply enter your email below to request a new authentication link.
-                  </p>
-                )}
+                    {/* Error & success messages */}
+                    {displayError && (
+                      <div className="mt-4 mb-4 px-4 py-3 rounded-lg text-sm bg-red-50 border border-red-200 text-red-700">
+                        {displayError}
+                        {displayError.includes('expired') && (
+                          <p className="mt-2 text-xs text-red-600">
+                            💡 Simply enter your email below to request a new authentication link.
+                          </p>
+                        )}
+                      </div>
+                    )}
+                    {state?.success && (
+                      <div className="mt-4 mb-4 px-4 py-3 rounded-lg text-sm bg-green-50 border border-green-200 text-green-700">{state.success}</div>
+                    )}
+
+                    {/* Magic link form */}
+                    <form action={formAction} className="space-y-6">
+                      <CSRFInput />
+                      <div className="space-y-2">
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-900">Email</label>
+                        <Input id="email" name="email" type="email" placeholder="you@example.com" required className="bg-white border-gray-300 text-black placeholder:text-gray-500 rounded-lg h-12" />
+                      </div>
+                      <MagicLinkSubmit />
+                    </form>
+
+                    {/* Divider & Google sign-in */}
+                    <div className="mt-6 space-y-4">
+                      <div className="relative">
+                        <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-300" /></div>
+                        <div className="relative flex justify-center text-sm"><span className="bg-white px-2 text-gray-500">Or</span></div>
+                      </div>
+
+                      <form action={signInWithGoogle}>
+                        <CSRFInput />
+                        <GoogleSignInButton />
+                      </form>
+                    </div>
+                  </div>
+
+                  {/* Right: fading slideshow */}
+                  <div className="relative hidden md:block bg-muted">
+                    <LoginShowcase />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="mt-4 text-center">
+                <p className="text-sm text-gray-600">
+                  By signing in, you agree to our{' '}
+                  <a href="#" className="text-black hover:underline">Terms of Service</a>
+                  {' '}and{' '}
+                  <a href="#" className="text-black hover:underline">Privacy Policy</a>
+                </p>
               </div>
-            )}
-            {state?.success && (
-              <div className="mb-4 px-4 py-3 rounded-lg text-sm bg-green-50 border border-green-200 text-green-700">{state.success}</div>
-            )}
-
-            <form action={formAction} className="space-y-6">
-              <CSRFInput />
-              <div className="space-y-2">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-900">Email</label>
-                <Input id="email" name="email" type="email" placeholder="you@example.com" required className="bg-white border-gray-300 text-black placeholder:text-gray-500 rounded-lg h-12" />
-              </div>
-              <MagicLinkSubmit />
-            </form>
-
-            <div className="mt-6 space-y-4">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-300" /></div>
-                <div className="relative flex justify-center text-sm"><span className="bg-white px-2 text-gray-500">Or</span></div>
-              </div>
-
-              <form action={signInWithGoogle}>
-                <CSRFInput />
-                <GoogleSignInButton />
-              </form>
-            </div>
-
-            <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
-                By signing in, you agree to our{' '}
-                <a href="#" className="text-black hover:underline">Terms of Service</a>
-                {' '}and{' '}
-                <a href="#" className="text-black hover:underline">Privacy Policy</a>
-              </p>
             </div>
           </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+        </main>
+        <Footer />
+      </div>
     </CSRFProvider>
+  )
+}
+
+function LoginShowcase() {
+  const images = [
+    "/images/demo1.jpg",
+    "/images/demo2.jpg",
+    "/images/demo3.jpg",
+    "/images/demo4.jpg",
+    "/images/demo5.jpg",
+    "/images/demo6.jpg",
+    "/images/demo7.jpg",
+    "/images/demo8.jpg",
+  ]
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % images.length)
+    }, 3500)
+    return () => clearInterval(id)
+  }, [images.length])
+
+  return (
+    <div className="relative h-full min-h-[380px] md:min-h-[520px]">
+      <div className="absolute inset-0 rounded-none md:rounded-r-xl overflow-hidden">
+        {images.map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt="User showcase"
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${i === index ? "opacity-100" : "opacity-0"}`}
+          />
+        ))}
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-none md:rounded-r-xl" />
+      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+        <div className="inline-flex items-center gap-2 bg-black/50 text-white px-3 py-1 rounded-full text-xs">
+          <span className="w-2 h-2 rounded-full bg-[#ff6a00]" />
+          <span>Real results from our users</span>
+        </div>
+      </div>
+    </div>
   )
 }
 
