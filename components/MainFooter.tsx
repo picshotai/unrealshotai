@@ -1,14 +1,70 @@
 import Link from 'next/link';
+import Image from 'next/image';
+
+
 
 export default function Footer() {
+  // Public pages
+  const companyLinks = [
+    { href: '/about', label: 'About' },
+    { href: '/blog', label: 'Blog' },
+    { href: '/privacy-policy', label: 'Privacy Policy' },
+    { href: '/terms', label: 'Terms' },
+    { href: '/refund-policy', label: 'Refund Policy' },
+  ];
+
+  // Photoshoot landing pages (public)
+  const photoshootLinks = [
+    { href: '/founder-headshots', label: 'Founder Headshots' },
+    { href: '/corporate-headshots', label: 'Corporate Headshots' },
+    { href: '/professional-headshots', label: 'Professional Headshots' },
+    { href: '/linkedin-headshots', label: 'LinkedIn Headshots' },
+    { href: '/resume-headshots', label: 'Resume Headshots' },
+    { href: '/doctor-headshots', label: 'Doctor Headshots' },
+    { href: '/lawyer-headshots', label: 'Lawyer Headshots' },
+    { href: '/ai-real-estate-headshots', label: 'Real Estate Headshots' },
+    { href: '/ai-chef-headshots', label: 'Chef Headshots ' },
+
+    { href: '/ai-influencer-generator', label: 'Influencer Generator' },
+    { href: '/ai-instagram-photoshoot', label: 'Instagram Photoshoot ' },
+    { href: '/ai-yearbook', label: 'AI Yearbook' },
+
+    { href: '/personal-branding-photoshoot', label: 'Personal Branding Photoshoot' },
+    { href: '/street-style-photoshoot', label: 'Street Style Photoshoot' },
+    { href: '/office-outfit-photoshoot', label: 'Office Outfit Photoshoot' },
+    { href: '/denim-wear-photoshoot', label: 'Denim Wear Photoshoot' },
+    { href: '/natural-looks-photoshoot', label: 'Natural Looks Photoshoot' },
+    { href: '/neutral-muse-photoshoot', label: 'Neutral Muse Photoshoot' },
+    { href: '/vintage-photoshoot', label: 'Vintage Photoshoot' },
+    { href: '/stylish-ai-portraits', label: 'Stylish AI Portraits' },
+    { href: '/black-swan-photoshoot', label: 'Black Swan Photoshoot' },
+
+    { href: '/ai-christmas-photoshoot', label: 'Christmas Photoshoot' },
+    { href: '/ai-halloween-photoshoot', label: 'Halloween Photoshoot' },
+    { href: '/ai-diwali-photoshoot', label: 'Diwali Photoshoot' },
+    { href: '/ai-bat-mitzvah-photoshoot', label: 'Bat Mitzvah Photoshoot' },
+    { href: '/ai-dating-photoshoot', label: 'Dating Photoshoot' },
+    { href: '/ai-glamour-photoshoot', label: 'Glamour Photoshoot' },
+    { href: '/ai-fantasy-photoshoot', label: 'Fantasy Photoshoot' },
+    { href: '/ai-maternity-photoshoot', label: 'Maternity Photoshoot ' },
+  ];
+
   return (
     <footer className="w-full py-8 px-6 mt-auto bg-white border-t border-gray-100">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-          {/* Logo/Brand */}
           <div className="text-center md:text-left">
-            <Link href="/" className="text-2xl font-bold text-gray-900 hover:text-[#ff6f00] transition-colors">
+            <Link href="/">
+             <Image
+        src="/site-logo.png"
+        alt="Unrealshot AI Logo"
+        width={24}
+        height={24}
+        className="w-6 h-6 rounded"
+      />
+            <h3 className="text-2xl font-bold text-gray-900 hover:text-[#ff6f00] transition-colors">
               Unrealshot AI
+            </h3>
             </Link>
             <p className="text-gray-600 text-sm mt-1">
               Professional AI photoshoots
@@ -65,6 +121,38 @@ export default function Footer() {
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
               </svg>
             </a>
+          </div>
+        </div>
+
+        {/* Link groups */}
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Company */}
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900">Company</h3>
+            <ul className="mt-3 space-y-2">
+              {companyLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Photoshoot styles */}
+          <div className="md:col-span-2">
+            <h3 className="text-sm font-semibold text-gray-900">Photoshoot styles</h3>
+            {/* Responsive multi-column list for minimal, clean layout */}
+            <ul className="mt-3 columns-2 sm:columns-3 lg:columns-4 gap-4">
+              {photoshootLinks.map((link) => (
+                <li key={link.href} className="break-inside-avoid mb-2">
+                  <Link href={link.href} className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 

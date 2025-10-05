@@ -16,7 +16,7 @@ const humans2 = [...manOutputImages, ...womanOutputImages]; // Different order f
 
 export default function HowItWorksShowcase() {
   return (
-    <section className="relative mx-auto py-16 sm:py-24 overflow-hidden bg-[#F7F5F3]">
+    <section id="how-it-works" className="relative mx-auto py-16 sm:py-24 overflow-hidden bg-[#F7F5F3]">
       <div className="px-4 max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16 sm:mb-20">

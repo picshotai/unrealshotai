@@ -150,7 +150,8 @@ function Header() {
   const navItems = [
     { name: "Features", link: "/#features" },
     { name: "How it works", link: "/#how-it-works" },
-    { name: "Examples", link: "/#examples" },
+    { name: "Shoot Packs", link: "/#style-packs" },
+    { name: "Blog", link: "/blog" },
   ]
 
   return (
@@ -170,14 +171,14 @@ function Header() {
         <div className="flex items-center gap-3">
           <Link href="/dashboard">
             <Button
-              className="text-md py-6 group relative bg-[#ff6f00] text-white rounded-md overflow-hidden cursor-pointer pr-12"
+              className="text-sm py-5 group relative bg-[#ff6f00] text-white rounded-md overflow-hidden cursor-pointer pr-10"
             >
               Start Your Photoshoot
-              <div className="bg-white rounded-sm p-3 absolute right-1 top-1/2 -translate-y-1/2">
+              <div className="bg-white rounded-sm p-[10px] absolute right-1 top-1/2 -translate-y-1/2">
               <img
                 src="/arrow.svg"
                 alt="arrow-right"
-                className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
+                className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-1"
               />
               </div>
             </Button>

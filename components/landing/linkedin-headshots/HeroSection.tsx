@@ -36,9 +36,13 @@ export function HeroSection() {
           <div className="space-y-6">
             <div className="bg-white inline-block p-[2px] rounded">
               <div className="flex items-center">
-                <div className="bg-black text-white text-xs px-2 py-1 rounded leading-[1.2]">Limited time offer ends in</div>
-                <span className="text-black text-sm px-1 mx-1">Time's up</span>
-              </div>
+              <div className="bg-black text-white text-xs px-2 py-1 rounded leading-[1.2]">
+                  +70 Shoots This Week
+                </div>
+                <span className="text-black text-sm px-1 mx-1">
+                  Join Them
+                </span>
+                </div>
             </div>
             <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
               <span className="text-white">AI LinkedIn Headshots That</span>

@@ -71,11 +71,11 @@ export function HeroSection() {
           <div className="space-y-6">
             <div className="bg-white inline-block p-[2px] rounded">
               <div className="flex items-center">
-                <div className="bg-black text-white text-xs px-2 py-1 rounded leading-[1.2]">
-                  Limited time offer ends in
+               <div className="bg-black text-white text-xs px-2 py-1 rounded leading-[1.2]">
+                  +70 Shoots This Week
                 </div>
                 <span className="text-black text-sm px-1 mx-1">
-                  Time's up
+                  Join Them
                 </span>
               </div>
             </div>

@@ -65,7 +65,7 @@ export default function StylePacks() {
   ];
 
   return (
-    <section className="min-h-screen bg-[#111111]">
+    <section id="style-packs" className="min-h-screen bg-[#111111]">
         <div className="py-20 min-h-screen">
           <div className="max-w-7xl mx-auto px-4">
             {/* Title Section */}

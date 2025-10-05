@@ -80,7 +80,7 @@ export default async function BuyCreditsPage() {
   ];
 
   const proFeatures = [
-    '80 AI-generated photos',
+    'Upto 80 AI  photos',
     '1 model training included',
     '80 unique styles & backgrounds',
     '80 different outfits',
@@ -93,6 +93,9 @@ export default async function BuyCreditsPage() {
   const featuresByPlanName: Record<string, string[]> = {
     starter: starterFeatures,
     pro: proFeatures,
+    // Map current Supabase plan names (as shown in UI)
+    'basic pack': starterFeatures,
+    'premium pack': proFeatures,
   };
 
   return (
@@ -151,14 +154,22 @@ export default async function BuyCreditsPage() {
               
               <CardContent className="pb-2">
                 <ul className="space-y-2 text-sm">
-                  {(featuresByPlanName[normalizePlanName(plan.name)] || []).map((feature, idx) => (
-                    <li key={`${plan.id}-${idx}`} className="flex items-center gap-2">
-                      <Check className="h-4 w-4 text-[#111827]" />
-                      <span className="text-muted-foreground">{feature}</span>
-                    </li>
-                  ))}
+                  {(() => {
+                    const normalized = normalizePlanName(plan.name);
+                    const featureList =
+                      featuresByPlanName[normalized] ||
+                      // Fallback by credits if name mapping changes
+                      (plan.credits <= 30 ? starterFeatures : proFeatures);
+                    return featureList.map((feature, idx) => (
+                      <li key={`${plan.id}-${idx}`} className="flex items-center gap-2">
+                        <Check className="h-4 w-4 text-[#111827]" />
+                        <span className="text-muted-foreground">{feature}</span>
+                      </li>
+                    ));
+                  })()}
                 </ul>
-              </CardContent>
+              </CardContent
+              >
               
               <CardFooter>
                 <DodoCheckoutButton
