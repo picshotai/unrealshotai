@@ -11,8 +11,9 @@ export default function Footer() {
     { href: '/privacy-policy', label: 'Privacy Policy' },
     { href: '/terms', label: 'Terms' },
     { href: '/refund-policy', label: 'Refund Policy' },
+    { href: '/profile-photo-maker', label: 'PFP Maker' },
   ];
-  
+
   return (
     <footer className="w-full py-8 px-6 mt-auto bg-white border-t border-gray-100">
       <div className="max-w-6xl mx-auto">
@@ -154,13 +155,6 @@ export default function Footer() {
       { href: '/ai-real-estate-headshots', label: 'Real Estate Headshots' },
       { href: '/ai-chef-headshots', label: 'Chef Headshots' },
     ],
-    'AI Events': [
-      { href: '/ai-christmas-photoshoot', label: 'Christmas' },
-      { href: '/ai-halloween-photoshoot', label: 'Halloween' },
-      { href: '/ai-diwali-photoshoot', label: 'Diwali' },
-      { href: '/ai-bat-mitzvah-photoshoot', label: 'Bat Mitzvah' },
-      { href: '/ai-yearbook', label: 'AI Yearbook' },
-    ],
     'Lifestyle': [
       { href: '/personal-branding-photoshoot', label: 'Personal Branding' },
       { href: '/street-style-photoshoot', label: 'Street Style' },
@@ -170,6 +164,13 @@ export default function Footer() {
       { href: '/vintage-photoshoot', label: 'Vintage' },
       { href: '/ai-maternity-photoshoot', label: 'Maternity' },
       { href: '/ai-glamour-photoshoot', label: 'Glamour' },
+    ],
+    'AI Events': [
+      { href: '/ai-christmas-photoshoot', label: 'Christmas' },
+      { href: '/ai-halloween-photoshoot', label: 'Halloween' },
+      { href: '/ai-diwali-photoshoot', label: 'Diwali' },
+      { href: '/ai-bat-mitzvah-photoshoot', label: 'Bat Mitzvah' },
+      { href: '/ai-yearbook', label: 'AI Yearbook' },
     ],
     'Social & Influencer': [
       { href: '/ai-influencer-generator', label: 'Influencer Generator' },

@@ -15,8 +15,6 @@ const caveat = Caveat({
 
 // Using your actual image paths from the original component
 const images = [
-  { src: "/landing/landingphoto1.jpg", alt: "AI-generated Photoshoot - Unrealshot AI" },
-  { src: "/landing/landingphoto2.jpg", alt: "AI-generated headshot 2 - Unrealshot AI" },
   { src: "/landing/landingphoto3.jpg", alt: "AI glamour photoshoot of beautiful lady Maria - Unrealshot AI" },
   { src: "/landing/landingphoto4.jpg", alt: "AI-generated headshot 4 - Unrealshot AI" },
   { src: "/landing/landingphoto5.jpg", alt: "AI-generated headshot 5 - Unrealshot AI" },

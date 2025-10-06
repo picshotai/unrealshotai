@@ -873,3 +873,24 @@
     @apply text-sm;
   }
 }
+
+
+/* WebKit browsers (Chrome, Safari, Edge) */
+input[type="range"].slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background-color: #ff6f00;
+  border: none;
+  box-shadow: none;
+}
+
+input[type="range"].slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background-color: #ff6f00;
+  border: none;
+  box-shadow: none;
+}
