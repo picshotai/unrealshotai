@@ -69,79 +69,82 @@ export interface OrganizationSchema {
 
 // Default SEO Configuration
 export const defaultSEO: SEOConfig = {
-  title: 'Your SaaS Platform - Powerful Tools for Modern Businesses',
-  description: 'Transform your business with our comprehensive SaaS platform. Get access to powerful tools, analytics, and integrations that help you scale efficiently.',
+  title: 'The #1 Realistic AI Photoshoot Generator | Unrealshot AI',
+  description: 'Get a complete, realistic AI photoshoot from your selfies. Includes professional AI headshots, creative portraits, and more. Hundreds of studio-quality photos for a fraction of the cost.',
   keywords: [
-    'SaaS platform',
-    'business tools',
-    'productivity',
-    'analytics',
-    'automation',
-    'cloud software',
-    'business intelligence',
-    'workflow management'
-  ],
-  author: 'Your Company Name',
-  siteUrl: process.env.NEXT_PUBLIC_APP_URL || 'https://yourapp.com',
-  siteName: 'Your SaaS Platform',
+    'AI photoshoot generator',
+    'AI headshot generator',
+    'realistic AI photos',
+    'AI photos from selfies',
+    'professional AI photos',
+    'AI photo generator',
+    'AI portraits',
+    'studio-quality AI',
+    'LinkedIn headshot',
+    'dating profile picture'
+  ],  
+    author: 'Unrealshot AI',
+  siteUrl: process.env.NEXT_PUBLIC_APP_URL || 'https://www.unrealshot.com',
+  siteName: 'Unrealshot AI',
   locale: 'en_US',
   type: 'website',
   robots: 'index, follow',
   // Add your verification codes here
-  googleSiteVerification: undefined,
-  bingSiteVerification: undefined,
+  googleSiteVerification: 'YOUR_GOOGLE_VERIFICATION_CODE',
+  bingSiteVerification: 'YOUR_BING_VERIFICATION_CODE',
   yandexVerification: undefined,
 };
 
 // Social Media Configuration
 export const socialConfig: SocialConfig = {
   twitter: {
-    handle: '@yourhandle',
-    site: '@yourhandle',
+    handle: '@unrealshotai', // Replace with your actual Twitter handle
+    site: '@unrealshotai', // Replace with your actual Twitter handle
     cardType: 'summary_large_image',
   },
   facebook: {
-    appId: undefined, // Add your Facebook App ID
-    admins: undefined, // Add Facebook admin IDs
+    appId: undefined, // Add your Facebook App ID if you have one
+    admins: undefined,
   },
   linkedin: {
-    companyId: undefined, // Add your LinkedIn company ID
+    companyId: undefined, // Add your LinkedIn company page ID if you have one
   },
   instagram: {
-    handle: '@yourhandle',
+    handle: '@unrealshotai', // Replace with your actual Instagram handle
   },
 };
 
 // Organization Schema for Structured Data
 export const organizationSchema: OrganizationSchema = {
   '@type': 'Organization',
-  name: 'Your Company Name',
+  name: 'Unrealshot AI',
   url: defaultSEO.siteUrl,
-  logo: `${defaultSEO.siteUrl}/logo.png`,
+  logo: `${defaultSEO.siteUrl}/logo.png`, // Ensure this path is correct
   description: defaultSEO.description,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '123 Business Street',
-    addressLocality: 'Your City',
-    addressRegion: 'Your State',
-    postalCode: '12345',
-    addressCountry: 'US',
+    // It's better to omit address if you are a remote-first company
+    // streetAddress: '123 Business Street',
+    // addressLocality: 'Your City',
+    // addressRegion: 'Your State',
+    // postalCode: '12345',
+    addressCountry: 'US', // Or your country of registration
   },
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: '+1-555-123-4567',
+    telephone: undefined, // Optional: Add if you have a business phone
     contactType: 'customer service',
-    email: 'support@yourcompany.com',
+    email: 'support@unrealshot.com', // Replace with your support email
   },
   sameAs: [
-    'https://x.com/yourhandle',
-    'https://linkedin.com/company/yourcompany',
-    'https://facebook.com/yourcompany',
-    'https://instagram.com/yourhandle',
+    'https://x.com/unrealshotai', // Replace with your actual social links
+    'https://linkedin.com/company/unrealshotai',
+    'https://instagram.com/unrealshotai',
   ],
 };
+// --- Page-specific SEO configurations ---
+// Tailored meta for each important page.
 
-// Page-specific SEO configurations
 export const pageSEO = {
   home: {
     title: defaultSEO.title,
@@ -149,50 +152,50 @@ export const pageSEO = {
     keywords: defaultSEO.keywords,
   },
   login: {
-    title: 'Sign In - Your SaaS Platform',
-    description: 'Sign in to your account to access powerful business tools and analytics.',
-    keywords: ['login', 'sign in', 'account access', 'user portal'],
+    title: 'Sign In - Unrealshot AI',
+    description: 'Sign in to your Unrealshot account to access your AI photoshoots and create new ones.',
+    keywords: ['login', 'sign in', 'unrealshot account', 'user portal'],
   },
   dashboard: {
-    title: 'Dashboard - Your SaaS Platform',
-    description: 'Access your personalized dashboard with real-time analytics and business insights.',
-    keywords: ['dashboard', 'analytics', 'business intelligence', 'insights'],
-    robots: 'noindex, nofollow', // Private pages should not be indexed
+    title: 'My Photoshoots - Unrealshot AI',
+    description: 'Access your dashboard to view, download, and manage all your AI-generated photoshoots.',
+    keywords: ['dashboard', 'my account', 'my photoshoots'],
+    robots: 'noindex, nofollow', // Correctly kept private
   },
   pricing: {
-    title: 'Pricing Plans - Your SaaS Platform',
-    description: 'Choose the perfect plan for your business. Flexible pricing options with powerful features.',
-    keywords: ['pricing', 'plans', 'subscription', 'business plans', 'cost'],
+    title: 'Pricing Plans - Unrealshot AI',
+    description: 'Find the perfect plan for your AI photoshoot. Get a complete portfolio of stunning images for a fraction of the cost of a traditional studio.',
+    keywords: ['pricing', 'plans', 'ai photoshoot cost', 'packages'],
   },
-  buyCredits: {
-    title: 'Buy Credits - Your SaaS Platform',
-    description: 'Purchase credits to unlock premium features and expand your usage limits.',
-    keywords: ['buy credits', 'purchase', 'premium features', 'upgrade'],
+  buyCredits: { // Renamed from pricing page, assuming this is the one-time purchase page
+    title: 'Start Your Photoshoot - Unrealshot AI',
+    description: 'Choose your package and get started. Transform your selfies into a complete, professional AI photoshoot in minutes.',
+    keywords: ['buy credits', 'start photoshoot', 'purchase', 'packages'],
   },
   account: {
-    title: 'Account Settings - Your SaaS Platform',
-    description: 'Manage your account settings, billing information, and preferences.',
-    keywords: ['account', 'settings', 'profile', 'billing'],
+    title: 'Account Settings - Unrealshot AI',
+    description: 'Manage your Unrealshot account settings, view past orders, and update your information.',
+    keywords: ['account', 'settings', 'profile', 'orders'],
     robots: 'noindex, nofollow',
   },
+  // You don't have this page yet, but it's ready for the future
   reports: {
-    title: 'Reports & Analytics - Your SaaS Platform',
-    description: 'View detailed reports and analytics to track your business performance.',
-    keywords: ['reports', 'analytics', 'performance', 'metrics'],
+    title: 'My Photoshoots - Unrealshot AI',
+    description: 'View and download all your past AI photoshoot results.',
+    keywords: ['my photoshoots', 'results', 'downloads'],
     robots: 'noindex, nofollow',
   },
   blog: {
-    title: 'Blog - Modern React and Web Development',
-    description: 'Modern React and web development tutorials, insights, and best practices.',
-    keywords: ['blog', 'react', 'web development', 'tutorials', 'next.js', 'javascript', 'typescript', 'programming'],
+    title: 'The Studio - The Unrealshot AI Blog',
+    description: 'Your definitive guide to mastering your digital identity. Expert tips, creative inspiration, and deep dives into the art of the perfect AI photoshoot.',
+    keywords: ['blog', 'ai photoshoot', 'ai photography', 'digital identity', 'creative tips'],
   },
-  blogPost: {
-    title: '{title} - Blog',
+  blogPost: { // Dynamic template for blog posts
+    title: '{title} - The Studio',
     description: '{description}',
-    keywords: ['blog', 'react', 'web development', 'tutorial'],
+    keywords: ['blog', 'ai photoshoot', 'guide', 'tutorial'],
   },
 };
-
 // Open Graph Image Configuration
 export const openGraphImages = {
   default: {
@@ -218,7 +221,6 @@ export const robotsConfig = {
       '/api/',
       '/dashboard/',
       '/account/',
-      '/reports/',
       '/settings/',
       '/_next/',
       '/admin/',

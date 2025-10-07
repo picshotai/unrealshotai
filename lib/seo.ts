@@ -359,14 +359,14 @@ export const commonPageMetadata = {
 
   login: () => generateMetadata({
     title: 'Sign In',
-    description: 'Sign in to your account to access powerful business tools and analytics.',
+    description: 'Sign in to your account to access dashboard',
     canonical: '/login',
     noindex: true,
   }),
 
   dashboard: () => generateMetadata({
     title: 'Dashboard',
-    description: 'Access your personalized dashboard with real-time analytics and business insights.',
+    description: 'Access your dashboard to train ai model and create ai images',
     canonical: '/dashboard',
     noindex: true,
     nofollow: true,
@@ -374,9 +374,9 @@ export const commonPageMetadata = {
 
   pricing: () => generateMetadata({
     title: 'Pricing Plans',
-    description: 'Choose the perfect plan for your business. Flexible pricing options with powerful features.',
+    description: 'Choose the perfect plan for your photoshoot. Flexible credit based pricing options.',
     canonical: '/pricing',
-    keywords: ['pricing', 'plans', 'subscription', 'business plans', 'cost'],
+    keywords: ['pricing', 'plans', 'credits', 'photoshoot plans', 'cost'],
   }),
 
   buyCredits: () => generateMetadata({
@@ -394,13 +394,6 @@ export const commonPageMetadata = {
     nofollow: true,
   }),
 
-  reports: () => generateMetadata({
-    title: 'Reports & Analytics',
-    description: 'View detailed reports and analytics to track your business performance.',
-    canonical: '/reports',
-    noindex: true,
-    nofollow: true,
-  }),
 
   blog: () => generateMetadata({
     title: 'Blog - Modern React and Web Development',
