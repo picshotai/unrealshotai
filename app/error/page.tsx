@@ -5,6 +5,22 @@ import { Button } from '@/components/ui/button'
 import { AlertCircle, Home, LogIn } from 'lucide-react'
 import Link from 'next/link'
 
+import type { Metadata } from "next"
+import { StructuredData } from "@/components/seo/StructuredData"
+
+export const metadata: Metadata = {
+  title: "Error - UnrealShot AI",
+  description: "Oops! Something went wrong. Please try again or go home.",
+}
+
+const errorPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Error - UnrealShot AI",
+  "description": "Oops! Something went wrong. Please try again or go home.",
+  "url": "https://www.unrealshot.com/error",
+}
+
 export default function ErrorPage() {
   const searchParams = useSearchParams()
   const message = searchParams.get('message')
@@ -34,6 +50,7 @@ export default function ErrorPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <StructuredData data={errorPageSchema} />
       <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-6 text-center">
         <div className="flex justify-center mb-4">
           <AlertCircle className="h-12 w-12 text-red-500" />

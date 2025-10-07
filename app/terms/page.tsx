@@ -11,7 +11,7 @@ export const metadata = {
   description: "Review the terms and conditions for using UnrealShot AI, our AI headshot generator service.",
 };
 
-const TermsOfService: React.FC = () => {
+function TermsOfService() {
   return (
         <>
  <Head>
@@ -26,7 +26,7 @@ const TermsOfService: React.FC = () => {
           "@type": "WebPage",
           "name": "Terms - UnrealShot AI",
           "description": "Review the terms and conditions for using UnrealShot AI, our AI headshot generator service.",
-          "url": "https://www.unrealshot.com/refund-policy",
+          "url": "https://www.unrealshot.com/terms",
           "mainEntity": {
             "@type": "Organization",
             "name": "Unrealshot AI",
