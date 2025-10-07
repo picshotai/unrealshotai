@@ -195,6 +195,14 @@ export function generateWebApplicationJsonLd(): string {
 }
 
 /**
+ * Generate Service JSON-LD for landing pages
+ */
+export function generateServiceJsonLd(service: { name: string, description: string, url: string, serviceType: string, provider: any }): string {
+  const schema = schemaTemplates.service(service);
+  return generateJsonLd(schema);
+}
+
+/**
  * Generate breadcrumb JSON-LD
  */
 export function generateBreadcrumbJsonLd(items: Array<{ name: string; url: string }>): string {

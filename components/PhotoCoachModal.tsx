@@ -139,7 +139,7 @@ export default function PhotoCoachModal({ isOpen, onClose, onComplete }: PhotoCo
           
           <Card className="p-3 bg-white border border-gray-200 rounded-lg">
             <div className="relative aspect-square mb-2 bg-gray-100 rounded-md overflow-hidden border border-gray-200">
-              <Image src="/content/clean-bg.jpg" alt="Clear background example" fill className="object-cover" />
+              <Image src="/content/confident.jpg" alt="Clear background example" fill className="object-cover" />
               <div className="absolute top-2 left-2 flex items-center justify-center bg-gray-800/80 rounded-full p-1">
                 <Check className="h-3 w-3 text-white" />
               </div>
@@ -171,38 +171,53 @@ export default function PhotoCoachModal({ isOpen, onClose, onComplete }: PhotoCo
       content: (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-6">
           <Card className="p-3 bg-white border border-gray-200 rounded-lg">
-            <div className="relative aspect-square mb-2 bg-gray-50 rounded-md overflow-hidden border border-gray-200">
-              <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-xs">
-                Sunglasses
+            <div className="relative aspect-square mb-2 bg-gray-100 rounded-md overflow-hidden border border-gray-200">
+              <Image src="/content/groupphoto.webp" alt="Clear portrait" fill className="object-cover" />
+              <div className="absolute top-2 left-2 flex items-center justify-center bg-gray-800/80 rounded-full p-1">
+                <Check className="h-3 w-3 text-white" />
               </div>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 bg-gray-400 rounded-full flex-shrink-0" />
-              <span className="text-sm text-gray-700">No sunglasses or hats</span>
+              <span className="text-sm text-gray-700">No Group Photos</span>
             </div>
           </Card>
           
           <Card className="p-3 bg-white border border-gray-200 rounded-lg">
-            <div className="relative aspect-square mb-2 bg-gray-50 rounded-md overflow-hidden border border-gray-200">
-              <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-xs">
-                Group photo
+            <div className="relative aspect-square mb-2 bg-gray-100 rounded-md overflow-hidden border border-gray-200">
+              <Image src="/content/nocaps.webp" alt="Clear portrait" fill className="object-cover" />
+              <div className="absolute top-2 left-2 flex items-center justify-center bg-gray-800/80 rounded-full p-1">
+                <Check className="h-3 w-3 text-white" />
               </div>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 bg-gray-400 rounded-full flex-shrink-0" />
-              <span className="text-sm text-gray-700">No group photos</span>
+              <span className="text-sm text-gray-700">NO caps or accessories</span>
             </div>
           </Card>
           
           <Card className="p-3 bg-white border border-gray-200 rounded-lg">
-            <div className="relative aspect-square mb-2 bg-gray-50 rounded-md overflow-hidden border border-gray-200">
-              <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-xs">
-                Blurry
+            <div className="relative aspect-square mb-2 bg-gray-100 rounded-md overflow-hidden border border-gray-200">
+              <Image src="/content/blurryshot.webp" alt="Blurry shot example" fill className="object-cover" />
+              <div className="absolute top-2 left-2 flex items-center justify-center bg-gray-800/80 rounded-full p-1">
+                <Check className="h-3 w-3 text-white" />
               </div>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 bg-gray-400 rounded-full flex-shrink-0" />
               <span className="text-sm text-gray-700">No blurry images</span>
+            </div>
+          </Card>
+          <Card className="p-3 bg-white border border-gray-200 rounded-lg">
+            <div className="relative aspect-square mb-2 bg-gray-100 rounded-md overflow-hidden border border-gray-200">
+              <Image src="/content/sillyface.webp" alt="Blurry shot example" fill className="object-cover" />
+              <div className="absolute top-2 left-2 flex items-center justify-center bg-gray-800/80 rounded-full p-1">
+                <Check className="h-3 w-3 text-white" />
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full flex-shrink-0" />
+              <span className="text-sm text-gray-700">No Silly Faces</span>
             </div>
           </Card>
         </div>
