@@ -386,11 +386,11 @@ export const schemaTemplates = {
   },
   softwareApplication: {
     '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
+    '@type': 'WebApplication',
     name: defaultSEO.siteName,
     description: defaultSEO.description,
     url: defaultSEO.siteUrl,
-    applicationCategory: 'BusinessApplication',
+    applicationCategory: 'WebApplication',
     operatingSystem: 'Web Browser',
     offers: {
       '@type': 'Offer',

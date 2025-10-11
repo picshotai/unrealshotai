@@ -1,7 +1,11 @@
 import { MetadataRoute } from 'next'
 import { defaultSEO } from '@/config/seo'
+import { getAllPostSlugs } from '@/lib/wordpress'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+// Regenerate sitemap periodically to auto-include newly published WordPress posts
+export const revalidate = 600 // seconds
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = defaultSEO.siteUrl
   const currentDate = new Date()
 
@@ -19,28 +23,72 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     },
-    // Note: Protected pages like /dashboard, /buy-credits, /settings, /account
-    // are intentionally excluded from sitemap as they require authentication
-    // and should not be indexed by search engines
   ]
 
-  // TODO: Add dynamic pages here when needed
-  // Example: blog posts, product pages, user profiles, etc.
-  // const dynamicPages = await getDynamicPages()
+  // Targeted fix: include key public pages and landing pages
+  const extraRoutes = [
+    // Core public pages
+    '/pricing',
+    '/about',
+    '/privacy-policy',
+    '/terms',
+    '/refund-policy',
+    '/blog',
+    // Landing pages (present in /app)
+    '/doctor-headshots',
+    '/founder-headshots',
+    '/ai-chef-headshots',
+    '/ai-real-estate-headshots',
+    '/ai-bat-mitzvah-photoshoot',
+    '/ai-christmas-photoshoot',
+    '/ai-dating-photoshoot',
+    '/ai-diwali-photoshoot',
+    '/ai-fantasy-photoshoot',
+    '/ai-glamour-photoshoot',
+    '/ai-halloween-photoshoot',
+    '/ai-influencer-generator',
+    '/ai-instagram-photoshoot',
+    '/ai-maternity-photoshoot',
+    '/ai-yearbook',
+    '/black-swan-photoshoot',
+    '/corporate-headshots',
+    '/denim-wear-photoshoot',
+    '/lawyer-headshots',
+    '/linkedin-headshots',
+    '/natural-looks-photoshoot',
+    '/neutral-muse-photoshoot',
+    '/office-outfit-photoshoot',
+    '/personal-branding-photoshoot',
+    '/professional-headshots',
+    '/profile-photo-maker',
+    '/resume-headshots',
+    '/street-style-photoshoot',
+    '/stylish-ai-portraits',
+    '/vintage-photoshoot',
+  ]
 
-  return [...staticPages]
+  const additionalPages: MetadataRoute.Sitemap = extraRoutes.map((path) => ({
+    url: `${baseUrl}${path}`,
+    lastModified: currentDate,
+    // Policies monthly, landings weekly
+    changeFrequency: ['privacy-policy', 'terms', 'refund-policy'].some((p) => path.includes(p))
+      ? ('monthly' as const)
+      : ('weekly' as const),
+    priority: ['privacy-policy', 'terms', 'refund-policy'].some((p) => path.includes(p))
+      ? 0.5
+      : 0.7,
+  }))
+
+  // Dynamically include WordPress blog posts
+  const blogSlugs = await getAllPostSlugs().catch(() => [])
+  const blogPages: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
+    url: `${baseUrl}/blog/${slug}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: 0.6,
+  }))
+
+  // Note: Protected pages like /dashboard, /account are intentionally excluded
+
+  return [...staticPages, ...additionalPages, ...blogPages]
 }
-
-// Helper function for future dynamic content
-// async function getDynamicPages() {
-//   // Fetch dynamic content from your database/CMS
-//   // Example:
-//   // const posts = await getBlogPosts()
-//   // return posts.map(post => ({
-//   //   url: `${seoConfig.siteUrl}/blog/${post.slug}`,
-//   //   lastModified: new Date(post.updatedAt),
-//   //   changeFrequency: 'weekly' as const,
-//   //   priority: 0.6,
-//   // }))
-//   return []
-// }
