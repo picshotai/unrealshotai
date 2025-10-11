@@ -216,14 +216,20 @@ export default function Home() {
         <section className="max-w-5xl mx-auto px-4 py-12 text-center">
           <h3 className="text-xl font-bold mb-3 font-[var(--font-inter-tight)]">Need a custom plan or invoice?</h3>
           <p className="text-gray-600 mb-6">We’re happy to help.</p>
-          <Link href="mailto:support@unrealshot.com" >
-          <Button className="inline-block group relative bg-[#ff6f00] hover:bg-[#ff6f00]/90 text-white rounded-md overflow-hidden cursor-pointer pr-12 py-3 font-semibold text-base shadow-[0_4px_20px_-5px_rgba(0,0,0,0.2)]">
-            Contact us
-            <span className="bg-white rounded-sm p-2 absolute right-1 top-1/2 -translate-y-1/2">
-              <img src="/arrow.svg" alt="arrow-right" className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-            </span>
-            </Button>
-          </Link>
+          <Link href="mailto:support@unrealshot.com">
+              <Button
+                className="text-md sm:text-md font-semibold py-5 sm:py-6 group relative bg-[#ff6f00] hover:bg-[#ff6f00]/90 text-white rounded-md overflow-hidden cursor-pointer pr-12"
+              >
+                Contact us
+                <div className="bg-white rounded-sm p-2 sm:p-3 absolute right-1 top-1/2 -translate-y-1/2">
+                  <img
+                    src="/arrow.svg"
+                    alt="arrow-right"
+                    className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
+                  />
+                </div>
+              </Button>
+            </Link>
           <p className="mt-4 text-sm text-gray-500">Payments are processed securely.</p>
         </section>
       </main>

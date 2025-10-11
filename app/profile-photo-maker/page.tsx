@@ -17,10 +17,11 @@ import type { Metadata } from "next"
 import { StructuredData } from "@/components/seo/StructuredData"
 import { generateWebApplicationJsonLd } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Profile Photo Maker - UnrealShot AI",
-  description: "Create and customize profile pictures with filters, borders, backgrounds, and text. Export your image with ease.",
-}
+// Removed disallowed metadata export from client component
+// export const metadata: Metadata = {
+//   title: "Profile Photo Maker - UnrealShot AI",
+//   description: "Create and customize profile pictures with filters, borders, backgrounds, and text. Export your image with ease.",
+// }
 
 export default function ProfilePictureEditor() {
   const [activePanel, setActivePanel] = useState<string | null>("position")
