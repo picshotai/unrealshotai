@@ -69,7 +69,7 @@ export default function Home() {
             <div className="px-4 pt-4">
               <h3 className="text-lg font-semibold">Traditional photo studio vs Unrelashot</h3>
             </div>
-            <Table>
+            <Table className="px-4">
               <TableHeader>
                 <TableRow>
                   <TableHead>Aspect</TableHead>
@@ -77,7 +77,7 @@ export default function Home() {
                   <TableHead>Unrelashot AI Photoshoot</TableHead>
                 </TableRow>
               </TableHeader>
-              <TableBody>
+              <TableBody className="px-4">
                 <TableRow>
                   <TableCell className="font-medium text-gray-800">Cost</TableCell>
                   <TableCell className="text-gray-700">$150–$600+ per session</TableCell>
@@ -127,7 +127,7 @@ export default function Home() {
             <div className="px-4 pt-4">
               <h3 className="text-lg font-semibold">Other AI providers vs Unrelashot</h3>
             </div>
-            <Table>
+            <Table className="px-4">
               <TableHeader>
                 <TableRow>
                   <TableHead>Aspect</TableHead>
@@ -135,7 +135,7 @@ export default function Home() {
                   <TableHead>Unrelashot AI Photoshoot</TableHead>
                 </TableRow>
               </TableHeader>
-              <TableBody>
+              <TableBody className="px-4">
                 <TableRow>
                   <TableCell className="font-medium text-gray-800">Pricing model</TableCell>
                   <TableCell className="text-gray-700">Often subscription or upsells</TableCell>
