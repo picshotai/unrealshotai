@@ -9,8 +9,8 @@ import StylePacks from '@/components/landing/StylePacks';
 import PricingCards from '@/components/landing/pricing-cards'
 import FAQSection from '@/components/landing/FAQSection'
 import { CTASection } from '@/components/landing/CTASection'
-import { generateMetadata, generateServiceJsonLd } from '@/lib/seo'
-import { pageSEO, organizationSchema } from '@/config/seo'
+import { generateMetadata, generateWebApplicationJsonLd } from '@/lib/seo'
+import { pageSEO } from '@/config/seo'
 import { StructuredData } from '@/components/seo/StructuredData'
 import  Footer  from '@/components/MainFooter'
 import TestimonialSection from "@/components/landing/Testimonial";
@@ -26,13 +26,7 @@ export const metadata: Metadata = generateMetadata({
 });
 
 export default function AIChefHeadshotsPage() {
-  const serviceSchema = generateServiceJsonLd({
-    name: pageConfig.title,
-    description: pageConfig.description,
-    url: 'https://www.unrealshot.com/ai-chef-headshots',
-    serviceType: 'AI Headshot Generation',
-    provider: organizationSchema,
-  });
+  const webAppSchema = generateWebApplicationJsonLd();
 
   return (
     <div className="min-h-screen bg-white">
@@ -50,7 +44,7 @@ export default function AIChefHeadshotsPage() {
         <CTASection />
       </main>
       <Footer />
-      <StructuredData data={JSON.parse(serviceSchema)} />
+      <StructuredData data={JSON.parse(webAppSchema)} />
     </div>
   )
 }
