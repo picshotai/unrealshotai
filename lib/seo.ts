@@ -117,18 +117,6 @@ export function generateMetadata(props: PageSEOProps = {}): Metadata {
     },
   };
 
-  // Add Facebook-specific meta tags if configured
-  if (socialConfig.facebook.appId) {
-    const currentOther = metadata.other || {};
-    const filteredOther = Object.fromEntries(
-      Object.entries(currentOther).filter(([_, value]) => value !== undefined)
-    );
-    metadata.other = {
-      ...filteredOther,
-      'fb:app_id': socialConfig.facebook.appId,
-    };
-  }
-
   return metadata;
 }
 
@@ -178,17 +166,80 @@ export function generateWebApplicationJsonLd(): string {
     "operatingSystem": "Web Browser",
     "browserRequirements": "Requires JavaScript. Requires HTML5.",
     "softwareVersion": "1.0",
+    "inLanguage": "en-US",
+    "keywords": "AI photoshoot, AI headshot generator, professional headshots, AI portraits, selfie to photoshoot, corporate headshots",
+
+    "screenshot": [
+    "https://unrealshotai.vercel.app/images/screenshot.png",
+    "https://unrealshotai.vercel.app/images/screenshot-dashboard.png"
+   ],
+
+   "featureList": [
+    "AI Model Training from Selfies",
+    "Multiple Style Packs (Corporate, Glamour, Dating, etc.)",
+    "High-Resolution Photo Generation",
+    "Fast Delivery (Results in 15-20 minutes)",
+    "Automatic Deletion of Uploaded Photos for Privacy"
+  ],
+
     "author": {
       "@type": "Organization",
       "name": organizationSchema.name,
       "url": organizationSchema.url
     },
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD",
-      "description": "Free tier available with premium options"
+     "publisher": {
+    "@type": "Organization",
+    "name": "Unrealshot AI",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://unrealshotai.vercel.app/site-logo.png"
     }
+  },
+    "offers": {
+    "@type": "AggregateOffer",
+    "lowPrice": "9.99",
+    "highPrice": "17.99",
+    "priceCurrency": "USD",
+    "offerCount": "2",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "20 Photos Pack",
+        "price": "9.99",
+        "priceCurrency": "USD",
+        "description": "Includes 30 credits for one AI model training and 20 AI-generated photos."
+      },
+      {
+        "@type": "Offer",
+        "name": "Pro Pack",
+        "price": "17.99",
+        "priceCurrency": "USD",
+        "description": "Includes 60 credits for 80 photos with one model, or 40 photos with two separate models."
+      }
+    ]
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "bestRating": "5",
+    "ratingCount": "312"
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Sachin"
+      },
+      "datePublished": "2025-10-05",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "reviewBody": "Unrealshot AI completely transformed my LinkedIn profile. The headshots are incredibly realistic and professional. The process was super fast and easy. Highly recommend!"
+    }
+  ]
   };
   
   return generateJsonLd(webAppSchema);

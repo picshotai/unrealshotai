@@ -32,13 +32,6 @@ export interface SocialConfig {
     site: string;
     cardType: 'summary' | 'summary_large_image' | 'app' | 'player';
   };
-  facebook: {
-    appId?: string;
-    admins?: string[];
-  };
-  linkedin: {
-    companyId?: string;
-  };
   instagram: {
     handle?: string;
   };
@@ -70,7 +63,7 @@ export interface OrganizationSchema {
 // Default SEO Configuration
 export const defaultSEO: SEOConfig = {
   title: 'The #1 Realistic AI Photoshoot Generator | Unrealshot AI',
-  description: 'Get a complete, realistic AI photoshoot from your selfies. Includes professional AI headshots, creative portraits, and more. Hundreds of studio-quality photos for a fraction of the cost.',
+  description: "Stop scrolling through photos you don't love. Unrealshot turns your selfies into a stunning, realistic AI photoshoot. Get the perfect shot for every profile, from professional headshots to dating pics.",
   keywords: [
     'AI photoshoot generator',
     'AI headshot generator',
@@ -90,9 +83,8 @@ export const defaultSEO: SEOConfig = {
   type: 'website',
   robots: 'index, follow',
   // Add your verification codes here
-  googleSiteVerification: 'YOUR_GOOGLE_VERIFICATION_CODE',
-  bingSiteVerification: 'YOUR_BING_VERIFICATION_CODE',
-  yandexVerification: undefined,
+  googleSiteVerification: 'googlec76eab1a4ae6fb83.html',
+  yandexVerification: '47ba7543cebfc90b',
 };
 
 // Social Media Configuration
@@ -101,13 +93,6 @@ export const socialConfig: SocialConfig = {
     handle: '@unrealshotai', // Replace with your actual Twitter handle
     site: '@unrealshotai', // Replace with your actual Twitter handle
     cardType: 'summary_large_image',
-  },
-  facebook: {
-    appId: undefined, // Add your Facebook App ID if you have one
-    admins: undefined,
-  },
-  linkedin: {
-    companyId: undefined, // Add your LinkedIn company page ID if you have one
   },
   instagram: {
     handle: '@unrealshotai', // Replace with your actual Instagram handle
@@ -123,22 +108,19 @@ export const organizationSchema: OrganizationSchema = {
   description: defaultSEO.description,
   address: {
     '@type': 'PostalAddress',
-    // It's better to omit address if you are a remote-first company
-    // streetAddress: '123 Business Street',
-    // addressLocality: 'Your City',
-    // addressRegion: 'Your State',
-    // postalCode: '12345',
-    addressCountry: 'US', // Or your country of registration
+    streetAddress: 'Sadabad',
+    addressLocality: 'Sadabad',
+    addressRegion: 'Hathras, UP',
+    postalCode: '281306',
+    addressCountry: 'IN',
   },
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: undefined, // Optional: Add if you have a business phone
     contactType: 'customer service',
     email: 'support@unrealshot.com', // Replace with your support email
   },
   sameAs: [
     'https://x.com/unrealshotai', // Replace with your actual social links
-    'https://linkedin.com/company/unrealshotai',
     'https://instagram.com/unrealshotai',
   ],
 };
