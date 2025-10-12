@@ -47,7 +47,7 @@ export function FeaturesSection() {
 	 	 	 	 	 	 <span className="text-[#ff6f00]">Zero Studio Hassle.</span> 
 	 	 	 	 	 </h2> 
 	 	 	 	 	 <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto leading-tight"> 
-	 	 	 	 	 	Unrealshot is a suite of powerful tools designed to give you complete creative control and stunning, authentic results.
+	 	 	 	 	 	Unrealshot is a suite of powerful photoshoot ai tools designed to give you complete creative control and stunning, authentic results.
 	 	 	 	 	 </p> 
 	 	 	 	 </div> 
 

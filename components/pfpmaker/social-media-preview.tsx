@@ -1,3 +1,4 @@
+"use client"
 import type React from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Eye, Grid, Users } from "lucide-react"
@@ -5,18 +6,24 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 interface SocialMediaPreviewProps {
-  imageUrl: string | undefined
+  imageUrl: string | null | undefined
+  // Optional custom trigger to open the dialog (e.g., an icon button)
+  trigger?: React.ReactNode
 }
 
-const SocialMediaPreview: React.FC<SocialMediaPreviewProps> = ({ imageUrl }) => {
+const SocialMediaPreview: React.FC<SocialMediaPreviewProps> = ({ imageUrl, trigger }) => {
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="lg" className="flex-1 px-4 bg-white">
-          <Eye className="w-4 h-4 mr-2" />
-          Preview
-        </Button>
-      </DialogTrigger>
+      {trigger ? (
+        <DialogTrigger asChild>{trigger}</DialogTrigger>
+      ) : (
+        <DialogTrigger asChild>
+          <Button variant="outline" size="lg" className="flex-1 px-4 bg-white">
+            <Eye className="w-4 h-4 mr-2" />
+            Preview
+          </Button>
+        </DialogTrigger>
+      )}
       <DialogContent className="max-w-xl">
         <DialogHeader>
           <DialogTitle>Social Media Preview</DialogTitle>
