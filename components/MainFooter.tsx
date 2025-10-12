@@ -8,6 +8,7 @@ export default function Footer() {
   const companyLinks = [
     { href: '/about', label: 'About' },
     { href: '/blog', label: 'Blog' },
+    { href: '/pricing', label: 'Pricing' },
     { href: '/privacy-policy', label: 'Privacy Policy' },
     { href: '/terms', label: 'Terms' },
     { href: '/refund-policy', label: 'Refund Policy' },
