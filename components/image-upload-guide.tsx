@@ -347,7 +347,7 @@ export default function ImageUploadGuide({ className }: ImageUploadGuideProps) {
             <CardContent>
               <div className="flex flex-col md:flex-row gap-8 items-center">
                 <div className="relative w-full max-w-xs aspect-[2/3] bg-gray-100 rounded-lg overflow-hidden">
-                  <Image src="/content/full-body2.jpg" alt="Full body" fill className="object-cover" />
+                  <Image src="/content/full-body.jpg" alt="Full body" fill className="object-cover" />
                   <Badge className="absolute top-3 left-3 bg-blue-500">Full Body</Badge>
                 </div>
 

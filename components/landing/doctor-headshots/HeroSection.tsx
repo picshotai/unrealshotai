@@ -15,14 +15,22 @@ const caveat = Caveat({
 
 // Using your actual image paths from the original component
 const images = [
-  { src: "/landing/doctor-headshot1.jpg", alt: "Doctor Headshots: Close-up professional headshot with neutral background | Unrealshot AI" },
-  { src: "/landing/doctor-headshot2.jpg", alt: "Doctor Headshots: Business portrait in studio lighting | Unrealshot AI" },
-  { src: "/landing/doctor-headshot3.jpg", alt: "Doctor Headshots: Smiling headshot in formal attire | Unrealshot AI" },
-  { src: "/landing/doctor-headshot4.jpg", alt: "Doctor Headshots: Natural light portrait with soft background blur | Unrealshot AI" },
-  { src: "/landing/doctor-headshot5.jpg", alt: "Doctor Headshots: Confident pose, business casual look | Unrealshot AI" },
-  { src: "/landing/doctor-headshot6.jpg", alt: "Doctor Headshots: Profile angle with warm lighting | Unrealshot AI" },
-  { src: "/landing/doctor-headshot7.jpg", alt: "Doctor Headshots: Minimalist background, sharp focus | Unrealshot AI" },
-  { src: "/landing/doctor-headshot8.jpg", alt: "Doctor Headshots: Office setting headshot, polished look | Unrealshot AI" },
+  { src: "/content/doctor1.webp", alt: "Doctor Headshots: Close-up professional headshot with neutral background | Unrealshot AI" },
+  { src: "/content/doctor2.webp", alt: "Doctor Headshots: Business portrait in studio lighting | Unrealshot AI" },
+  { src: "/content/doctor3.webp", alt: "Doctor Headshots: Smiling headshot in formal attire | Unrealshot AI" },
+  { src: "/content/doctor4.webp", alt: "Doctor Headshots: Natural light portrait with soft background blur | Unrealshot AI" },
+  { src: "/content/doctor5.webp", alt: "Doctor Headshots: Confident pose, business casual look | Unrealshot AI" },
+  { src: "/content/doctor6.webp", alt: "Doctor Headshots: Profile angle with warm lighting | Unrealshot AI" },
+  { src: "/content/doctor7.webp", alt: "Doctor Headshots: Minimalist background, sharp focus | Unrealshot AI" },
+  { src: "/content/doctor8.webp", alt: "Doctor Headshots: Office setting headshot, polished look | Unrealshot AI" },
+  { src: "/content/doctor9.webp", alt: "Doctor Headshots: Close-up professional headshot with neutral background | Unrealshot AI" },
+  { src: "/content/doctor10.webp", alt: "Doctor Headshots: Business portrait in studio lighting | Unrealshot AI" },
+  { src: "/content/doctor11.webp", alt: "Doctor Headshots: Smiling headshot in formal attire | Unrealshot AI" },
+  { src: "/content/doctor12.webp", alt: "Doctor Headshots: Natural light portrait with soft background blur | Unrealshot AI" },
+  { src: "/content/doctor13.webp", alt: "Doctor Headshots: Confident pose, business casual look | Unrealshot AI" },
+  { src: "/content/doctor14.webp", alt: "Doctor Headshots: Profile angle with warm lighting | Unrealshot AI" },
+  { src: "/content/doctor15.webp", alt: "Doctor Headshots: Minimalist background, sharp focus | Unrealshot AI" },
+  
 ]
 
 export function HeroSection() {
@@ -86,7 +94,7 @@ Project the compassion and professionalism you're known for. Get warm, high-qual
               <Button
                 className="text-sm sm:text-md py-5 sm:py-6 group relative bg-[#ff6f00] hover:bg-[#ff6f00]/90 text-white rounded-md overflow-hidden cursor-pointer pr-12"
               >
-                Get Your Doctor Headshots
+                Get Your Headshots
                 <div className="bg-white rounded-sm p-2 sm:p-3 absolute right-1 top-1/2 -translate-y-1/2">
                   <img
                     src="/arrow.svg"
