@@ -7,12 +7,13 @@ import {
   SquareTerminal,
   Coins,
   Sparkles,
-  Image,
+  Image as ImageIcon,
   Upload,
   Sparkles as SparklesIcon,
   FolderOpen,
 } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { NavMain } from "@/components/dashboard/nav-main"
 import { NavSecondary } from "@/components/dashboard/nav-secondary"
 import { NavUser } from "@/components/dashboard/nav-user"
@@ -51,7 +52,7 @@ const data = {
   {
       title: "My Gallery",
       url: "/gallery",
-      icon: Image,
+      icon: ImageIcon,
     },
 {
       title: "Photo Upload Guide",
@@ -126,12 +127,10 @@ export function AppSidebar({
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <Link href="/">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <Command className="size-4" />
-                </div>
+               <Link href="/">
+                  <Image src="/site-logo.png" alt="Unrealshot AI" width={30} height={30} className="rounded-sm"/>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Unrealshot AI</span>
+                  <span className="truncate font-semibold">Unrealshot AI</span>
                   <span className="truncate text-xs">Realistic AI Photoshoots</span>
                 </div>
               </Link>
