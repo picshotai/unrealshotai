@@ -38,19 +38,12 @@ export function CTASection() {
 
             {/* The Risk Reversal / Guarantee */}
             <div className="flex justify-center items-center gap-2 mt-8 text-sm text-gray-500">
-              <ShieldCheck size={16} className="hidden md:block" />
-              <span>100% Satisfaction Guarantee. Love your photos or get a refund.</span>
-            </div>
-            
-            {/* The Final Social Proof */}
-            <div className="mt-12 pt-8 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-                <div className="flex items-center">
-                    {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" />)}
-                </div>
-                <p className="text-gray-600 font-medium">
+               <p className="text-gray-600 font-medium">
                     Rated <strong>4.9/5</strong> by over <strong>1,200+</strong> happy professionals.
                 </p>
             </div>
+            
+            
           </div>
         </div>
       </div>
