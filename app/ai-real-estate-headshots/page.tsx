@@ -8,7 +8,7 @@ import StylePacks from '@/components/landing/StylePacks';
 import PricingCards from '@/components/landing/pricing-cards'
 import FAQSection from '@/components/landing/FAQSection'
 import { CTASection } from '@/components/landing/CTASection'
-import { generateMetadata, generateWebApplicationJsonLd } from '@/lib/seo'
+import { commonPageMetadata, generateLandingPageWebApplicationJsonLd } from '@/lib/seo'
 import { pageSEO } from '@/config/seo'
 import { StructuredData } from '@/components/seo/StructuredData'
 import  Footer  from '@/components/MainFooter'
@@ -17,15 +17,10 @@ import PrivacySection from "@/components/landing/PrivacySection";
 
 const pageConfig = pageSEO.landingPages['ai-real-estate-headshots'];
 
-export const metadata: Metadata = generateMetadata({
-  title: pageConfig.title,
-  description: pageConfig.description,
-  keywords: pageConfig.keywords,
-  canonical: '/ai-real-estate-headshots',
-});
+export const metadata: Metadata = commonPageMetadata.landingPage('ai-real-estate-headshots')
 
 export default function AIRealEstateHeadshotsPage() {
-  const webAppSchema = generateWebApplicationJsonLd();
+  const webAppSchema = generateLandingPageWebApplicationJsonLd('ai-real-estate-headshots')
 
   return (
     <div className="min-h-screen bg-white">

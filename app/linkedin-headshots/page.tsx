@@ -8,13 +8,13 @@ import StylePacks from '@/components/landing/StylePacks'
 import PricingCards from '@/components/landing/pricing-cards'
 import FAQSection from '@/components/landing/FAQSection'
 import { CTASection } from '@/components/landing/CTASection'
-import { commonPageMetadata, generateWebApplicationJsonLd } from '@/lib/seo'
+import { commonPageMetadata, generateLandingPageWebApplicationJsonLd } from '@/lib/seo'
 import { StructuredData } from '@/components/seo/StructuredData'
 import Footer from '@/components/MainFooter'
 import TestimonialSection from '@/components/landing/Testimonial'
 import PrivacySection from '@/components/landing/PrivacySection'
 
-export const metadata: Metadata = commonPageMetadata.home()
+export const metadata: Metadata = commonPageMetadata.landingPage('linkedin-headshots')
 
 export default function LinkedinHeadshotsPage() {
   return (
@@ -33,7 +33,7 @@ export default function LinkedinHeadshotsPage() {
         <CTASection />
       </main>
       <Footer />
-      <StructuredData data={JSON.parse(generateWebApplicationJsonLd())} />
+      <StructuredData data={JSON.parse(generateLandingPageWebApplicationJsonLd('linkedin-headshots'))} />
     </div>
   )
 }

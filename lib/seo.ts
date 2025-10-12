@@ -15,6 +15,7 @@ import {
   schemaTemplates,
   seoUtils,
   type SEOConfig,
+  pageSEO,
 } from '@/config/seo';
 
 export interface PageSEOProps {
@@ -155,93 +156,175 @@ export function generateSoftwareApplicationJsonLd(): string {
 /**
  * Generate Web Application JSON-LD for home page
  */
-export function generateWebApplicationJsonLd(): string {
+export function generateLandingPageWebApplicationJsonLd(slug: string): string {
+  const cfg = (pageSEO as any)?.landingPages?.[slug];
+  const props = cfg
+    ? { title: cfg.title, description: cfg.description, urlPath: `/${slug}`, keywords: cfg.keywords }
+    : { urlPath: `/${slug}` };
+  return generateWebApplicationJsonLd(props);
+}
+export function generateWebApplicationJsonLd(props?: { title?: string; description?: string; urlPath?: string; keywords?: string[] }): string {
+  const name = props?.title || defaultSEO.title;
+  const description = props?.description || defaultSEO.description;
+  const url = props?.urlPath ? seoUtils.generateCanonicalUrl(props.urlPath) : defaultSEO.siteUrl;
+  const keywords = props?.keywords ? props.keywords.join(', ') : defaultSEO.keywords.join(', ');
+
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": defaultSEO.title,
-    "description": defaultSEO.description,
-    "url": defaultSEO.siteUrl,
+    "name": name,
+    "description": description,
+    "url": url,
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web Browser",
     "browserRequirements": "Requires JavaScript. Requires HTML5.",
     "softwareVersion": "1.0",
     "inLanguage": "en-US",
-    "keywords": "AI photoshoot, AI headshot generator, professional headshots, AI portraits, selfie to photoshoot, corporate headshots",
+    "keywords": keywords,
 
     "screenshot": [
-    "https://unrealshotai.vercel.app/images/screenshot.png",
-    "https://unrealshotai.vercel.app/images/screenshot-dashboard.png"
-   ],
+      "https://unrealshotai.vercel.app/images/screenshot.png",
+      "https://unrealshotai.vercel.app/images/screenshot-dashboard.png"
+    ],
 
-   "featureList": [
-    "AI Model Training from Selfies",
-    "Multiple Style Packs (Corporate, Glamour, Dating, etc.)",
-    "High-Resolution Photo Generation",
-    "Fast Delivery (Results in 15-20 minutes)",
-    "Automatic Deletion of Uploaded Photos for Privacy"
-  ],
+    "featureList": [
+      "AI Model Training from Selfies",
+      "Multiple Style Packs (Corporate, Glamour, Dating, etc.)",
+      "High-Resolution Photo Generation",
+      "Fast Delivery (Results in 15-20 minutes)",
+      "Automatic Deletion of Uploaded Photos for Privacy"
+    ],
 
     "author": {
       "@type": "Organization",
       "name": organizationSchema.name,
       "url": organizationSchema.url
     },
-     "publisher": {
-    "@type": "Organization",
-    "name": "Unrealshot AI",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://unrealshotai.vercel.app/site-logo.png"
-    }
-  },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Unrealshot AI",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://unrealshotai.vercel.app/site-logo.png"
+      }
+    },
     "offers": {
-    "@type": "AggregateOffer",
-    "lowPrice": "9.99",
-    "highPrice": "17.99",
-    "priceCurrency": "USD",
-    "offerCount": "2",
-    "offers": [
+      "@type": "AggregateOffer",
+      "lowPrice": "9.99",
+      "highPrice": "17.99",
+      "priceCurrency": "USD",
+      "offerCount": "2",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "20 Photos Pack",
+          "price": "9.99",
+          "priceCurrency": "USD",
+          "description": "Includes 30 credits for one AI model training and 20 AI-generated photos."
+        },
+        {
+          "@type": "Offer",
+          "name": "Pro Pack",
+          "price": "17.99",
+          "priceCurrency": "USD",
+          "description": "Includes 60 credits for 80 photos with one model, or 40 photos with two separate models."
+        }
+      ]
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "bestRating": "5",
+      "ratingCount": "312"
+    },
+    "review": [
       {
-        "@type": "Offer",
-        "name": "20 Photos Pack",
-        "price": "9.99",
-        "priceCurrency": "USD",
-        "description": "Includes 30 credits for one AI model training and 20 AI-generated photos."
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Sachin Singh",
+          "jobTitle": "Influencer"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "I got my perfect Instagram profile photo in just 40 minutes. The quality is amazing!"
       },
       {
-        "@type": "Offer",
-        "name": "Pro Pack",
-        "price": "17.99",
-        "priceCurrency": "USD",
-        "description": "Includes 60 credits for 80 photos with one model, or 40 photos with two separate models."
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Mariah Edwards",
+          "jobTitle": "Marketing Director"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "The transformation is unbelievable. My LinkedIn profile looks so professional now!"
+      },
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Sumesh",
+          "jobTitle": "Tech Enthusiast"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "I've tried many AI photo tools, but Unrealshot AI gives the most natural-looking results."
+      },
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Emma Thompson",
+          "jobTitle": "Model"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "Being a model, having standout photos is everything. After using this AI tool, my portfolio photos look more polished and professional!"
+      },
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Manoj",
+          "jobTitle": "Photographer"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "The customer service is as impressive as the AI. They helped me choose the perfect style."
+      },
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Shrey Singh",
+          "jobTitle": "HR Manager"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "Our entire team uses Unrealshot AI for our corporate headshots. Consistent quality every time!"
       }
     ]
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "bestRating": "5",
-    "ratingCount": "312"
-  },
-  "review": [
-    {
-      "@type": "Review",
-      "author": {
-        "@type": "Person",
-        "name": "Sachin"
-      },
-      "datePublished": "2025-10-05",
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": "5",
-        "bestRating": "5"
-      },
-      "reviewBody": "Unrealshot AI completely transformed my LinkedIn profile. The headshots are incredibly realistic and professional. The process was super fast and easy. Highly recommend!"
-    }
-  ]
   };
-  
+
   return generateJsonLd(webAppSchema);
 }
 
@@ -453,6 +536,20 @@ export const commonPageMetadata = {
     nofollow: true,
   }),
 
+  // New: Landing page-specific metadata using config/pageSEO.landingPages
+  landingPage: (slug: string) => {
+    const cfg = (pageSEO as any)?.landingPages?.[slug];
+    const title = cfg?.title || defaultSEO.title;
+    const description = cfg?.description || defaultSEO.description;
+    const keywords = cfg?.keywords || defaultSEO.keywords;
+    return generateMetadata({
+      title,
+      description,
+      keywords,
+      canonical: `/${slug}`,
+      ogType: 'website',
+    });
+  },
 
   profilePhotoMaker: () => generateMetadata({
     title: 'Profile Photo Maker',

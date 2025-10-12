@@ -5,8 +5,8 @@ import { UploadCloud, Play } from "lucide-react"
 import Carousal from "@/components/Carousal"
 
 // Using your specific image requests
-const womanInputImages = ["/images/demo1.jpg", "/images/demo2.jpg", "/images/demo3.jpg", "/images/demo4.jpg", "/images/demo5.jpg", "/images/demo6.jpg"];
-const manInputImages = ["/images/demo7.jpg", "/images/demo8.jpg", "/images/demo9.jpg", "/images/demo10.jpg", "/images/demo11.jpg", "/images/demo12.jpg"];
+const womanInputImages = ["/images/demo1.jpg", "/images/demo2.jpg", "/images/demo3.jpg", "/images/demo4.jpg", "/images/demo9.jpg", "/images/demo10.jpg"];
+const manInputImages = ["/images/demo7.jpg", "/images/demo5.jpg", "/images/demo11.jpg", "/images/demo12.jpg", "/images/demo13.jpg", "/images/demo14.jpg"];
 const womanOutputImages = ["/images/aimodel1.jpg", "/images/aimodel2.jpg", "/images/aimodel3.jpg", "/images/aimodel4.jpg"];
 const manOutputImages = ["/images/aimodel5.jpg", "/images/aimodel6.jpg", "/images/aimodel7.jpg", "/images/aimodel8.jpg"];
 

@@ -9,7 +9,7 @@ import StylePacks from '@/components/landing/StylePacks';
 import PricingCards from '@/components/landing/pricing-cards'
 import FAQSection from '@/components/landing/FAQSection'
 import { CTASection } from '@/components/landing/CTASection'
-import { commonPageMetadata, generateWebApplicationJsonLd } from '@/lib/seo'
+import { commonPageMetadata, generateLandingPageWebApplicationJsonLd } from '@/lib/seo'
 import { StructuredData } from '@/components/seo/StructuredData'
 import  Footer  from '@/components/MainFooter'
 import TestimonialSection from "@/components/landing/Testimonial";
@@ -17,7 +17,7 @@ import PrivacySection from "@/components/landing/PrivacySection";
 
 
 
-export const metadata: Metadata = commonPageMetadata.home()
+export const metadata: Metadata = commonPageMetadata.landingPage('ai-halloween-photoshoot')
 
 export default function AIGlamourPhotoshootPage() {
   return (
@@ -37,7 +37,7 @@ export default function AIGlamourPhotoshootPage() {
       </main>
       <Footer />
       {/* WebApplication Schema - Home Page Only */}
-      <StructuredData data={JSON.parse(generateWebApplicationJsonLd())} />
+      <StructuredData data={JSON.parse(generateLandingPageWebApplicationJsonLd('ai-halloween-photoshoot'))} />
     </div>
   )
 }
