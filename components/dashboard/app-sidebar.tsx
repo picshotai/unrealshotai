@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import {
-  Command,
   Send,
   SquareTerminal,
   Coins,

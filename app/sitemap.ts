@@ -35,7 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/refund-policy',
     '/blog',
     // Landing pages (present in /app)
-    '/doctor-headshots',
+    '/ai-doctor-headshots',
     '/founder-headshots',
     '/ai-chef-headshots',
     '/ai-real-estate-headshots',
@@ -53,7 +53,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/black-swan-photoshoot',
     '/corporate-headshots',
     '/denim-wear-photoshoot',
-    '/lawyer-headshots',
+    '/ai-lawyer-headshots',
     '/linkedin-headshots',
     '/natural-looks-photoshoot',
     '/neutral-muse-photoshoot',

@@ -18,7 +18,7 @@ export default function StylePacks() {
       description:
         "Make your profile pop with creative, eye-catching images that show off your personality and style.",
       image: "/content/socialimage.jpg",
-      url: "/login",
+      url: "/ai-instagram-photoshoot",
     },
     {
       title: "AI Glamour Photos",
@@ -32,14 +32,14 @@ export default function StylePacks() {
       description:
         "Make a strong impression with corporate headshots that reflect your professionalism, ideal for company websites or business cards.",
       image: "/content/corporate1.jpg",
-      url: "/login",
+      url: "/corporate-headshots",
     },
     {
       title: "Professional Headshots",
       description:
         "Create a polished, professional image for LinkedIn or your resume, making a strong first impression in any industry.",
       image: "/content/professional1.jpg",
-      url: "/professional-headshot-ai",
+      url: "/professional-headshots",
     },
     {
       title: "Christmas Photoshoot",
@@ -53,7 +53,7 @@ export default function StylePacks() {
       description:
         "Capture the essence of your startup with stunning founder headshots that highlight your vision and drive.",
       image: "/content/founder1.jpg",
-      url: "/login",
+      url: "/founder-headshots",
     },
     {
       title: "Lawyer Headshots",

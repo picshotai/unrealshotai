@@ -15,8 +15,8 @@ Unrealshot is an innovative platform that transforms your selfies into stunning,
 - [Professional Headshots](https://www.unrealshot.com/professional-headshots): General headshot options suitable for various professional uses.
 - [LinkedIn Headshots](https://www.unrealshot.com/linkedin-headshots): Specifically designed headshots for LinkedIn profiles to make a strong first impression.
 - [Resume Headshots](https://www.unrealshot.com/resume-headshots): Headshots optimized for inclusion in resumes, enhancing job applications.
-- [Doctor Headshots](https://www.unrealshot.com/doctor-headshots): Professional images tailored for medical professionals.
-- [Lawyer Headshots](https://www.unrealshot.com/lawyer-headshots): Headshots designed for legal professionals to convey trust and authority.
+- [Doctor Headshots](https://www.unrealshot.com/ai-doctor-headshots): Professional images tailored for medical professionals.
+- [Lawyer Headshots](https://www.unrealshot.com/ai-lawyer-headshots): Headshots designed for legal professionals to convey trust and authority.
 - [Real Estate Headshots](https://www.unrealshot.com/ai-real-estate-headshots): Images tailored for real estate agents to attract potential clients.
 - [Chef Headshots](https://www.unrealshot.com/ai-chef-headshots): Unique headshots for culinary professionals, showcasing their personality and style.
 
