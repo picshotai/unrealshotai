@@ -49,10 +49,10 @@ export default function StylePacks() {
       url: "/ai-christmas-photoshoot",
     },
     {
-      title: "Cardboard Meme AI Photos",
+      title: "Founder Headshots",
       description:
-        "Bring humor to life with creative and quirky cardboard meme-style photos for a fun twist.",
-      image: "/content/cardboard1.jpg",
+        "Capture the essence of your startup with stunning founder headshots that highlight your vision and drive.",
+      image: "/content/founder1.jpg",
       url: "/login",
     },
     {

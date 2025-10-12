@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import FourthSection from "@/components/Testimonial";
-import UserShowcase from "@/components/Content/user-showcase";
 import FloatingText from "./floating-text";
 import FeaturesSection from "@/components/testimonial-section";
 
@@ -424,7 +423,6 @@ export default function HomePage() {
       </section>
 
       <FourthSection />
-       <UserShowcase />
       <FeaturesSection/>
     
 
