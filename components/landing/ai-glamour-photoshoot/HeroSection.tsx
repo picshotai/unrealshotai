@@ -15,18 +15,18 @@ const caveat = Caveat({
 
 // Using your actual image paths from the original component
 const images = [
-  { src: "/landing/glamour/1.jpg", alt: "AI Glamour Photoshoot 1" },
-  { src: "/landing/glamour/2.jpg", alt: "AI Glamour Photoshoot 2" },
-  { src: "/landing/glamour/3.jpg", alt: "AI Glamour Photoshoot 3" },
-  { src: "/landing/glamour/4.jpg", alt: "AI Glamour Photoshoot 4" },
-  { src: "/landing/glamour/5.jpg", alt: "AI Glamour Photoshoot 5" },
-  { src: "/landing/glamour/6.jpg", alt: "AI Glamour Photoshoot 6" },
-  { src: "/landing/glamour/7.jpg", alt: "AI Glamour Photoshoot 7" },
-  { src: "/landing/glamour/8.jpg", alt: "AI Glamour Photoshoot 8" },
-  { src: "/landing/glamour/9.jpg", alt: "AI Glamour Photoshoot 9" },
-  { src: "/landing/glamour/10.jpg", alt: "AI Glamour Photoshoot 10" },
-  { src: "/landing/glamour/11.jpg", alt: "AI Glamour Photoshoot 11" },
-  { src: "/landing/glamour/12.jpg", alt: "AI Glamour Photoshoot 12" },
+  { src: "/landing/glamour/1.jpg", alt: "AI Glamour Photoshoot: Creative portrait with styled outfit | Unrealshot AI" },
+  { src: "/landing/glamour/2.jpg", alt: "AI Glamour Photoshoot: Glamour look with soft studio lighting | Unrealshot AI" },
+  { src: "/landing/glamour/3.jpg", alt: "AI Glamour Photoshoot: Editorial pose with dramatic shadows | Unrealshot AI" },
+  { src: "/landing/glamour/4.jpg", alt: "AI Glamour Photoshoot: Outdoor scene with natural light | Unrealshot AI" },
+  { src: "/landing/glamour/5.jpg", alt: "AI Glamour Photoshoot: Fashion-inspired portrait, bold colors | Unrealshot AI" },
+  { src: "/landing/glamour/6.jpg", alt: "AI Glamour Photoshoot: Classic look against textured backdrop | Unrealshot AI" },
+  { src: "/landing/glamour/7.jpg", alt: "AI Glamour Photoshoot: Candid pose, lifestyle feel | Unrealshot AI" },
+  { src: "/landing/glamour/8.jpg", alt: "AI Glamour Photoshoot: Minimalist studio setup, clean lines | Unrealshot AI" },
+  { src: "/landing/glamour/9.jpg", alt: "AI Glamour Photoshoot: Artistic composition with unique framing | Unrealshot AI" },
+  { src: "/landing/glamour/10.jpg", alt: "AI Glamour Photoshoot: Vintage-inspired portrait aesthetics | Unrealshot AI" },
+  { src: "/landing/glamour/11.jpg", alt: "AI Glamour Photoshoot: Creative portrait with styled outfit | Unrealshot AI" },
+  { src: "/landing/glamour/12.jpg", alt: "AI Glamour Photoshoot: Glamour look with soft studio lighting | Unrealshot AI" },
 ]
 
 export function HeroSection() {

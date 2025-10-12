@@ -10,11 +10,11 @@ import { Caveat } from 'next/font/google'
 const caveat = Caveat({ subsets: ['latin'], weight: '500' })
 
 const images = [
-  { src: '/landing/landingphoto1.jpg', alt: 'AI Resume headshot 1 - Unrealshot AI' },
-  { src: '/landing/landingphoto12.jpg', alt: 'AI Resume headshot 2 - Unrealshot AI' },
-  { src: '/landing/landingphoto11.jpg', alt: 'AI Resume headshot 3 - Unrealshot AI' },
-  { src: '/landing/landingphoto15.jpg', alt: 'AI Resume headshot 4 - Unrealshot AI' },
-  { src: '/landing/landingphoto16.jpg', alt: 'AI Resume headshot 5 - Unrealshot AI' },
+  { src: '/landing/landingphoto1.jpg', alt: 'Vintage Photoshoot: Creative portrait with styled outfit | Unrealshot AI' },
+  { src: '/landing/landingphoto12.jpg', alt: 'Vintage Photoshoot: Glamour look with soft studio lighting | Unrealshot AI' },
+  { src: '/landing/landingphoto11.jpg', alt: 'Vintage Photoshoot: Editorial pose with dramatic shadows | Unrealshot AI' },
+  { src: '/landing/landingphoto15.jpg', alt: 'Vintage Photoshoot: Outdoor scene with natural light | Unrealshot AI' },
+  { src: '/landing/landingphoto16.jpg', alt: 'Vintage Photoshoot: Fashion-inspired portrait, bold colors | Unrealshot AI' },
 ]
 
 export function HeroSection() {

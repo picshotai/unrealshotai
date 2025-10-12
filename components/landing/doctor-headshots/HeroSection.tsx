@@ -15,14 +15,14 @@ const caveat = Caveat({
 
 // Using your actual image paths from the original component
 const images = [
-  { src: "/landing/doctor-headshot1.jpg", alt: "AI-generated Doctor Headshot - Unrealshot AI" },
-  { src: "/landing/doctor-headshot2.jpg", alt: "AI-generated Doctor Headshot 2 - Unrealshot AI" },
-  { src: "/landing/doctor-headshot3.jpg", alt: "AI-generated Doctor Headshot 3 - Unrealshot AI" },
-  { src: "/landing/doctor-headshot4.jpg", alt: "AI-generated Doctor Headshot 4 - Unrealshot AI" },
-  { src: "/landing/doctor-headshot5.jpg", alt: "AI-generated Doctor Headshot 5 - Unrealshot AI" },
-  { src: "/landing/doctor-headshot6.jpg", alt: "AI-generated Doctor Headshot 6 - Unrealshot AI" },
-  { src: "/landing/doctor-headshot7.jpg", alt: "AI-generated Doctor Headshot 7 - Unrealshot AI" },
-  { src: "/landing/doctor-headshot8.jpg", alt: "AI-generated Doctor Headshot 8 - Unrealshot AI" },
+  { src: "/landing/doctor-headshot1.jpg", alt: "Doctor Headshots: Close-up professional headshot with neutral background | Unrealshot AI" },
+  { src: "/landing/doctor-headshot2.jpg", alt: "Doctor Headshots: Business portrait in studio lighting | Unrealshot AI" },
+  { src: "/landing/doctor-headshot3.jpg", alt: "Doctor Headshots: Smiling headshot in formal attire | Unrealshot AI" },
+  { src: "/landing/doctor-headshot4.jpg", alt: "Doctor Headshots: Natural light portrait with soft background blur | Unrealshot AI" },
+  { src: "/landing/doctor-headshot5.jpg", alt: "Doctor Headshots: Confident pose, business casual look | Unrealshot AI" },
+  { src: "/landing/doctor-headshot6.jpg", alt: "Doctor Headshots: Profile angle with warm lighting | Unrealshot AI" },
+  { src: "/landing/doctor-headshot7.jpg", alt: "Doctor Headshots: Minimalist background, sharp focus | Unrealshot AI" },
+  { src: "/landing/doctor-headshot8.jpg", alt: "Doctor Headshots: Office setting headshot, polished look | Unrealshot AI" },
 ]
 
 export function HeroSection() {

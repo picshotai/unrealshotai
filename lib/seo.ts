@@ -454,6 +454,14 @@ export const commonPageMetadata = {
   }),
 
 
+  profilePhotoMaker: () => generateMetadata({
+    title: 'Profile Photo Maker',
+    description: 'Create and customize profile pictures with filters, borders, backgrounds, and text. Export your image with ease.',
+    canonical: '/profile-photo-maker',
+    keywords: ['profile photo maker', 'profile picture editor', 'pfp maker', 'profile photo editor', 'social media profile picture', 'instagram profile photo', 'linkedin profile picture', 'avatar maker', 'photo editor', 'custom profile picture'],
+    ogType: 'website',
+  }),
+
   blog: () => generateMetadata({
     title: 'Blog - Modern React and Web Development',
     description: 'Modern React and web development tutorials, insights, and best practices.',

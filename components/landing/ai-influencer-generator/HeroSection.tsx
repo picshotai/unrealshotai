@@ -15,14 +15,14 @@ const caveat = Caveat({
 
 // Using your actual image paths from the original component
 const images = [
-  { src: "/landing/ai-influencer1.jpg", alt: "AI-generated Influencer - Unrealshot AI" },
-  { src: "/landing/ai-influencer2.jpg", alt: "AI-generated Influencer 2 - Unrealshot AI" },
-  { src: "/landing/ai-influencer3.jpg", alt: "AI-generated Influencer 3 - Unrealshot AI" },
-  { src: "/landing/ai-influencer4.jpg", alt: "AI-generated Influencer 4 - Unrealshot AI" },
-  { src: "/landing/ai-influencer5.jpg", alt: "AI-generated Influencer 5 - Unrealshot AI" },
-  { src: "/landing/ai-influencer6.jpg", alt: "AI-generated Influencer 6 - Unrealshot AI" },
-  { src: "/landing/ai-influencer7.jpg", alt: "AI-generated Influencer 7 - Unrealshot AI" },
-  { src: "/landing/ai-influencer8.jpg", alt: "AI-generated Influencer 8 - Unrealshot AI" },
+  { src: "/landing/ai-influencer1.jpg", alt: "AI Influencer Portraits: Modern portrait with soft lighting | Unrealshot AI" },
+  { src: "/landing/ai-influencer2.jpg", alt: "AI Influencer Portraits: Casual pose, lifestyle background | Unrealshot AI" },
+  { src: "/landing/ai-influencer3.jpg", alt: "AI Influencer Portraits: Professional yet relaxed expression | Unrealshot AI" },
+  { src: "/landing/ai-influencer4.jpg", alt: "AI Influencer Portraits: Color-pop styling with clean backdrop | Unrealshot AI" },
+  { src: "/landing/ai-influencer5.jpg", alt: "AI Influencer Portraits: Friendly smile, approachable tone | Unrealshot AI" },
+  { src: "/landing/ai-influencer6.jpg", alt: "AI Influencer Portraits: Editorial framing with dynamic angles | Unrealshot AI" },
+  { src: "/landing/ai-influencer7.jpg", alt: "AI Influencer Portraits: Muted tones, minimalist look | Unrealshot AI" },
+  { src: "/landing/ai-influencer8.jpg", alt: "AI Influencer Portraits: Warm light, natural ambiance | Unrealshot AI" },
 ]
 
 export function HeroSection() {

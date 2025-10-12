@@ -175,7 +175,7 @@ export async function POST(request: NextRequest) {
         const { productCart, customer, billing_address, return_url, customMetadata } = validationResult.data;
 
         const session = await getDodoPaymentsClient().checkoutSessions.create({
-            allowed_payment_method_types: ["credit", "debit", "google_pay", "upi_collect", "upi_intent"],
+            allowed_payment_method_types: ["credit", "debit", "upi_collect", "upi_intent"],
             confirm: false, // Set to false since we're not providing customer details
             customization: {
                 show_on_demand_tag: true,

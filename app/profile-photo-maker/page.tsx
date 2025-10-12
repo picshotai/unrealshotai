@@ -13,15 +13,6 @@ import { Pattern } from "@/lib/patterns"
 
 // Add the border radius hook import
 import { useImageBorderRadius } from "@/hooks/useImageBorderRadius"
-import type { Metadata } from "next"
-import { StructuredData } from "@/components/seo/StructuredData"
-import { generateWebApplicationJsonLd } from "@/lib/seo"
-
-// Removed disallowed metadata export from client component
-// export const metadata: Metadata = {
-//   title: "Profile Photo Maker - UnrealShot AI",
-//   description: "Create and customize profile pictures with filters, borders, backgrounds, and text. Export your image with ease.",
-// }
 
 export default function ProfilePictureEditor() {
   const [activePanel, setActivePanel] = useState<string | null>("position")
@@ -536,4 +527,5 @@ export default function ProfilePictureEditor() {
   )
 }
 
-<StructuredData data={JSON.parse(generateWebApplicationJsonLd())} />
+// Remove duplicate StructuredData injection; handled in layout
+// <StructuredData data={JSON.parse(generateWebApplicationJsonLd())} />

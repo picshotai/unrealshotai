@@ -10,16 +10,16 @@ import { Caveat } from 'next/font/google'
 const caveat = Caveat({ subsets: ['latin'], weight: '500' })
 
 const images = [
-  { src: '/landing/landingphoto1.jpg', alt: 'AI Instagram photoshoot look 1 - Unrealshot AI' },
-  { src: '/landing/landingphoto2.jpg', alt: 'AI Instagram photoshoot look 2 - Unrealshot AI' },
-  { src: '/landing/landingphoto3.jpg', alt: 'AI Instagram photoshoot look 3 - Unrealshot AI' },
-  { src: '/landing/landingphoto4.jpg', alt: 'AI Instagram photoshoot look 4 - Unrealshot AI' },
-  { src: '/landing/landingphoto5.jpg', alt: 'AI Instagram photoshoot look 5 - Unrealshot AI' },
-  { src: '/landing/landingphoto6.jpg', alt: 'AI Instagram photoshoot look 6 - Unrealshot AI' },
-  { src: '/landing/landingphoto7.jpg', alt: 'AI Instagram photoshoot look 7 - Unrealshot AI' },
-  { src: '/landing/landingphoto9.jpg', alt: 'AI Instagram photoshoot look 9 - Unrealshot AI' },
-  { src: '/landing/landingphoto10.jpg', alt: 'AI Instagram photoshoot look 10 - Unrealshot AI' },
-  { src: '/landing/landingphoto11.jpg', alt: 'AI Instagram photoshoot look 11 - Unrealshot AI' },
+  { src: '/landing/landingphoto1.jpg', alt: 'AI Instagram Photoshoot: Creative portrait with styled outfit | Unrealshot AI' },
+  { src: '/landing/landingphoto2.jpg', alt: 'AI Instagram Photoshoot: Glamour look with soft studio lighting | Unrealshot AI' },
+  { src: '/landing/landingphoto3.jpg', alt: 'AI Instagram Photoshoot: Editorial pose with dramatic shadows | Unrealshot AI' },
+  { src: '/landing/landingphoto4.jpg', alt: 'AI Instagram Photoshoot: Outdoor scene with natural light | Unrealshot AI' },
+  { src: '/landing/landingphoto5.jpg', alt: 'AI Instagram Photoshoot: Fashion-inspired portrait, bold colors | Unrealshot AI' },
+  { src: '/landing/landingphoto6.jpg', alt: 'AI Instagram Photoshoot: Classic look against textured backdrop | Unrealshot AI' },
+  { src: '/landing/landingphoto7.jpg', alt: 'AI Instagram Photoshoot: Candid pose, lifestyle feel | Unrealshot AI' },
+  { src: '/landing/landingphoto9.jpg', alt: 'AI Instagram Photoshoot: Minimalist studio setup, clean lines | Unrealshot AI' },
+  { src: '/landing/landingphoto10.jpg', alt: 'AI Instagram Photoshoot: Artistic composition with unique framing | Unrealshot AI' },
+  { src: '/landing/landingphoto11.jpg', alt: 'AI Instagram Photoshoot: Vintage-inspired portrait aesthetics | Unrealshot AI' },
 ]
 
 export function HeroSection() {

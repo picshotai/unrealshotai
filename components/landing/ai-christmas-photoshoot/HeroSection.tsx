@@ -15,18 +15,18 @@ const caveat = Caveat({
 
 // Using your actual image paths from the original component
 const images = [
-  { src: "/landing/christmas/1.jpg", alt: "AI Christmas Photoshoot 1" },
-  { src: "/landing/christmas/2.jpg", alt: "AI Christmas Photoshoot 2" },
-  { src: "/landing/christmas/3.jpg", alt: "AI Christmas Photoshoot 3" },
-  { src: "/landing/christmas/4.jpg", alt: "AI Christmas Photoshoot 4" },
-  { src: "/landing/christmas/5.jpg", alt: "AI Christmas Photoshoot 5" },
-  { src: "/landing/christmas/6.jpg", alt: "AI Christmas Photoshoot 6" },
-  { src: "/landing/christmas/7.jpg", alt: "AI Christmas Photoshoot 7" },
-  { src: "/landing/christmas/8.jpg", alt: "AI Christmas Photoshoot 8" },
-  { src: "/landing/christmas/9.jpg", alt: "AI Christmas Photoshoot 9" },
-  { src: "/landing/christmas/10.jpg", alt: "AI Christmas Photoshoot 10" },
-  { src: "/landing/christmas/11.jpg", alt: "AI Christmas Photoshoot 11" },
-  { src: "/landing/christmas/12.jpg", alt: "AI Christmas Photoshoot 12" },
+  { src: "/landing/christmas/1.jpg", alt: "AI Christmas Photoshoot: Creative portrait with styled outfit | Unrealshot AI" },
+  { src: "/landing/christmas/2.jpg", alt: "AI Christmas Photoshoot: Glamour look with soft studio lighting | Unrealshot AI" },
+  { src: "/landing/christmas/3.jpg", alt: "AI Christmas Photoshoot: Editorial pose with dramatic shadows | Unrealshot AI" },
+  { src: "/landing/christmas/4.jpg", alt: "AI Christmas Photoshoot: Outdoor scene with natural light | Unrealshot AI" },
+  { src: "/landing/christmas/5.jpg", alt: "AI Christmas Photoshoot: Fashion-inspired portrait, bold colors | Unrealshot AI" },
+  { src: "/landing/christmas/6.jpg", alt: "AI Christmas Photoshoot: Classic look against textured backdrop | Unrealshot AI" },
+  { src: "/landing/christmas/7.jpg", alt: "AI Christmas Photoshoot: Candid pose, lifestyle feel | Unrealshot AI" },
+  { src: "/landing/christmas/8.jpg", alt: "AI Christmas Photoshoot: Minimalist studio setup, clean lines | Unrealshot AI" },
+  { src: "/landing/christmas/9.jpg", alt: "AI Christmas Photoshoot: Artistic composition with unique framing | Unrealshot AI" },
+  { src: "/landing/christmas/10.jpg", alt: "AI Christmas Photoshoot: Vintage-inspired portrait aesthetics | Unrealshot AI" },
+  { src: "/landing/christmas/11.jpg", alt: "AI Christmas Photoshoot: Creative portrait with styled outfit | Unrealshot AI" },
+  { src: "/landing/christmas/12.jpg", alt: "AI Christmas Photoshoot: Glamour look with soft studio lighting | Unrealshot AI" },
 ]
 
 export function HeroSection() {
