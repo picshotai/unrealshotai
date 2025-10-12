@@ -551,13 +551,19 @@ export const commonPageMetadata = {
     });
   },
 
-  profilePhotoMaker: () => generateMetadata({
-    title: 'Profile Photo Maker',
-    description: 'Create and customize profile pictures with filters, borders, backgrounds, and text. Export your image with ease.',
-    canonical: '/profile-photo-maker',
-    keywords: ['profile photo maker', 'profile picture editor', 'pfp maker', 'profile photo editor', 'social media profile picture', 'instagram profile photo', 'linkedin profile picture', 'avatar maker', 'photo editor', 'custom profile picture'],
-    ogType: 'website',
-  }),
+  profilePhotoMaker: () => {
+    const cfg = (pageSEO as any)?.landingPages?.['profile-photo-maker'];
+    const title = cfg?.title || defaultSEO.title;
+    const description = cfg?.description || defaultSEO.description;
+    const keywords = cfg?.keywords || defaultSEO.keywords;
+    return generateMetadata({
+      title,
+      description,
+      keywords,
+      canonical: '/profile-photo-maker',
+      ogType: 'website',
+    });
+  },
 
   blog: () => generateMetadata({
     title: 'Blog - Modern React and Web Development',

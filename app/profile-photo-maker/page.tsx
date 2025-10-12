@@ -528,4 +528,4 @@ export default function ProfilePictureEditor() {
 }
 
 // Remove duplicate StructuredData injection; handled in layout
-// <StructuredData data={JSON.parse(generateWebApplicationJsonLd())} />
+// <StructuredData data={JSON.parse(generateLandingPageWebApplicationJsonLd('profile-photo-maker'))} />
