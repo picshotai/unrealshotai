@@ -40,7 +40,7 @@ const features = [
 export function FeaturesSection() { 
 	 return ( 
 	 	 <section id="features" className="py-16 md:py-20 bg-[#111111]"> 
-	 	 	 <div className="mx-auto w-full max-w-5xl space-y-8 px-4"> 
+	 	 	 <div className="mx-auto w-full max-w-6xl space-y-8 px-4"> 
 	 	 	 	 <div className="mx-auto max-w-3xl text-center mb-12"> 
 	 	 	 	 	 <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold mb-6"> 
 	 	 	 	 	 	 The Full Studio Experience.  <br /> 

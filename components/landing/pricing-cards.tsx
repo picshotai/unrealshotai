@@ -1,6 +1,9 @@
 "use client"
 
 import { Shield } from "lucide-react"
+import Image from "next/image"
+
+
 
 export default function PricingCards() {
  
@@ -154,14 +157,15 @@ export default function PricingCards() {
             </div>
             <div className="flex items-center justify-between text-sm mt-2">
               <span className="text-gray-400">Best Value:</span>
-              <span className="font-semibold text-[#ff6f00]">4x photos for 2x price</span>
+              <span className="font-semibold text-[#ff6f00]"> 4x photos for 2x price</span>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <p className="text-center text-gray-600 text-base leading-relaxed mt-8"><Shield className="w-4 h-4 inline-block mr-2" />
-     Secure payments with <span className="font-semibold text-[#ff6f00]"> Dodopayments</span>
+    <p className="text-center  text-gray-600 text-base leading-relaxed mt-8"><Shield className="w-4 h-4 text-[#ff6f00] inline-block mr-1" />
+     Payments are processed securly with 
+     <Image src="/dodo-logo.png" alt="dodopayments" width={96} height={96} className="inline-block ml-1 bg-black" />
     </p>
   </div>
   </section>
