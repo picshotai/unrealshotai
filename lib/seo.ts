@@ -208,29 +208,22 @@ export function generateWebApplicationJsonLd(props?: { title?: string; descripti
         "url": "https://unrealshotai.vercel.app/site-logo.png"
       }
     },
-    "offers": {
-      "@type": "AggregateOffer",
-      "lowPrice": "9.99",
-      "highPrice": "17.99",
+   "offers": [
+    {
+      "@type": "Offer",
+      "name": "Starter Pack",
+      "price": "9.99",
       "priceCurrency": "USD",
-      "offerCount": "2",
-      "offers": [
-        {
-          "@type": "Offer",
-          "name": "20 Photos Pack",
-          "price": "9.99",
-          "priceCurrency": "USD",
-          "description": "Includes 30 credits for one AI model training and 20 AI-generated photos."
-        },
-        {
-          "@type": "Offer",
-          "name": "Pro Pack",
-          "price": "17.99",
-          "priceCurrency": "USD",
-          "description": "Includes 60 credits for 80 photos with one model, or 40 photos with two separate models."
-        }
-      ]
+      "description": "Includes 30 credits for one AI model training and 20 AI-generated photos."
     },
+    {
+      "@type": "Offer",
+      "name": "Pro Pack",
+      "price": "17.99",
+      "priceCurrency": "USD",
+      "description": "Includes 60 credits for 80 photos with one model, or 40 photos with two separate models."
+    }
+],
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.8",
