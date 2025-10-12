@@ -99,7 +99,7 @@ async function handlePaymentCompleted(payload: any, supabase: any) {
     }
   }
 
-  console.log(`Payment completed successfully for user ${paymentRecord.user_id}, added ${creditsToAdd} credits`);
+  console.error(`Payment completed successfully for user ${paymentRecord.user_id}, added ${creditsToAdd} credits`);
 }
 
 // Handle failed payment
@@ -135,7 +135,7 @@ async function handlePaymentFailed(payload: any, supabase: any) {
     throw new Error('Failed to update payment status to failed');
   }
 
-  console.log(`Payment failed for user ${paymentRecord.user_id}, payment_id: ${paymentId}, reason: ${payload.data.failure_reason || 'Unknown'}`);
+  // Removed: console.log(`Payment failed for user ${paymentRecord.user_id}, payment_id: ${paymentId}, reason: ${payload.data.failure_reason || 'Unknown'}`);
 }
 
 // Handle expired checkout session
@@ -169,7 +169,7 @@ async function handleCheckoutSessionExpired(payload: any, supabase: any) {
     throw new Error('Failed to update payment status for expired session');
   }
 
-  console.log(`Checkout session expired for user ${paymentRecord.user_id}, session_id: ${checkoutSessionId}`);
+  // Removed: console.log(`Checkout session expired for user ${paymentRecord.user_id}, session_id: ${checkoutSessionId}`);
 }
 
 export async function POST(request: Request) {
@@ -215,9 +215,8 @@ export async function POST(request: Request) {
         switch (payload.type) {
           case "subscription.active":
             const subscription = await getDodoPaymentsClient().subscriptions.retrieve(payload.data.subscription_id);
-            console.log("-------SUBSCRIPTION DATA START ---------")
-            console.log(subscription)
-            console.log("-------SUBSCRIPTION DATA END ---------")
+            // Removed subscription console logs
+            // Removed payment data console logs
             break;
           case "subscription.failed":
             break;
@@ -234,9 +233,7 @@ export async function POST(request: Request) {
         switch (payload.type) {
           case "payment.succeeded":
             const paymentDataResp = await getDodoPaymentsClient().payments.retrieve(payload.data.payment_id);
-            console.log("-------PAYMENT DATA START ---------")
-            console.log(paymentDataResp)
-            console.log("-------PAYMENT DATA END ---------")
+            // Removed payment data console logs
             await handlePaymentCompleted(payload, supabase);
             break;
           case "payment.failed":
@@ -249,7 +246,9 @@ export async function POST(request: Request) {
         switch (payload.type) {
           case "checkout_session.completed":
             // Checkout session completed - payment should be handled by payment.succeeded event
-            console.log(`Checkout session completed: ${payload.data.checkout_session_id}`);
+            // Removed subscription logging
+            // Removed payment data logging
+            // Removed: Payment completed success info log
             break;
           case "checkout_session.expired":
             await handleCheckoutSessionExpired(payload, supabase);
@@ -288,8 +287,10 @@ export async function POST(request: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.log(" ----- webhook verification failed -----")
-    console.log(error)
+    // Replaced webhook verification logs
+    // console.log(" ----- webhook verification failed -----")
+    // console.log(error)
+    console.error("Webhook verification failed", error)
     return Response.json(
       { message: "Webhook verification failed" },
       { status: 400 }

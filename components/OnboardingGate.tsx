@@ -15,14 +15,9 @@ export default function OnboardingGate({ children }: OnboardingGateProps) {
   useEffect(() => {
     setIsClient(true)
     // Always fetch profile on mount to ensure we have latest data
-    console.log('OnboardingGate: Fetching profile...')
     fetchProfile()
   }, [])
 
-  // Debug logging
-  useEffect(() => {
-    console.log('OnboardingGate: Profile state:', { profile, loading, isClient })
-  }, [profile, loading, isClient])
 
   // Show loading state while fetching initial data
   if (!isClient || loading) {
@@ -36,7 +31,6 @@ export default function OnboardingGate({ children }: OnboardingGateProps) {
   // If no profile exists, we need to create one
   if (!profile) {
     // This shouldn't happen with the trigger, but let's handle it gracefully
-    console.log('No profile found, user may need to re-login')
     return <>{children}</>
   }
 

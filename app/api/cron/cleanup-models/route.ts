@@ -20,12 +20,10 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    console.log('Starting scheduled model cleanup...');
     
     const result = await cleanupExpiredModels();
     
     if (result.success) {
-      console.log(`Cleanup completed successfully. Deleted ${result.deletedCount} models.`);
       return NextResponse.json({
         success: true,
         message: `Successfully deleted ${result.deletedCount} expired models`,
@@ -64,12 +62,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
     }
 
-    console.log('Starting scheduled model cleanup (QStash verified)...');
 
     const result = await cleanupExpiredModels();
 
     if (result.success) {
-      console.log(`Cleanup completed successfully. Deleted ${result.deletedCount} models.`);
       return NextResponse.json({
         success: true,
         message: `Successfully deleted ${result.deletedCount} expired models`,

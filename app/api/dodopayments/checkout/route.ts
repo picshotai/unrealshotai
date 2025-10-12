@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
 
             // Create checkout session with new DodoPayments SDK
             const session = await getDodoPaymentsClient().checkoutSessions.create({
-                allowed_payment_method_types: ["credit", "debit", "google_pay", "upi_collect", "upi_intent"],
+                allowed_payment_method_types: ["credit", "debit", "upi_collect", "upi_intent"],
                 confirm: false, // Set to false since we're not providing customer details
                 customization: {
                     show_on_demand_tag: true,
@@ -219,7 +219,7 @@ export async function GET(request: NextRequest) {
         const { data: payment, error } = await supabase
             .from('dodo_payments')
             .select('*')
-            .eq('dodo_payment_id', sessionId)
+            .or(`dodo_payment_id.eq.${sessionId},dodo_checkout_session_id.eq.${sessionId}`)
             .single();
 
         if (error) {

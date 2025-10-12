@@ -62,13 +62,10 @@ export async function GET(request: Request) {
   const key = url.searchParams.get("key");
 
   if (key !== process.env.CRON_SECRET) {
-    console.log("Authorization failed: Invalid or missing key:", key);
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    console.log("Starting email processing...");
-    console.log("Fetching eligible users...");
 
     const { data: users, error } = await supabase
       .rpc("get_eligible_users");
@@ -81,14 +78,12 @@ export async function GET(request: Request) {
       throw new Error("Unknown Supabase error");
     }
 
-    console.log("Users found:", users ? users.length : 0);
 
     if (!users || users.length === 0) {
       return NextResponse.json({ message: "No eligible users found" }, { status: 200 });
     }
 
     for (const user of users) {
-      console.log("Sending email to:", user.email);
       await resend.emails.send({
         from: "Harvansh from Unrealshot AI <support@noreply.unrealshot.com>",
         to: user.email,
@@ -96,7 +91,6 @@ export async function GET(request: Request) {
         html: generateEmailHtml(user.email),
       });
 
-      console.log("Logging email for user:", user.id);
       await supabase.from("one_day_followup_emails").insert({
         user_id: user.id,
       });
@@ -130,9 +124,6 @@ export async function POST(request: Request) {
     const supabase = createAdminClient();
     const resend = new Resend(process.env.RESEND_API_KEY!);
 
-    console.log("Starting email processing (QStash verified)...");
-    console.log("Fetching eligible users...");
-
     const { data: users, error } = await supabase.rpc("get_eligible_users");
 
     if (error) {
@@ -143,14 +134,12 @@ export async function POST(request: Request) {
       throw new Error("Unknown Supabase error");
     }
 
-    console.log("Users found:", users ? users.length : 0);
 
     if (!users || users.length === 0) {
       return NextResponse.json({ message: "No eligible users found" }, { status: 200 });
     }
 
     for (const user of users) {
-      console.log("Sending email to:", user.email);
       await resend.emails.send({
         from: "Harvansh from Unrealshot AI <support@noreply.unrealshot.com>",
         to: user.email,
@@ -158,7 +147,7 @@ export async function POST(request: Request) {
         html: generateEmailHtml(user.email),
       });
 
-      console.log("Logging email for user:", user.id);
+
       await supabase.from("one_day_followup_emails").insert({
         user_id: user.id,
       });

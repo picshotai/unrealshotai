@@ -38,7 +38,6 @@ async function main() {
     } catch {
       body = { raw: bodyText };
     }
-    console.log(`[QStash] Upsert ${scheduleId}:`, res.status, body);
     if (!res.ok) {
       throw new Error(`[QStash] Failed to upsert ${scheduleId}: ${res.status} ${bodyText}`);
     }
@@ -50,7 +49,6 @@ async function main() {
   // Schedule 2: Follow-up emails every 2 days at 00:00 UTC
   await upsertSchedule(followupDestination, "0 0 */2 * *", "send-followup-emails");
 
-  console.log("[QStash] Schedules upserted successfully.");
 }
 
 main().catch((err) => {

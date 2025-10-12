@@ -21,7 +21,6 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "Missing promptId, modelId, or userId" }, { status: 400 })
     }
 
-    console.log(`Checking status for prompt ${promptId} with model ${modelId}`)
 
     const promptResponse = await fetch(`${ASTRIA_API_URL}/${modelId}/prompts/${promptId}`, {
       headers: {
@@ -44,7 +43,6 @@ export async function GET(request: Request) {
     }
 
     const promptData = await promptResponse.json()
-    console.log("Prompt data:", promptData)
 
     if (promptData.images?.length > 0) {
       const imageUrl = promptData.images[0]

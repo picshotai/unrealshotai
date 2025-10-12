@@ -119,13 +119,11 @@ export default function ImageGallery() {
     try {
       const response = await fetch(`/api/proxy-image?url=${encodeURIComponent(image.image_url)}`)
       if (response.status === 404) {
-        console.log(`Image not found (404), deleting image with id: ${image.id}, promptId: ${image.promptId}, source: ${image.source}`)
         const deleteResponse = await fetch(`/api/delete-image?id=${image.id}&promptId=${image.promptId}&source=${image.source}`, {
           method: "DELETE",
         })
         const result = await deleteResponse.json()
 
-        console.log("Delete response for expired image:", result)
 
         if (!deleteResponse.ok || result.error) {
           console.error("Error deleting expired image from Supabase:", result.error || "Unknown error")
@@ -137,12 +135,20 @@ export default function ImageGallery() {
           return // Do not remove from state/cache if deletion fails
         }
 
-        console.log(`Successfully deleted expired image with id: ${image.id} from Supabase`)
+        toast({
+          title: "Expired Image Removed",
+          description: `Successfully deleted expired image with id: ${image.id} from Supabase`,
+          variant: "default",
+        })
         setImages((prevImages) => prevImages.filter((img) => img.id !== image.id))
         updateCacheAfterDelete(image.id)
         setExpiredImagesCount((count) => count + 1)
       } else {
-        console.log("Image unavailable for another reason, removing from gallery")
+        toast({
+          title: "Image Unavailable",
+          description: "Image is no longer available. It has been removed from the gallery.",
+          variant: "default",
+        })
         setImages((prevImages) => prevImages.filter((img) => img.id !== image.id))
         updateCacheAfterDelete(image.id)
       }
@@ -201,7 +207,6 @@ export default function ImageGallery() {
       })
       const result = await response.json()
 
-      console.log("Delete response for manual deletion:", result)
 
       if (!response.ok || result.error) {
         throw new Error(result.error || "Failed to delete image")

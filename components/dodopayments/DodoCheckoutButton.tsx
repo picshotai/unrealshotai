@@ -29,6 +29,12 @@ export default function DodoCheckoutButton({
   const router = useRouter();
   const { toast } = useToast();
 
+  const gtagEvent = (name: string, params?: Record<string, any>) => {
+    if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', name, params || {});
+    }
+  };
+
   const handleCheckout = async () => {
     if (!userId) {
       toast({
@@ -42,12 +48,20 @@ export default function DodoCheckoutButton({
 
     setIsLoading(true);
 
+    // Track checkout start
+    gtagEvent('begin_checkout', {
+      currency: 'USD',
+      value: amount,
+      items: [{ id: planId, name: planName || 'Credit Package', quantity: 1, price: amount }],
+      credits,
+      plan_name: planName || 'Credit Package',
+      user_id: userId,
+    });
+
     try {
       const response = await fetch('/api/dodopayments/checkout', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           planId,
           userId,
@@ -62,6 +76,21 @@ export default function DodoCheckoutButton({
       }
 
       if (data.success && data.checkout_url) {
+        // Persist checkout session details for abandonment tracking
+        try {
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('dodo_last_checkout_session', data.session_id || '');
+            localStorage.setItem('dodo_last_checkout_payload', JSON.stringify({
+              plan_id: planId,
+              plan_name: planName || 'Credit Package',
+              amount,
+              credits,
+              currency: 'USD',
+            }));
+            localStorage.removeItem('dodo_last_purchase_session');
+          }
+        } catch (_) {}
+
         // Redirect to dodopayments checkout
         window.location.href = data.checkout_url;
       } else {
@@ -74,6 +103,14 @@ export default function DodoCheckoutButton({
         title: 'Checkout Error',
         description: error instanceof Error ? error.message : 'Failed to start checkout process',
         variant: 'destructive'
+      });
+
+
+      // Track checkout error
+      gtagEvent('checkout_error', {
+        error_message: error instanceof Error ? error.message : 'Unknown error',
+        plan_id: planId,
+        user_id: userId,
       });
     } finally {
       setIsLoading(false);

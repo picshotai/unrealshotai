@@ -12,6 +12,7 @@ import {
 } from "@/lib/seo"
 import { Toaster } from "@/components/ui/sonner"
 import { Toaster as ShadcnToaster } from "@/components/ui/toaster"
+import Script from "next/script"
 
 
 const inter = Inter({
@@ -99,6 +100,21 @@ export default async function RootLayout({
           data={JSON.parse(generateWebsiteJsonLd())}
         />
         {/* Note: WebApplication schema is page-specific and added only to home page */}
+        
+        {/* Google tag (gtag.js) */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=G-XGFT46LL3J`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);} 
+            gtag('js', new Date());
+            gtag('config', 'G-XGFT46LL3J');
+          `}
+        </Script>
+        {/* Removed ga-checkout-return script from main layout; relocated to protected layout */}
       </head>
       <body className="font-sans antialiased public-headings">
         <ErrorBoundary>

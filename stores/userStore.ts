@@ -29,7 +29,6 @@ export const useUserStore = create<UserStore>((set, get) => ({
     set({ loading: true, error: null })
     try {
       const { data: { user } } = await supabase.auth.getUser()
-      console.log('Store: Current user:', user?.id)
       if (!user) throw new Error('No user found')
 
       const { data, error } = await supabase
@@ -38,19 +37,16 @@ export const useUserStore = create<UserStore>((set, get) => ({
         .eq('user_id', user.id)
         .single()
 
-      console.log('Store: Profile fetch result:', { data, error })
 
       if (error) {
         // If profile doesn't exist, try to create it
         if (error.code === 'PGRST116') { // No rows found
-          console.log('Store: Profile not found, creating new profile...')
           const { data: newProfile, error: createError } = await supabase
             .from('profiles')
             .insert({ id: user.id, user_id: user.id })
             .select()
             .single()
           
-          console.log('Store: Profile creation result:', { newProfile, createError })
           if (createError) throw createError
           set({ profile: newProfile, loading: false })
           return

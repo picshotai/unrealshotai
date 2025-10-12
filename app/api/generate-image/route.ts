@@ -74,7 +74,6 @@ export async function POST(request: Request) {
     const triggerWord = model.type === "woman" ? "ohwx woman" : "ohwx man";
     const fullPrompt = `${triggerWord}, <lora:${model.modelId}:1> ${prompt}`;
 
-    console.log("Generated prompt:", fullPrompt);
 
     const promptWebhookWithParams = `${APP_URL}/api/prompt-webhook?user_id=${user.id}&modelId=${modelId}&webhook_secret=${APP_WEBHOOK_SECRET}`;
 
@@ -109,7 +108,6 @@ export async function POST(request: Request) {
     }
 
     const result = await response.json();
-    console.log("Astria API response:", result);
 
     const { data: insertedPrompt, error: insertError } = await supabase
       .from("prompts")

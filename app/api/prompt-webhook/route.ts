@@ -23,9 +23,6 @@ export async function POST(request: Request) {
 
     const incomingData = (await request.json()) as { prompt: AstriaPromptData };
     const { prompt } = incomingData;
-
-    console.log("Full webhook payload:", JSON.stringify(incomingData, null, 2));
-
     const url = new URL(request.url);
     const userId = url.searchParams.get("user_id");
     const modelId = url.searchParams.get("modelId");

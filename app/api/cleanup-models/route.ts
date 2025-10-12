@@ -28,7 +28,6 @@ export async function POST(request: Request) {
       });
     }
 
-    console.log(`Found ${expiredModels.length} expired models to delete:`, expiredModels.map(m => ({ id: m.id, name: m.name })));
 
     // Delete expired models (CASCADE will handle samples)
     const modelIds = expiredModels.map(model => model.id);
@@ -42,7 +41,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Failed to delete expired models' }, { status: 500 });
     }
 
-    console.log(`Successfully deleted ${count} expired models`);
 
     return NextResponse.json({
       message: `Successfully deleted ${count} expired models`,

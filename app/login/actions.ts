@@ -87,7 +87,6 @@ export async function signInWithGoogle(formData: FormData): Promise<void> {
   }
 
   if (data?.url) {
-    console.log('Google OAuth URL generated successfully')
     redirect(data.url)
   }
 

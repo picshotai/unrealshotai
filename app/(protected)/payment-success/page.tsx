@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { CheckCircle, CreditCard, ArrowRight, Home, Zap, AlertCircle } from 'lucide-react'
 import Link from 'next/link'
 import { RefreshButton } from './RefreshButton'
+import { formatPrice, formatCredits } from '@/lib/pricing-plans'
 
 interface PaymentSuccessPageProps {
   searchParams: Promise<{
@@ -89,20 +90,65 @@ export default async function PaymentSuccessPage({ searchParams }: PaymentSucces
   const isPaymentPending = normalizedStatus === 'pending'
   const requiresCustomerAction = normalizedStatus === 'requires_customer_action'
 
-  // Format currency
-  const formatPrice = (price: number, currency: string = 'USD'): string => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currency,
-    }).format(price)
-  }
-
-  const formatCredits = (credits: number): string => {
-    return credits.toLocaleString()
-  }
+  // Client-side purchase tracking script
+  const TrackingScript = () => (
+    <script dangerouslySetInnerHTML={{
+      __html: `
+        (function(){
+          try {
+            var completed = ${isPaymentCompleted ? 'true' : 'false'};
+            var failed = ${isPaymentFailed ? 'true' : 'false'};
+            var pending = ${isPaymentPending ? 'true' : 'false'};
+            var sessionId = ${JSON.stringify(sessionId || '')};
+            var paymentId = ${JSON.stringify(paymentId || '')};
+            var amount = ${JSON.stringify(displayAmount)};
+            var credits = ${JSON.stringify(displayCredits)};
+            var planName = ${JSON.stringify(displayPlanName)};
+            var currency = 'USD';
+            if (typeof gtag === 'function') {
+              if (completed) {
+                gtag('event', 'purchase', {
+                  transaction_id: paymentId || sessionId,
+                  value: amount,
+                  currency: currency,
+                  items: [{ id: planName, name: planName, quantity: 1, price: amount }],
+                  credits: credits,
+                  plan_name: planName
+                });
+                try {
+                  localStorage.setItem('dodo_last_purchase_session', paymentId || sessionId || '');
+                  localStorage.removeItem('dodo_last_checkout_session');
+                  localStorage.removeItem('dodo_last_checkout_payload');
+                } catch(_) {}
+              } else if (failed) {
+                gtag('event', 'purchase_failed', {
+                  transaction_id: paymentId || sessionId,
+                  value: amount,
+                  currency: currency,
+                  items: [{ id: planName, name: planName, quantity: 1, price: amount }],
+                  credits: credits,
+                  plan_name: planName
+                });
+              } else if (pending) {
+                gtag('event', 'purchase_pending', {
+                  transaction_id: paymentId || sessionId,
+                  value: amount,
+                  currency: currency,
+                  items: [{ id: planName, name: planName, quantity: 1, price: amount }],
+                  credits: credits,
+                  plan_name: planName
+                });
+              }
+            }
+          } catch (e) { /* ignore */ }
+        })();
+      `
+    }} />
+  )
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-2xl">
+      <TrackingScript />
       <div className="text-center mb-8">
         <div className="flex justify-center mb-4">
           <div className={`rounded-full p-3 ${

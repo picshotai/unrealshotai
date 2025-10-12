@@ -55,8 +55,6 @@ export async function GET(request: Request) {
       endpoints.push(`${DOMAIN}/gallery/packs`);
     }
 
-    console.log("Fetching from endpoints:", endpoints);
-
     const responses = await Promise.all(
       endpoints.map(async (url) => {
         try {
@@ -64,7 +62,6 @@ export async function GET(request: Request) {
             headers,
             validateStatus: (status) => status < 500, // Handle 4xx errors gracefully
           });
-          console.log(`Response from ${url}:`, response.status, response.data?.length || 0, "packs");
           return response;
         } catch (error) {
           console.error(`Error fetching from ${url}:`, error);
@@ -78,7 +75,6 @@ export async function GET(request: Request) {
       .filter(response => response.data && Array.isArray(response.data))
       .flatMap((response) => response.data);
 
-    console.log("Combined packs data:", combinedData.length, "total packs");
     
     return NextResponse.json(combinedData);
   } catch (error) {
