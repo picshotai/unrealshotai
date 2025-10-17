@@ -251,10 +251,10 @@ export const pageSEO = {
         description: 'Summon cinematic Halloween portraits—ghostly, glam, or gothic. Pick your vibe and get a hauntingly good set for costumes, parties, and social feeds.',
         keywords: ['ai halloween photoshoot', 'spooky portraits', 'haunting photos', 'costume pictures', 'gothic ai'],
     },
-    'ai-bat-mitzvah-photoshoot': {
-        title: 'AI Bat Mitzvah Portraits That Beautify Your Special Day',
-        description: 'Create stunning, celebratory portraits for your special day, all from a few simple selfies. Perfect for invitations, decor, and creating a timeless keepsake to cherish forever.',
-        keywords: ['ai bat mitzvah photos', 'bat mitzvah portraits', 'celebration pictures', 'event headshots', 'keepsake photos'],
+    'ai-botanic-illustrations': {
+        title: 'AI Botanic Illustrations That Show the World of Nature',
+        description: 'Explore the world of botany with AI-generated illustrations. Get stunning, detailed portraits of plants, flowers, and other natural wonders.',
+        keywords: ['ai botanic illustrations', 'botany portraits', 'natural illustrations', 'plant photos', 'flower illustrations'],
     },
     'neutral-muse-photoshoot': {
         title: 'AI Neutral Muse Portraits That Embody Quiet Luxury',

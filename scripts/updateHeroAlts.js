@@ -12,7 +12,6 @@ const path = require('path');
 const root = '/Users/kishanchaudhary/Music/dodostarter/components/landing';
 
 const dirKeywordMap = {
-  'ai-bat-mitzvah-photoshoot': 'AI Bat Mitzvah Photoshoot',
   'ai-chef-headshots': 'AI Chef Headshots',
   'ai-christmas-photoshoot': 'AI Christmas Photoshoot',
   'ai-dating-photoshoot': 'AI Dating Photoshoot',

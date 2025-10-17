@@ -143,7 +143,7 @@ export default function Footer() {
       { href: '/ai-christmas-photoshoot', label: 'Christmas' },
       { href: '/ai-halloween-photoshoot', label: 'Halloween' },
       { href: '/ai-diwali-photoshoot', label: 'Diwali' },
-      { href: '/ai-bat-mitzvah-photoshoot', label: 'Bat Mitzvah' },
+      { href: '/ai-botanic-illustrations', label: 'Botanic Illustrations' },
       { href: '/ai-yearbook', label: 'AI Yearbook' },
     ],
     'Social & Influencer': [

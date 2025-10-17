@@ -15,24 +15,27 @@ const caveat = Caveat({
 
 // Using your actual image paths from the original component
 const images = [
-  { src: "/landing/landingphoto3.jpg", alt: "AI glamour photoshoot of beautiful lady Maria - Unrealshot AI" },
-  { src: "/landing/landingphoto4.jpg", alt: "AI-generated headshot 4 - Unrealshot AI" },
-  { src: "/landing/landingphoto5.jpg", alt: "AI-generated headshot 5 - Unrealshot AI" },
-  { src: "/landing/landingphoto6.jpg", alt: "AI-generated headshot 6 - Unrealshot AI" },
-  { src: "/landing/landingphoto7.jpg", alt: "AI-generated headshot 7 - Unrealshot AI" },
-  { src: "/landing/landingphoto9.jpg", alt: "AI-generated headshot 9 - Unrealshot AI" },
-  { src: "/landing/landingphoto10.jpg", alt: "AI-generated headshot 10 - Unrealshot AI" },
-  { src: "/landing/landingphoto11.jpg", alt: "AI-generated headshot 11 - Unrealshot AI" },
-  { src: "/landing/landingphoto12.jpg", alt: "AI Social Media profile picture of a man - Unrealshot AI" },
-  { src: "/landing/landingphoto13.jpg", alt: "AI-generated headshot 12 - Unrealshot AI" },
-  { src: "/landing/landingphoto14.jpg", alt: "AI-generated stylish photoshoot of a man - Unrealshot AI" },
-  { src: "/landing/landingphoto15.jpg", alt: "AI realtor headshot of Mr. adward from california - Unrealshot AI" },
-  { src: "/landing/landingphoto16.jpg", alt: "AI MD Doctor Headshot of Dr. James H. - Unrealshot AI" },
-   { src: "/landing/landingphoto8.jpg", alt: "AI-generated headshot 8 - Unrealshot AI" },
- { src: "/landing/landingphoto17.jpg", alt: "AI-generated headshot 17 - Unrealshot AI" },
-  { src: "/landing/landingphoto18.jpg", alt: "AI-generated headshot 18 - Unrealshot AI" },
-  { src: "/landing/landingphoto19.jpg", alt: "AI-generated headshot 19 - Unrealshot AI" },
-]
+  { src: "/landing/landingphotowoman1.webp", alt: "AI-generated headshot 4 - Unrealshot AI" },
+  { src: "/landing/landingphotoman2.webp", alt: "AI-generated headshot 5 - Unrealshot AI" },
+  { src: "/landing/landingphotowoman3.webp", alt: "AI-generated headshot 6 - Unrealshot AI" },
+    { src: "/landing/landingphotoman4.webp", alt: "AI-generated headshot 2 - Unrealshot AI" },
+  { src: "/landing/landingphotowoman5.webp", alt: "AI-generated headshot 7 - Unrealshot AI" },
+    { src: "/landing/landingphotoman16.webp", alt: "AI MD Doctor Headshot of Dr. James H. - Unrealshot AI" },
+
+    { src: "/landing/landingphotowoman7.webp", alt: "AI-generated headshot 2 - Unrealshot AI" },
+
+  { src: "/landing/landingphotoman8.webp", alt: "AI-generated headshot 10 - Unrealshot AI" },
+  { src: "/landing/landingphotowoman9.webp", alt: "AI-generated headshot 11 - Unrealshot AI" },
+  { src: "/landing/landingphotoman10.webp", alt: "AI Social Media profile picture of a man - Unrealshot AI" },
+  { src: "/landing/landingphotowoman11.webp", alt: "AI-generated headshot 12 - Unrealshot AI" },
+    { src: "/landing/landingphotoman12.webp", alt: "AI glamour photoshoot of beautiful lady Maria - Unrealshot AI" },
+  { src: "/landing/landingphotowoman13.webp", alt: "AI-generated headshot 2 - Unrealshot AI" },
+  { src: "/landing/landingphotoman14.webp", alt: "AI-generated stylish photoshoot of a man - Unrealshot AI" },
+  { src: "/landing/landingphotowoman15.webp", alt: "AI realtor headshot of Mr. adward from california - Unrealshot AI" },
+  { src: "/landing/landingphotoman6.webp", alt: "AI-generated headshot 9 - Unrealshot AI" },
+
+ { src: "/landing/landingphotoman17.webp", alt: "AI-generated headshot 17 - Unrealshot AI" },
+ ]
 
 export function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);

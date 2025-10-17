@@ -39,7 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/founder-headshots',
     '/ai-chef-headshots',
     '/ai-real-estate-headshots',
-    '/ai-bat-mitzvah-photoshoot',
+    '/ai-botanic-illustrations',
     '/ai-christmas-photoshoot',
     '/ai-dating-photoshoot',
     '/ai-diwali-photoshoot',

@@ -1,7 +1,7 @@
 
 import { Metadata } from 'next'
 import PublicHeader from '@/components/Header'
-import { HeroSection } from '@/components/landing/ai-bat-mitzvah-photoshoot/HeroSection'
+import { HeroSection } from '@/components/landing/ai-botanic-photoshoot/HeroSection'
 import NewHowItWorks from '@/components/landing/NewHowItWorks'
 import { FeaturesSection } from '@/components/landing/FeaturesSection'
 import PremiumComparison from "@/components/landing/Comparison";
@@ -17,9 +17,9 @@ import PrivacySection from "@/components/landing/PrivacySection";
 
 
 
-export const metadata: Metadata = commonPageMetadata.landingPage('ai-bat-mitzvah-photoshoot')
+export const metadata: Metadata = commonPageMetadata.landingPage('ai-botanic-illustrations')
 
-export default function Home() {
+export default function AIBotanicIllustrationsPage() {
   return (
     <div className="min-h-screen bg-white">
       <PublicHeader />
@@ -37,7 +37,7 @@ export default function Home() {
       </main>
       <Footer />
       {/* WebApplication Schema - Home Page Only */}
-      <StructuredData data={JSON.parse(generateLandingPageWebApplicationJsonLd('ai-bat-mitzvah-photoshoot'))} />
+      <StructuredData data={JSON.parse(generateLandingPageWebApplicationJsonLd('ai-botanic-illustrations'))} />
     </div>
   )
 }

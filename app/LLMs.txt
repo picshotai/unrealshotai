@@ -30,7 +30,7 @@ Unrealshot is an innovative platform that transforms your selfies into stunning,
 - [Maternity](https://www.unrealshot.com/ai-maternity-photoshoot): Specialized photoshoots for expectant mothers, celebrating pregnancy.
 - [Halloween](https://www.unrealshot.com/ai-halloween-photoshoot): Creative photoshoot options for Halloween-themed imagery.
 - [Diwali](https://www.unrealshot.com/ai-diwali-photoshoot): Festive photoshoot options celebrating the Diwali festival.
-- [Bat Mitzvah](https://www.unrealshot.com/ai-bat-mitzvah-photoshoot): Tailored photoshoots for Bat Mitzvah celebrations.
+- [Botanic Illustrations](https://www.unrealshot.com/ai-botanic-illustrations): Unique photoshoot options that focus on botanical illustrations.
 
 ## Specialized Generators
 - [AI Yearbook](https://www.unrealshot.com/ai-yearbook): A unique feature that allows users to create yearbook-style photoshoots.

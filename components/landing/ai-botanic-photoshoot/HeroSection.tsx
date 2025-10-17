@@ -15,25 +15,25 @@ const caveat = Caveat({
 
 // Using your actual image paths from the original component
 const images = [
-  { src: "/landing/landingphoto1.jpg", alt: "AI Bat Mitzvah Photoshoot: Creative portrait with styled outfit | Unrealshot AI" },
-  { src: "/landing/landingphoto2.jpg", alt: "AI Bat Mitzvah Photoshoot: Glamour look with soft studio lighting | Unrealshot AI" },
-  { src: "/landing/landingphoto3.jpg", alt: "AI Bat Mitzvah Photoshoot: Editorial pose with dramatic shadows | Unrealshot AI" },
-  { src: "/landing/landingphoto4.jpg", alt: "AI Bat Mitzvah Photoshoot: Outdoor scene with natural light | Unrealshot AI" },
-  { src: "/landing/landingphoto5.jpg", alt: "AI Bat Mitzvah Photoshoot: Fashion-inspired portrait, bold colors | Unrealshot AI" },
-  { src: "/landing/landingphoto6.jpg", alt: "AI Bat Mitzvah Photoshoot: Classic look against textured backdrop | Unrealshot AI" },
-  { src: "/landing/landingphoto7.jpg", alt: "AI Bat Mitzvah Photoshoot: Candid pose, lifestyle feel | Unrealshot AI" },
-  { src: "/landing/landingphoto9.jpg", alt: "AI Bat Mitzvah Photoshoot: Minimalist studio setup, clean lines | Unrealshot AI" },
-  { src: "/landing/landingphoto10.jpg", alt: "AI Bat Mitzvah Photoshoot: Artistic composition with unique framing | Unrealshot AI" },
-  { src: "/landing/landingphoto11.jpg", alt: "AI Bat Mitzvah Photoshoot: Vintage-inspired portrait aesthetics | Unrealshot AI" },
-  { src: "/landing/landingphoto12.jpg", alt: "AI Bat Mitzvah Photoshoot: Creative portrait with styled outfit | Unrealshot AI" },
-  { src: "/landing/landingphoto13.jpg", alt: "AI Bat Mitzvah Photoshoot: Glamour look with soft studio lighting | Unrealshot AI" },
-  { src: "/landing/landingphoto14.jpg", alt: "AI Bat Mitzvah Photoshoot: Editorial pose with dramatic shadows | Unrealshot AI" },
-  { src: "/landing/landingphoto15.jpg", alt: "AI Bat Mitzvah Photoshoot: Outdoor scene with natural light | Unrealshot AI" },
-  { src: "/landing/landingphoto16.jpg", alt: "AI Bat Mitzvah Photoshoot: Fashion-inspired portrait, bold colors | Unrealshot AI" },
-   { src: "/landing/landingphoto8.jpg", alt: "AI Bat Mitzvah Photoshoot: Classic look against textured backdrop | Unrealshot AI" },
- { src: "/landing/landingphoto17.jpg", alt: "AI Bat Mitzvah Photoshoot: Candid pose, lifestyle feel | Unrealshot AI" },
-  { src: "/landing/landingphoto18.jpg", alt: "AI Bat Mitzvah Photoshoot: Minimalist studio setup, clean lines | Unrealshot AI" },
-  { src: "/landing/landingphoto19.jpg", alt: "AI Bat Mitzvah Photoshoot: Artistic composition with unique framing | Unrealshot AI" },
+  { src: "/landing/landingphoto1.jpg", alt: "AI Botanical Illustrations: Creative portrait with styled outfit | Unrealshot AI" },
+  { src: "/landing/landingphoto2.jpg", alt: "AI Botanical Illustrations: Glamour look with soft studio lighting | Unrealshot AI" },
+  { src: "/landing/landingphoto3.jpg", alt: "AI Botanical Illustrations: Editorial pose with dramatic shadows | Unrealshot AI" },
+  { src: "/landing/landingphoto4.jpg", alt: "AI Botanical Illustrations: Outdoor scene with natural light | Unrealshot AI" },
+  { src: "/landing/landingphoto5.jpg", alt: "AI Botanical Illustrations: Fashion-inspired portrait, bold colors | Unrealshot AI" },
+  { src: "/landing/landingphoto6.jpg", alt: "AI Botanical Illustrations: Classic look against textured backdrop | Unrealshot AI" },
+  { src: "/landing/landingphoto7.jpg", alt: "AI Botanical Illustrations: Candid pose, lifestyle feel | Unrealshot AI" },
+  { src: "/landing/landingphoto9.jpg", alt: "AI Botanical Illustrations: Minimalist studio setup, clean lines | Unrealshot AI" },
+  { src: "/landing/landingphoto10.jpg", alt: "AI Botanical Illustrations: Artistic composition with unique framing | Unrealshot AI" },
+  { src: "/landing/landingphoto11.jpg", alt: "AI Botanical Illustrations: Vintage-inspired portrait aesthetics | Unrealshot AI" },
+  { src: "/landing/landingphoto12.jpg", alt: "AI Botanical Illustrations: Creative portrait with styled outfit | Unrealshot AI" },
+  { src: "/landing/landingphoto13.jpg", alt: "AI Botanical Illustrations: Glamour look with soft studio lighting | Unrealshot AI" },
+  { src: "/landing/landingphoto14.jpg", alt: "AI Botanical Illustrations: Editorial pose with dramatic shadows | Unrealshot AI" },
+  { src: "/landing/landingphoto15.jpg", alt: "AI Botanical Illustrations: Outdoor scene with natural light | Unrealshot AI" },
+  { src: "/landing/landingphoto16.jpg", alt: "AI Botanical Illustrations: Fashion-inspired portrait, bold colors | Unrealshot AI" },
+  { src: "/landing/landingphoto8.jpg", alt: "AI Botanical Illustrations: Classic look against textured backdrop | Unrealshot AI" },
+  { src: "/landing/landingphoto17.jpg", alt: "AI Botanical Illustrations: Candid pose, lifestyle feel | Unrealshot AI" },
+  { src: "/landing/landingphoto18.jpg", alt: "AI Botanical Illustrations: Minimalist studio setup, clean lines | Unrealshot AI" },
+  { src: "/landing/landingphoto19.jpg", alt: "AI Botanical Illustrations: Artistic composition with unique framing | Unrealshot AI" },
 ]
 
 export function HeroSection() {
@@ -79,17 +79,18 @@ export function HeroSection() {
                 </span>
               </div>
             </div>
-            <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
+           <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
               <span className="text-white">
-                AI Bat Mitzvah Portraits That Beautify 
+                Your Portrait, Reimagined
               </span>
               <span className="text-[#ff6f00] ml-2">
-                Your Special Day
+                As Botanical Elegance
               </span>
             </h1>
 
             <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
-Create stunning, celebratory portraits for your special day, all from a few simple selfies. Perfect for invitations, decor, and creating a timeless keepsake to cherish forever.            </p>
+              Transform simple selfies into breathtaking botanical illustrations. Our AI artistically weaves your features with elegant floral motifs. Perfect for unique gifts, home decor, or a profile picture that truly blossoms.
+            </p>
           </div>
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             
