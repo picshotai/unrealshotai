@@ -181,8 +181,8 @@ function LoginFormWithSearchParams() {
 
 function LoginShowcase() {
   const images = [
-    "/landing/landingphoto4.jpg",
-    "/landing/landingphoto6.jpg",
+    "/landing/landingphotowoman15.webp",
+    "/landing/landingphotoman2.webp",
     "/content/ai-generated-sachin2.webp",
     "/content/ai-generated-shreya.jpg",
     "/content/ai-generated-sumesh3.webp",
