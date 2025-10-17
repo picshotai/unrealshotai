@@ -107,7 +107,7 @@ Get that timeless, effortlessly cool denim photoshoot. From classic portraits to
                 </div>
               </Button>
             </Link>
-            <Link href="https://github.com/AINotSoSmart/dodostarter">
+            <Link href="#">
               <Button
                 className="text-sm sm:text-md py-5 sm:py-6 group relative bg-white hover:bg-white/90 text-black rounded-md overflow-hidden cursor-pointer pr-12"
               >
