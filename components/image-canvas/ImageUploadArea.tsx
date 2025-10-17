@@ -60,7 +60,7 @@ const ImageUploadArea: React.FC<ImageUploadAreaProps & { handleFileChange: (e: R
           <p className="text-gray-600 mb-3 text-xs sm:text-sm">Drag & drop or click to browse</p>
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="inline-flex items-center gap-1 px-3 py-2 bg-primary text-white font-semibold rounded-lg border-2 border-black dark-shadow hover:shadow-[1px_1px_0_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all text-xs"
+            className="cursor-pointer inline-flex items-center gap-1 px-3 py-2 bg-primary text-white font-semibold rounded-lg border-2 border-black dark-shadow hover:shadow-[1px_1px_0_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all text-xs"
           >
             <span>Choose Image</span>
           </button>

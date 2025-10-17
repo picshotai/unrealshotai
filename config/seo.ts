@@ -310,6 +310,11 @@ export const pageSEO = {
         title: 'AI Glamour Photoshoot Generator – Selfies to Model-Quality Portraits',
         description: 'Unleash your inner celebrity. Get stunning, high-fashion glamour shots without a team of stylists. Perfect for when you need to look and feel absolutely incredible.',
         keywords: ['ai glamour photoshoot', 'high-fashion portraits', 'model-quality ai', 'glamour shots', 'celebrity look'],
+    },
+    'profile-photo-maker': {
+        title: 'AI Profile Photo Maker – Professional PFPs from Your Selfies',
+        description: 'Create clean, realistic profile photos for LinkedIn, resumes, and social media. Upload selfies and get studio-quality headshots in minutes—no photoshoot needed.',
+        keywords: ['profile photo maker', 'ai pfp generator', 'linkedin profile picture', 'professional headshots', 'ai headshot generator'],
     }
   }
 };
