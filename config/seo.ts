@@ -176,7 +176,7 @@ export const pageSEO = {
         description: 'Relive the glory days. Get hilarious and iconic 90s-style AI yearbook photos that are perfect for sharing. The only thing missing is the bad hair gel.',
         keywords: ['ai yearbook photos', '90s yearbook trend', 'ai yearbook generator', '90s ai photos', 'viral yearbook photos'],
     },
-    'doctor-headshots': {
+    'ai-doctor-headshots': {
         title: 'Professional AI Doctor Headshots That Inspire Trust',
         description: "Project the compassion and professionalism you're known for. Get warm, high-quality AI headshots for your practice, hospital profile, or speaking engagements instantly.",
         keywords: ['ai doctor headshots', 'medical headshots', 'professional portraits for doctors', 'healthcare professional headshots'],

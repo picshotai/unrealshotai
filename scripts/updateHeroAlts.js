@@ -28,7 +28,7 @@ const dirKeywordMap = {
   'black-swan-photoshoot': 'Black Swan Photoshoot',
   'corporate-headshots': 'Corporate Headshots',
   'denim-wear-photoshoot': 'Denim Wear Photoshoot',
-  'doctor-headshots': 'Doctor Headshots',
+  'ai-doctor-headshots': 'Doctor Headshots',
   'founder-headshots': 'Founder Headshots',
   'lawyer-headshots': 'Lawyer Headshots',
   'linkedin-headshots': 'LinkedIn Headshots',
