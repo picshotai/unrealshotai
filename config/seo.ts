@@ -312,9 +312,9 @@ export const pageSEO = {
         keywords: ['ai glamour photoshoot', 'high-fashion portraits', 'model-quality ai', 'glamour shots', 'celebrity look'],
     },
     'profile-photo-maker': {
-        title: 'AI Profile Photo Maker – Professional PFPs from Your Selfies',
+        title: 'Free Profile Photo Maker – Professional PFPs from Your Selfies',
         description: 'Create clean, realistic profile photos for LinkedIn, resumes, and social media. Upload selfies and get studio-quality headshots in minutes—no photoshoot needed.',
-        keywords: ['profile photo maker', 'ai pfp generator', 'linkedin profile picture', 'professional headshots', 'ai headshot generator'],
+        keywords: ['profile photo maker', 'ai pfp generator', 'linkedin profile picture', 'professional headshots', 'ai headshot generator', 'free profile photo maker', 'instagram profile picture maker', 'pfpmaker for insta'],
     }
   }
 };
