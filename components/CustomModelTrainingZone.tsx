@@ -264,7 +264,7 @@ export default function CustomModelTrainingZone() {
 
           {/* Insufficient Credits Section - Replaces form when user doesn't have enough credits */}
           {hasInsufficientCredits && (
-            <div className="bg-white border border-gray-200 rounded-xl text-center ">
+            <div className="bg-white border border-gray-200 rounded-xl text-center py-8">
               <div className="mb-6">
                 <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CreditCard className="w-8 h-8 text-red-600" />

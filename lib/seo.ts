@@ -183,8 +183,8 @@ export function generateWebApplicationJsonLd(props?: { title?: string; descripti
     "keywords": keywords,
 
     "screenshot": [
-      "https://unrealshotai.vercel.app/images/screenshot.png",
-      "https://unrealshotai.vercel.app/images/screenshot-dashboard.png"
+      `${process.env.NEXT_PUBLIC_APP_URL}/images/screenshot.png`,
+      `${process.env.NEXT_PUBLIC_APP_URL}/images/screenshot-dashboard.png`
     ],
 
     "featureList": [
@@ -205,7 +205,7 @@ export function generateWebApplicationJsonLd(props?: { title?: string; descripti
       "name": "Unrealshot AI",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://unrealshotai.vercel.app/site-logo.png"
+        "url": `${process.env.NEXT_PUBLIC_APP_URL}/site-logo.png`
       }
     },
    "offers": [
