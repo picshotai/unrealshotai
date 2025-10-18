@@ -9,6 +9,8 @@ import { pricingPlanService } from '@/lib/pricing-plans';
 import { commonPageMetadata } from '@/lib/seo'
 import { StructuredData } from '@/components/seo/StructuredData'
 import { generateProductSchema } from '@/lib/seo'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export const metadata: Metadata = commonPageMetadata.buyCredits()
 
@@ -217,25 +219,12 @@ export default async function BuyCreditsPage() {
         </div>
       </div>
 
-      <div className="mt-12 text-center">
-        <div className="max-w-2xl mx-auto">
-          <h3 className="text-lg font-semibold mb-4">Why Buy Credits?</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-            <div className="p-4 rounded-lg bg-muted/50">
-              <h4 className="font-medium mb-2">Never Expire</h4>
-              <p className="text-muted-foreground">Your credits never expire and remain in your account indefinitely.</p>
-            </div>
-            <div className="p-4 rounded-lg bg-muted/50">
-              <h4 className="font-medium mb-2">Flexible Usage</h4>
-              <p className="text-muted-foreground">Use credits for any premium feature across the platform.</p>
-            </div>
-            <div className="p-4 rounded-lg bg-muted/50">
-              <h4 className="font-medium mb-2">Secure Payment</h4>
-              <p className="text-muted-foreground">Safe and secure payment processing with instant credit delivery.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+<p className="text-center  text-gray-600 text-base leading-relaxed mt-8">
+     Payments are processed securly with 
+     <Link href="https://dodopayments.com" className="text-[#ff6f00] font-medium">
+      <Image src="/dodo-logo.png" alt="dodopayments" width={96} height={96} className="inline-block ml-1 bg-black" />
+     </Link>
+    </p>
       </div>
     </>
   );
