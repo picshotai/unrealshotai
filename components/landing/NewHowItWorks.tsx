@@ -285,7 +285,7 @@ This isn't a filter - it's a generative engine. Our system analyzes your feature
               {/* Custom Thumbnail Background */}
               <div id="video-thumbnail" className="absolute inset-0 transition-opacity duration-300">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#ff6f00]/20 via-orange-100/50 to-[#ff6f00]/30">
-                  <div className="w-full h-full bg-[url('/images/demo1.jpg')] bg-cover bg-center opacity-80"></div>
+                  <div className="w-full h-full bg-[url('/images/howtothumbnail.webp')] bg-cover bg-center opacity-80"></div>
                 </div>
                 
                 {/* Overlay gradient */}
@@ -311,7 +311,7 @@ This isn't a filter - it's a generative engine. Our system analyzes your feature
               {/* Hidden iframe that will be shown on click */}
               <iframe
                 className="w-full h-full opacity-0 pointer-events-none transition-opacity duration-300"
-                src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&mute=0&controls=1&showinfo=0&rel=0&modestbranding=1"
+                src="https://k3gonexouqnxegps.public.blob.vercel-storage.com/howtovideo.mp4"
                 title="AI Processing Video"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

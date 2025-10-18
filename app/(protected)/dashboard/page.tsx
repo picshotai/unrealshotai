@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
+import { LucideUserRoundSearch, WandSparklesIcon } from "lucide-react"
 import Link from "next/link"
 import ClientSideModelsList from "@/components/realtime/ClientSideModelsList"
 import { createClient } from '@/utils/supabase/server'
@@ -54,8 +54,8 @@ export default async function DashboardPage() {
           <CardContent>
             <Link href="/models/train/custom">
               <Button className="w-full bg-gray-900 text-white hover:bg-gray-800 border-0">
+                                <WandSparklesIcon className="ml-2 h-4 w-4" />
                 Start Custom Training
-                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
           </CardContent>
@@ -63,7 +63,7 @@ export default async function DashboardPage() {
 
         <Card className="bg-gradient-to-br from-gray-50 to-white  transition-shadow">
           <CardHeader>
-            <CardTitle className="text-xl font-bold text-gray-900">Pre-made Packs</CardTitle>
+            <CardTitle className="text-xl font-bold text-gray-900">Pre-made Shoot Packs</CardTitle>
             <CardDescription className="text-gray-600">
               Choose from curated packs of professional AI Photoshoot models for different use cases
             </CardDescription>
@@ -71,8 +71,8 @@ export default async function DashboardPage() {
           <CardContent>
             <Link href="/packs">
               <Button className="w-full bg-gray-900 text-white hover:bg-gray-800 border-0">
+                                <LucideUserRoundSearch className="ml-2 h-4 w-4" />
                 Browse Photoshoot Packs
-                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
           </CardContent>
@@ -125,7 +125,7 @@ export default async function DashboardPage() {
           <CardContent>
             <p className="text-sm text-gray-600 mb-4">
               Generate AI Photos using your trained models with custom prompts            </p>
-            <Link href="mailto:support@unrealshot.com">
+            <Link href="/generate-image">
               <Button variant="outline" className="w-full border-gray-300 text-gray-800 hover:bg-gray-100 hover:text-gray-900">
                 Generate AI Photos
               </Button>

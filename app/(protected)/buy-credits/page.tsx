@@ -188,6 +188,35 @@ export default async function BuyCreditsPage() {
         </div>
       )}
 
+      {/* How credits translate into models & photos */}
+      <div className="mt-12 text-left">
+        <div className="max-w-3xl mx-auto">
+          <h3 className="text-lg font-semibold mb-4">How credits turn into models and photos</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div className="p-4 rounded-lg bg-muted/50">
+              <h4 className="font-medium mb-2">Custom Model Training</h4>
+              <ul className="space-y-1 text-muted-foreground">
+                <li>• Costs <span className="font-medium">20 credits</span> per model.</li>
+                <li>• You write your own prompts and generate photos freely.</li>
+                <li>• With Pro, typical outcomes:</li>
+                <li className="pl-4">– <span className="font-medium">1 model</span> + up to <span className="font-medium">80 AI photos</span>.</li>
+                <li className="pl-4">– <span className="font-medium">2 models</span> + up to <span className="font-medium">40 AI photos</span>.</li>
+              </ul>
+              <p className="text-xs text-muted-foreground mt-2">These are simple examples to help you plan your credits.</p>
+            </div>
+            <div className="p-4 rounded-lg bg-muted/50">
+              <h4 className="font-medium mb-2">Shoot Packs</h4>
+              <ul className="space-y-1 text-muted-foreground">
+                <li>• Costs <span className="font-medium">30 credits</span> per pack.</li>
+                <li>• Each pack includes <span className="font-medium">1 model training + 20 photos</span>.</li>
+                <li>• With Pro, <span className="font-medium">2 packs</span> = <span className="font-medium">2 models + 40 photos</span>.</li>
+              </ul>
+              <p className="text-xs text-muted-foreground mt-2">Choose packs for curated styles; choose custom for prompt-based control.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="mt-12 text-center">
         <div className="max-w-2xl mx-auto">
           <h3 className="text-lg font-semibold mb-4">Why Buy Credits?</h3>

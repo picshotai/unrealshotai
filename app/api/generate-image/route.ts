@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { apiRateLimit, checkRateLimit } from "@/utils/rate-limit";
 
 const ASTRIA_API_KEY = process.env.ASTRIA_API_KEY;
 const ASTRIA_API_URL = "https://api.astria.ai/tunes";
@@ -20,6 +21,17 @@ export async function POST(request: Request) {
 
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Non-blocking rate-limit instrumentation: logs when exceeded
+    const rl = await checkRateLimit(`generate-image:user:${user.id}`, apiRateLimit);
+    if (!rl.success) {
+      console.warn("Rate limit exceeded on generate-image", {
+        userId: user.id,
+        limit: rl.limit,
+        remaining: rl.remaining,
+        reset: rl.reset,
+      });
     }
 
     const body = await request.json();
