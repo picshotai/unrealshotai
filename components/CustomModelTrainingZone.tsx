@@ -39,6 +39,7 @@ export default function CustomModelTrainingZone() {
   const maxSizeMB = 15
   const maxSize = maxSizeMB * 1024 * 1024 // 15MB total
   const maxFiles = 20
+  const minFiles = 6
 
   const [
     { files, isDragging, errors },
@@ -157,10 +158,10 @@ export default function CustomModelTrainingZone() {
       }
 
       // 3. File count validation
-      if (files.length < 4 || files.length > 10) {
+      if (files.length < minFiles || files.length > maxFiles) {
         toast({
           title: "Invalid number of images",
-          description: "Please upload 4 - 10 sample images.",
+          description: `Please upload ${minFiles} - ${maxFiles} sample images.`,
         })
         return
       }
@@ -417,7 +418,7 @@ export default function CustomModelTrainingZone() {
                     <Button 
                       type="submit" 
                       className="w-full text-md" 
-                      disabled={isLoading || files.length < 4 || files.length > 10}
+                      disabled={isLoading || files.length < minFiles || files.length > maxFiles}
                       size="lg"
                     >
                       {isLoading ? "Processing..." : "Train Custom Model"}
@@ -547,7 +548,7 @@ export default function CustomModelTrainingZone() {
             <Button 
               type="submit" 
               className="w-full text-md" 
-              disabled={isLoading || files.length < 6 || files.length > 20}
+              disabled={isLoading || files.length < minFiles || files.length > maxFiles}
               size="lg"
             >
               {isLoading ? "Processing..." : "Train Custom Model"}
