@@ -30,12 +30,12 @@ export default async function DashboardPage() {
 
   const { data: credits } = await supabase
     .from("credits")
-    .select("balance")
+    .select("credits")
     .eq("user_id", user.id)
     .single()
 
   const modelCount = models?.length || 0
-  const creditsBalance = credits?.balance || 0
+  const creditsBalance = credits?.credits || 0
 
   return (
     <div className="space-y-8">
