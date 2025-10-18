@@ -278,7 +278,7 @@ export default function CustomModelTrainingZone() {
               
               <div className="space-y-3 max-w-xs mx-auto">
                 <Button 
-                  onClick={() => router.push('/pricing')}
+                  onClick={() => router.push('/buy-credits')}
                   className="w-full py-2"
                 >
                   Get More Credits
