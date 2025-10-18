@@ -182,13 +182,13 @@ export default function CustomModelTrainingZone() {
         
         const blob = await upload(file.name, file, {
           access: "public",
-          handleUploadUrl: "/astria/train-custom-model/image-upload",
+          handleUploadUrl: "/astria/train-model/image-upload",
         })
         blobUrls.push(blob.url)
       }
 
       // 5. Training request
-      const response = await fetch("/astria/train-custom-model", {
+      const response = await fetch("/astria/train-model", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

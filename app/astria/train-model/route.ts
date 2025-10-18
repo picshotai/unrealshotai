@@ -30,9 +30,11 @@ export async function POST(request: Request) {
 
   
 
-  if (images?.length < 4 || images?.length > 10) {
+  const minImages = 6
+  const maxImages = 20
+  if (images?.length < minImages || images?.length > maxImages) {
     return NextResponse.json(
-      { message: "Please upload at least 6 - 10 sample images" },
+      { message: `Please upload ${minImages} - ${maxImages} sample images` },
       { status: 400 },
     );
   }
