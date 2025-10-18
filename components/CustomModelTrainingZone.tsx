@@ -38,7 +38,7 @@ export default function CustomModelTrainingZone() {
 
   const maxSizeMB = 15
   const maxSize = maxSizeMB * 1024 * 1024 // 15MB total
-  const maxFiles = 10
+  const maxFiles = 20
 
   const [
     { files, isDragging, errors },
