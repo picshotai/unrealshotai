@@ -547,7 +547,7 @@ export default function CustomModelTrainingZone() {
             <Button 
               type="submit" 
               className="w-full text-md" 
-              disabled={isLoading || files.length < 4 || files.length > 20}
+              disabled={isLoading || files.length < 6 || files.length > 20}
               size="lg"
             >
               {isLoading ? "Processing..." : "Train Custom Model"}
