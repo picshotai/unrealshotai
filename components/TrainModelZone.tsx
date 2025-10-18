@@ -30,7 +30,7 @@ export default function TrainModelZone({ packSlug }: { packSlug: string }) {
 
   const maxSizeMB = 10
   const maxSize = maxSizeMB * 1024 * 1024 // 10MB total
-  const maxFiles = 10
+  const maxFiles = 20
 
   const [
     { files, isDragging, errors },
