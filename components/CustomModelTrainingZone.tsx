@@ -180,7 +180,9 @@ export default function CustomModelTrainingZone() {
           return
         }
         
-        const blob = await upload(file.name, file, {
+        // Generate a unique pathname to avoid collisions (library option not available)
+        const uniquePathname = `${Date.now()}-${(typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') ? crypto.randomUUID() : Math.random().toString(36).slice(2)}-${file.name.replace(/\s+/g, '-')}`
+        const blob = await upload(uniquePathname, file, {
           access: "public",
           handleUploadUrl: "/astria/train-model/image-upload",
         })
