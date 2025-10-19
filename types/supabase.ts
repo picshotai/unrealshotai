@@ -395,6 +395,38 @@ export interface Database {
           }
         ]
       }
+      profiles: {
+        Row: {
+          id: string
+          user_id: string
+          created_at: string
+          updated_at: string
+          has_completed_onboarding: boolean
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          created_at?: string
+          updated_at?: string
+          has_completed_onboarding?: boolean
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          created_at?: string
+          updated_at?: string
+          has_completed_onboarding?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never
