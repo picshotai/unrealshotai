@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Caveat } from 'next/font/google'
+import VideoModal from '@/components/VideoModal'
+
 
 const caveat = Caveat({
   subsets: ['latin'],
@@ -36,6 +38,7 @@ const images = [
 
 export function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -83,14 +86,19 @@ You're paid for your decisions, not your time. Make the right one for your brand
           <div className="flex  sm:flex-row gap-2 justify-center items-center w-full relative">
             <Link href="/dashboard">
               <Button className="text-sm sm:text-md py-5 sm:py-6 group relative bg-[#ff6f00] hover:bg-[#ff6f00]/90 text-white rounded-md overflow-hidden cursor-pointer pr-12">
-                Get Your Founder Headshots
+                Get Your Headshots
                 <div className="bg-white rounded-sm p-2 sm:p-3 absolute right-1 top-1/2 -translate-y-1/2">
                   <img src="/arrow.svg" alt="arrow-right" className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
                 </div>
               </Button>
             </Link>
             <Link href="#">
-              <Button className="text-sm sm:text-md py-5 sm:py-6 group relative bg-white hover:bg-white/90 text-black rounded-md overflow-hidden cursor-pointer pr-12">
+              <Button className="text-sm sm:text-md py-5 sm:py-6 group relative bg-white hover:bg-white/90 text-black rounded-md overflow-hidden cursor-pointer pr-12"
+              onClick={(e) => {
+                e.preventDefault();
+                setIsVideoModalOpen(true);
+              }}
+              >
                 Watch Demo
                 <div className="bg-[#ff6f00] text-white rounded-sm p-2 sm:p-3 absolute right-1 top-1/2 -translate-y-1/2">
                   <Play className="w-6 h-6 transition-transform duration-200 group-hover:translate-x-1" />
@@ -187,6 +195,14 @@ You're paid for your decisions, not your time. Make the right one for your brand
           100% { transform: translateX(-50%); }
         }
       `}</style>
+      
+      {/* Video Modal */}
+      <VideoModal
+        isOpen={isVideoModalOpen}
+        onClose={() => setIsVideoModalOpen(false)}
+        videoUrl=""
+        title="How It Works - Founder Headshots Demo"
+      />
     </section>
   )
 }

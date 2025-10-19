@@ -6,6 +6,7 @@ import Link from "next/link"
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { Caveat } from 'next/font/google';
+import VideoModal from "@/components/VideoModal";
 
 // Configure the Caveat font
 const caveat = Caveat({
@@ -37,6 +38,7 @@ const images = [
 
 export function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -109,6 +111,10 @@ Transform your casual photos into a professional-grade photoshoot that captures 
             <Link href="#">
               <Button
                 className="text-sm sm:text-md py-5 sm:py-6 group relative bg-white hover:bg-white/90 text-black rounded-md overflow-hidden cursor-pointer pr-12"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsVideoModalOpen(true);
+                }}
               >
                 Watch Demo
                 <div className="bg-[#ff6f00] text-white rounded-sm p-2 sm:p-3 absolute right-1 top-1/2 -translate-y-1/2">
@@ -308,6 +314,14 @@ Transform your casual photos into a professional-grade photoshoot that captures 
           }
         }
       `}</style>
+      
+      {/* Video Modal */}
+      <VideoModal
+        isOpen={isVideoModalOpen}
+        onClose={() => setIsVideoModalOpen(false)}
+        videoUrl="https://k3gonexouqnxegps.public.blob.vercel-storage.com/howtovideo.mp4"
+        title="How It Works - AI Photo Generation Demo"
+      />
     </section>
   )
 }

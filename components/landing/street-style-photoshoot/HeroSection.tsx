@@ -6,6 +6,7 @@ import Link from "next/link"
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { Caveat } from 'next/font/google';
+import VideoModal from "@/components/VideoModal";
 
 // Configure the Caveat font
 const caveat = Caveat({
@@ -38,6 +39,7 @@ const images = [
 
 export function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -110,7 +112,11 @@ Capture that effortless urban edge. Turn your selfies into a high-fashion street
             <Link href="#">
               <Button
                 className="text-sm sm:text-md py-5 sm:py-6 group relative bg-white hover:bg-white/90 text-black rounded-md overflow-hidden cursor-pointer pr-12"
-              >
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsVideoModalOpen(true);
+                }}
+                >
                 Watch Demo
                 <div className="bg-[#ff6f00] text-white rounded-sm p-2 sm:p-3 absolute right-1 top-1/2 -translate-y-1/2">
                   <Play className="w-6 h-6 transition-transform duration-200 group-hover:translate-x-1" />
@@ -309,6 +315,14 @@ Capture that effortless urban edge. Turn your selfies into a high-fashion street
           }
         }
       `}</style>
+      
+      {/* Video Modal */}
+      <VideoModal
+        isOpen={isVideoModalOpen}
+        onClose={() => setIsVideoModalOpen(false)}
+        videoUrl=""
+        title="How It Works - Street Style Photoshoot Demo"
+      /> 
     </section>
   )
 }
