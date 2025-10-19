@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   
 
   const minImages = 6
-  const maxImages = 20
+  const maxImages = 12
   if (images?.length < minImages || images?.length > maxImages) {
     return NextResponse.json(
       { message: `Please upload ${minImages} - ${maxImages} sample images` },

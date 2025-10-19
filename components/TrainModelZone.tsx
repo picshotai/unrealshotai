@@ -16,6 +16,8 @@ import { fileUploadFormSchema } from "@/types/zod"
 import { upload } from "@vercel/blob/client"
 import { createClient } from '@/utils/supabase/client';
 import { useCallback, useState, useEffect } from "react"
+import { ImageInspector } from "./imageInspector"
+import { ImageInspectionResult, aggregateCharacteristics } from "@/lib/imageInspection"
 
 type FormInput = z.infer<typeof fileUploadFormSchema>
 
@@ -24,13 +26,14 @@ const dodopaymentIsConfigured = true // Always enabled for dodopayments
 export default function TrainModelZone({ packSlug }: { packSlug: string }) {
   const [userCredits, setUserCredits] = useState<number>(0)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [characteristics, setCharacteristics] = useState<(ImageInspectionResult & { fileId: string })[]>([])
   const { toast } = useToast()
   const router = useRouter()
   const supabase = createClient();
 
   const maxSizeMB = 10
   const maxSize = maxSizeMB * 1024 * 1024 // 10MB total
-  const maxFiles = 20
+  const maxFiles = 12
 
   const [
     { files, isDragging, errors },
@@ -105,6 +108,14 @@ export default function TrainModelZone({ packSlug }: { packSlug: string }) {
     checkCredits()
   }, [supabase])
 
+  const handleInspectionComplete = useCallback((result: ImageInspectionResult, fileId: string) => {
+    setCharacteristics(prev => {
+      // Remove any existing result for this file and add the new one
+      const filtered = prev.filter(char => char.fileId !== fileId)
+      return [...filtered, { ...result, fileId }]
+    })
+  }, [])
+
   const trainModel = useCallback(async () => {
     setIsLoading(true)
 
@@ -173,7 +184,12 @@ export default function TrainModelZone({ packSlug }: { packSlug: string }) {
         blobUrls.push(blob.url)
       }
 
-      // 5. Training request
+      // 5. Aggregate characteristics from image inspections
+      const aggregatedCharacteristics = aggregateCharacteristics(
+        characteristics.map(({ fileId, ...rest }) => rest)
+      )
+
+      // 6. Training request
       const response = await fetch("/astria/train-model", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -182,6 +198,7 @@ export default function TrainModelZone({ packSlug }: { packSlug: string }) {
           name: form.getValues("name").trim(),
           type: form.getValues("type"),
           pack: packSlug,
+          characteristics: aggregatedCharacteristics,
         }),
       })
 
@@ -222,7 +239,7 @@ export default function TrainModelZone({ packSlug }: { packSlug: string }) {
     } finally {
       setIsLoading(false)
     }
-  }, [files, form, packSlug, router, supabase.auth, toast, userCredits])
+  }, [files, form, packSlug, router, supabase.auth, toast, userCredits, characteristics])
 
   // Handle file upload success
   useEffect(() => {
@@ -451,6 +468,11 @@ export default function TrainModelZone({ packSlug }: { packSlug: string }) {
                           <p className="text-muted-foreground text-xs">
                             {formatBytes(file.file.size)}
                           </p>
+                          <ImageInspector
+                            file={file.file instanceof File ? file.file : new File([], file.file.name)}
+                            type={form.getValues("type")}
+                            onInspectionComplete={(result) => handleInspectionComplete(result, file.id)}
+                          />
                         </div>
                       </div>
 

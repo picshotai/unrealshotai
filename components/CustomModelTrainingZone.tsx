@@ -20,6 +20,8 @@ import { createClient } from '@/utils/supabase/client';
 import { creditManager } from '@/lib/credit-manager'
 import type { Database } from "@/types/supabase"
 import { useUserStore } from "@/stores/userStore"
+import { ImageInspector } from "@/components/imageInspector"
+import { aggregateCharacteristics, type ImageInspectionResult } from "@/lib/imageInspection"
 
 type FormInput = z.infer<typeof fileUploadFormSchema>
 
@@ -35,10 +37,13 @@ export default function CustomModelTrainingZone() {
   // Use credit manager for proper state management
   const [userCredits, setUserCredits] = useState<number>(0)
   const [creditsLoading, setCreditsLoading] = useState<boolean>(true)
+  
+  // Image inspection state
+  const [characteristics, setCharacteristics] = useState<(ImageInspectionResult & { fileId: string })[]>([])
 
   const maxSizeMB = 15
   const maxSize = maxSizeMB * 1024 * 1024 // 15MB total
-  const maxFiles = 20
+  const maxFiles = 12
   const minFiles = 6
 
   const [
@@ -73,6 +78,14 @@ export default function CustomModelTrainingZone() {
   const onSubmit: SubmitHandler<FormInput> = () => {
     trainModel()
   }
+
+  // Handle inspection results
+  const handleInspectionComplete = useCallback((result: ImageInspectionResult, fileId: string) => {
+    setCharacteristics(prev => {
+      const filtered = prev.filter(c => c.fileId !== fileId)
+      return [...filtered, { ...result, fileId }]
+    })
+  }, [])
 
   // Handle file upload errors
   useEffect(() => {
@@ -189,7 +202,12 @@ export default function CustomModelTrainingZone() {
         blobUrls.push(blob.url)
       }
 
-      // 5. Training request
+      // 5. Aggregate image characteristics
+      const aggregatedCharacteristics = aggregateCharacteristics(
+        characteristics.map(({ fileId, ...rest }) => rest)
+      )
+
+      // 6. Training request
       const response = await fetch("/astria/train-model", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -199,6 +217,7 @@ export default function CustomModelTrainingZone() {
           type: form.getValues("type"),
           is_custom: true,
           auto_extend: form.getValues("auto_extend") || false,
+          characteristics: aggregatedCharacteristics,
         }),
       })
 
@@ -239,7 +258,7 @@ export default function CustomModelTrainingZone() {
     } finally {
       setIsLoading(false)
     }
-  }, [files, form, router, supabase.auth, toast, userCredits])
+  }, [files, form, router, supabase.auth, toast, userCredits, characteristics])
 
   // Handle file upload success
   useEffect(() => {
@@ -509,15 +528,22 @@ export default function CustomModelTrainingZone() {
                               </div>
                             </div>
 
-                            <Button
-                               size="icon"
-                               variant="ghost"
-                               className="text-muted-foreground/80 hover:text-foreground -me-2 size-8 hover:bg-transparent"
-                               onClick={() => removeFile(file.id)}
-                               aria-label="Remove file"
-                             >
-                               <X aria-hidden="true" />
-                             </Button>
+                            <div className="flex items-center gap-2">
+                              <ImageInspector
+                                file={file.file instanceof File ? file.file : new File([], file.file.name)}
+                                type={form.getValues("type")}
+                                onInspectionComplete={(result) => handleInspectionComplete(result, file.id)}
+                              />
+                              <Button
+                                 size="icon"
+                                 variant="ghost"
+                                 className="text-muted-foreground/80 hover:text-foreground -me-2 size-8 hover:bg-transparent"
+                                 onClick={() => removeFile(file.id)}
+                                 aria-label="Remove file"
+                               >
+                                 <X aria-hidden="true" />
+                               </Button>
+                            </div>
                           </div>
                         ))}
 
