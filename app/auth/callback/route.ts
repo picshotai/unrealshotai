@@ -25,6 +25,8 @@ export async function GET(request: NextRequest) {
   }
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
+  const tokenHash = searchParams.get('token_hash')
+  const type = (searchParams.get('type') || 'email').toLowerCase()
   const next = searchParams.get('next') ?? '/dashboard'
 
   if (code) {
@@ -40,7 +42,7 @@ export async function GET(request: NextRequest) {
       
       if (data?.user) {
         // Log successful auth without user details
-        console.log('Authentication successful')
+        console.log('Authentication successful (code)')
         return NextResponse.redirect(`${origin}${next}`)
       } else {
         console.error('No user data returned after exchange')
@@ -52,6 +54,32 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // Return generic error for missing code
+  if (tokenHash) {
+    try {
+      const supabase = await createClient()
+      const { data, error } = await (supabase.auth as any).verifyOtp({
+        type,
+        token_hash: tokenHash,
+      })
+
+      if (error) {
+        console.error('Auth verifyOtp failed:', error.code || 'UNKNOWN_ERROR')
+        return NextResponse.redirect(`${origin}/login?error=Authentication failed or link expired`)
+      }
+
+      if (data?.user) {
+        console.log('Authentication successful (token_hash)')
+        return NextResponse.redirect(`${origin}${next}`)
+      } else {
+        console.error('No user data returned after verifyOtp')
+        return NextResponse.redirect(`${origin}/login?error=Authentication failed`)
+      }
+    } catch (err) {
+      console.error('Auth verifyOtp error:', err instanceof Error ? err.message : 'Unknown error')
+      return NextResponse.redirect(`${origin}/login?error=Authentication failed`)
+    }
+  }
+
+  // Return generic error for missing parameters
   return NextResponse.redirect(`${origin}/login?error=Authentication failed`)
 }

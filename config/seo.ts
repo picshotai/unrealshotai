@@ -363,7 +363,11 @@ export const sitemapConfig = {
     '/api/*',
     '/auth/*',
     '/error',
+    '/admin/*',
+    '/trained-models/*',
+    '/buy-credits/*',
     '/payment-success',
+    
   ],
   additionalPaths: async () => {
     // Add dynamic paths here if needed

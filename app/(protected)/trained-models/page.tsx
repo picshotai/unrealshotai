@@ -3,6 +3,8 @@ import { createClient } from '@/utils/supabase/server'; // Updated import from u
 import ModelsTable from "@/components/AllModels"
 import type { modelRowWithSamples } from "@/types/utils"
 import { redirect } from "next/navigation"
+import ClearModels from "@/components/ClearModels"
+
 
 
 export const metadata: Metadata = {
@@ -41,7 +43,10 @@ export default async function AllModelsPage() {
 
   return (
     <div className="container mx-auto px-2 py-8">
-      <h1 className="text-3xl font-bold mb-6">All Trained Models</h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold">All Trained Models</h1>
+        <ClearModels />
+      </div>
       {transformedModels && transformedModels.length > 0 ? (
         <ModelsTable models={transformedModels as modelRowWithSamples[]} />
       ) : (
