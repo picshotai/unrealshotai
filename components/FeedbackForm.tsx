@@ -78,7 +78,7 @@ export default function FeedbackForm({ userId }: FeedbackFormProps) {
           />
           
           {/* Modal Content */}
-          <Card className="relative w-full max-w-md mx-auto shadow-2xl border-0">
+          <Card className="relative w-full max-w-md mx-auto gap-2 shadow-2xl border-0">
             <CardHeader className="pb-4">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-lg font-semibold">
@@ -123,8 +123,7 @@ export default function FeedbackForm({ userId }: FeedbackFormProps) {
                       id="feedback"
                       value={feedback}
                       onChange={(e) => setFeedback(e.target.value)}
-                      placeholder="How was your experience? If you're a customer, how did our tool perform? If you haven't converted yet, what's stopping you?"
-                      className={cn(
+placeholder="Share your honest thoughts. (e.g., Was the quality worth it? What's stopping your purchase?)"                      className={cn(
                         "w-full min-h-[120px] p-3 rounded-md border border-input bg-background",
                         "text-sm placeholder:text-muted-foreground",
                         "focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent",

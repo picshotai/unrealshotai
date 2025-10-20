@@ -7,6 +7,7 @@ import ClientSideModelsList from "@/components/realtime/ClientSideModelsList"
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from "next/navigation"
 import { commonPageMetadata } from '@/lib/seo'
+import FeedbackForm from "@/components/FeedbackForm"
 
 export const metadata: Metadata = commonPageMetadata.dashboard()
 
@@ -131,6 +132,7 @@ iew all professional styles (Corporate, Glamour, Founder, etc.) and choose the p
           </CardContent>
         </Card>
       </div>
+      <FeedbackForm userId={user.id} />
     </div>
   )
 }

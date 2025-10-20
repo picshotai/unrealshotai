@@ -1,6 +1,7 @@
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 import { AccountDashboard } from '@/components/account/account-dashboard'
+import FeedbackForm from "@/components/FeedbackForm"
 
 export default async function AccountPage() {
   const supabase = await createClient()
@@ -52,6 +53,7 @@ export default async function AccountPage() {
         currentCredits={credits?.credits || 0}
         totalCreditsPurchased={totalCreditsPurchased}
       />
+      <FeedbackForm userId={user.id} />
     </div>
   )
 }

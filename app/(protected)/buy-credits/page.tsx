@@ -11,6 +11,7 @@ import { StructuredData } from '@/components/seo/StructuredData'
 import { generateProductSchema } from '@/lib/seo'
 import Image from 'next/image'
 import Link from 'next/link'
+import FeedbackForm from "@/components/FeedbackForm"
 
 export const metadata: Metadata = commonPageMetadata.buyCredits()
 
@@ -226,6 +227,7 @@ export default async function BuyCreditsPage() {
      </Link>
     </p>
       </div>
+      <FeedbackForm userId={user.id} />
     </>
   );
 }

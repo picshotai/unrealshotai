@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import ImageUploadGuide from "@/components/image-upload-guide"
 import { createClient } from "@/utils/supabase/server"
 import { redirect } from "next/navigation"
+import FeedbackForm from "@/components/FeedbackForm"
 
 export const metadata: Metadata = {
   title: "Image Upload Guide | Unrealshot AI",
@@ -21,6 +22,7 @@ export default async function GalleryPage() {
   return (
     <div className="w-full">
       <ImageUploadGuide />
+      <FeedbackForm userId={user.id} />
     </div>
   )
 }
