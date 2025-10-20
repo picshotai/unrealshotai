@@ -46,16 +46,15 @@ export default async function DashboardPage() {
       <div className="grid gap-6 md:grid-cols-2">
         <Card className="bg-gradient-to-br from-white to-gray-50">
           <CardHeader>
-            <CardTitle className="text-xl font-bold text-gray-900">Custom Model Training</CardTitle>
+            <CardTitle className="text-xl font-bold text-gray-900">Start Your Personalized AI Photoshoot</CardTitle>
             <CardDescription className="text-gray-600">
-              Upload your photos and train a personalized AI model to create photos using your own prompt
-            </CardDescription>
+Unlock the highest realism. Upload 6-10 photos now to train your custom model and generate professional images with your own prompts.            </CardDescription>
           </CardHeader>
           <CardContent>
             <Link href="/models/train/custom">
               <Button className="w-full bg-gray-900 text-white hover:bg-gray-800 border-0">
                                 <WandSparklesIcon className="ml-2 h-4 w-4" />
-                Start Custom Training
+                Upload Photos & Start Training
               </Button>
             </Link>
           </CardContent>
@@ -63,16 +62,15 @@ export default async function DashboardPage() {
 
         <Card className="bg-gradient-to-br from-gray-50 to-white  transition-shadow">
           <CardHeader>
-            <CardTitle className="text-xl font-bold text-gray-900">Pre-made Shoot Packs</CardTitle>
+            <CardTitle className="text-xl font-bold text-gray-900">Browse Styles & Select Your Pack</CardTitle>
             <CardDescription className="text-gray-600">
-              Choose from curated packs of professional AI Photoshoot models for different use cases
-            </CardDescription>
+iew all professional styles (Corporate, Glamour, Founder, etc.) and choose the perfect pack to unlock training.            </CardDescription>
           </CardHeader>
           <CardContent>
             <Link href="/packs">
               <Button className="w-full bg-gray-900 text-white hover:bg-gray-800 border-0">
                                 <LucideUserRoundSearch className="ml-2 h-4 w-4" />
-                Browse Photoshoot Packs
+               View Packs & Unlock Styles
               </Button>
             </Link>
           </CardContent>

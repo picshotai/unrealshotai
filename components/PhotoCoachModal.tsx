@@ -1,14 +1,12 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { X, Check, Upload, Loader2, Download } from 'lucide-react'
+import { X, Check, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useUserStore } from '@/stores/userStore'
 import { useRouter } from 'next/navigation'
-import { formatBytes } from '@/hooks/use-file-upload'
 
 interface PhotoCoachModalProps {
   isOpen: boolean
@@ -28,231 +26,28 @@ export default function PhotoCoachModal({ isOpen, onClose, onComplete }: PhotoCo
 
   const { completeOnboarding, loading } = useUserStore()
   const router = useRouter()
-  const canvasRef = useRef<HTMLCanvasElement>(null)
 
-  // Instant preview state
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([])
-  const [selectedStyle, setSelectedStyle] = useState<string>('professional')
-  const [isGenerating, setIsGenerating] = useState(false)
-  const [generatedImage, setGeneratedImage] = useState<string | null>(null)
-  const [previewError, setPreviewError] = useState<string | null>(null)
-
-  const styleOptions = [
-    { key: 'professional', label: 'Professional', description: 'Clean, business-ready headshots' },
-    { key: 'glamour', label: 'Glamour', description: 'Elegant and sophisticated portraits' },
-    { key: 'creative', label: 'Creative', description: 'Artistic and unique styles' },
-    { key: 'natural', label: 'Natural', description: 'Relaxed, colorful, natural looks' }
-  ]
-
-  const createWatermarkedImage = (imageUrl: string): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const img = document.createElement('img')
-      img.crossOrigin = 'anonymous'
-      img.onload = () => {
-        const canvas = canvasRef.current
-        if (!canvas) {
-          reject(new Error('Canvas not available'))
-          return
-        }
-        
-        const ctx = canvas.getContext('2d')
-        if (!ctx) {
-          reject(new Error('Canvas context not available'))
-          return
-        }
-
-        // Set canvas size to match image
-        canvas.width = img.width
-        canvas.height = img.height
-
-        // Draw the original image
-        ctx.drawImage(img, 0, 0)
-
-        // Load and draw site logo watermark with text
-        const logo = document.createElement('img')
-        logo.crossOrigin = 'anonymous'
-        logo.onload = () => {
-          const logoSize = Math.min(img.width, img.height) * 0.04 // 4% of image size
-          const padding = 20
-          const textPadding = 8
-          const cornerRadius = 6
-          
-          // Calculate text dimensions
-          const fontSize = logoSize * 0.9
-          ctx.font = `600 ${fontSize}px Arial` // Semi-bold font
-          const textMetrics = ctx.measureText('Unrealshot AI')
-          const textWidth = textMetrics.width
-          
-          // Calculate total dimensions
-          const totalWidth = logoSize + textPadding + textWidth
-          const totalHeight = logoSize
-          const bgPadding = 4
-          
-          // Position from bottom-right
-          const x = img.width - totalWidth - padding - bgPadding
-          const y = img.height - totalHeight - padding - bgPadding
-          
-          // Draw rounded rectangle background (similar to bg-white/80 p-1 rounded)
-          const bgX = x - bgPadding
-          const bgY = y - bgPadding
-          const bgWidth = totalWidth + (bgPadding * 2)
-          const bgHeight = totalHeight + (bgPadding * 2)
-          
-          // Create rounded rectangle path
-          ctx.beginPath()
-          ctx.moveTo(bgX + cornerRadius, bgY)
-          ctx.lineTo(bgX + bgWidth - cornerRadius, bgY)
-          ctx.quadraticCurveTo(bgX + bgWidth, bgY, bgX + bgWidth, bgY + cornerRadius)
-          ctx.lineTo(bgX + bgWidth, bgY + bgHeight - cornerRadius)
-          ctx.quadraticCurveTo(bgX + bgWidth, bgY + bgHeight, bgX + bgWidth - cornerRadius, bgY + bgHeight)
-          ctx.lineTo(bgX + cornerRadius, bgY + bgHeight)
-          ctx.quadraticCurveTo(bgX, bgY + bgHeight, bgX, bgY + bgHeight - cornerRadius)
-          ctx.lineTo(bgX, bgY + cornerRadius)
-          ctx.quadraticCurveTo(bgX, bgY, bgX + cornerRadius, bgY)
-          ctx.closePath()
-          
-          // Fill background with semi-transparent white
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
-          ctx.fill()
-          
-          // Draw logo with slight opacity
-          ctx.globalAlpha = 0.7
-          ctx.drawImage(logo, x, y, logoSize, logoSize)
-          
-          // Draw text
-          ctx.globalAlpha = 1.0
-          ctx.fillStyle = '#000000'
-          ctx.font = `600 ${fontSize}px Arial`
-          ctx.textBaseline = 'middle'
-          ctx.fillText('Unrealshot AI', x + logoSize + textPadding, y + logoSize / 2)
-
-          // Convert to data URL
-          resolve(canvas.toDataURL('image/jpeg', 0.9))
-        }
-        logo.onerror = () => {
-          // If logo fails to load, just add text watermark with background
-          const fontSize = Math.min(img.width, img.height) * 0.025
-          const padding = 20
-          const bgPadding = 8
-          const cornerRadius = 6
-          
-          ctx.font = `600 ${fontSize}px Arial`
-          const textMetrics = ctx.measureText('Unrealshot AI')
-          const textWidth = textMetrics.width
-          
-          // Position and dimensions
-          const x = img.width - textWidth - padding - bgPadding
-          const y = img.height - fontSize - padding - bgPadding
-          const bgWidth = textWidth + (bgPadding * 2)
-          const bgHeight = fontSize + (bgPadding * 2)
-          
-          // Draw rounded background
-          ctx.beginPath()
-          ctx.moveTo(x - bgPadding + cornerRadius, y - bgPadding)
-          ctx.lineTo(x - bgPadding + bgWidth - cornerRadius, y - bgPadding)
-          ctx.quadraticCurveTo(x - bgPadding + bgWidth, y - bgPadding, x - bgPadding + bgWidth, y - bgPadding + cornerRadius)
-          ctx.lineTo(x - bgPadding + bgWidth, y - bgPadding + bgHeight - cornerRadius)
-          ctx.quadraticCurveTo(x - bgPadding + bgWidth, y - bgPadding + bgHeight, x - bgPadding + bgWidth - cornerRadius, y - bgPadding + bgHeight)
-          ctx.lineTo(x - bgPadding + cornerRadius, y - bgPadding + bgHeight)
-          ctx.quadraticCurveTo(x - bgPadding, y - bgPadding + bgHeight, x - bgPadding, y - bgPadding + bgHeight - cornerRadius)
-          ctx.lineTo(x - bgPadding, y - bgPadding + cornerRadius)
-          ctx.quadraticCurveTo(x - bgPadding, y - bgPadding, x - bgPadding + cornerRadius, y - bgPadding)
-          ctx.closePath()
-          
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
-          ctx.fill()
-          
-          // Draw text
-          ctx.fillStyle = '#000000'
-          ctx.textAlign = 'left'
-          ctx.textBaseline = 'middle'
-          ctx.fillText('Unrealshot AI', x, y + fontSize / 2)
-          
-          resolve(canvas.toDataURL('image/jpeg', 0.9))
-        }
-        logo.src = '/site-logo.png'
-      }
-      img.onerror = () => reject(new Error('Failed to load image'))
-      img.src = imageUrl
-    })
+  const handleNext = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1)
+    }
   }
 
-  const downloadImage = async () => {
-    if (!generatedImage) return
+  const handlePrevious = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1)
+    }
+  }
 
+  const handleComplete = async () => {
     try {
-      const watermarkedImage = await createWatermarkedImage(generatedImage)
-      const link = document.createElement('a')
-      link.download = `ai-preview-${Date.now()}.jpg`
-      link.href = watermarkedImage
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
+      await completeOnboarding()
+      onComplete()
+      // Redirect to buy-credits page immediately
+      router.push('/buy-credits')
     } catch (error) {
-      console.error('Download failed:', error)
+      console.error('Failed to complete onboarding:', error)
     }
-  }
-
-  const convertToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload = () => {
-        const result = reader.result as string
-        resolve(result.split(',')[1]) // Remove data:image/jpeg;base64, prefix
-      }
-      reader.onerror = error => reject(error)
-    })
-  }
-
-  const generatePreview = async () => {
-    if (selectedFiles.length === 0) {
-      setPreviewError('Please select at least one image')
-      return
-    }
-
-    setIsGenerating(true)
-    setPreviewError(null)
-
-    try {
-      const imagesBase64 = await Promise.all(
-        selectedFiles.map(file => convertToBase64(file))
-      )
-
-      const response = await fetch('/api/instant-preview', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          imagesBase64,
-          styleKey: selectedStyle
-        })
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to generate preview')
-      }
-
-      setGeneratedImage(data.image_url)
-    } catch (error) {
-      console.error('Preview generation error:', error)
-      setPreviewError(error instanceof Error ? error.message : 'Failed to generate preview')
-    } finally {
-      setIsGenerating(false)
-    }
-  }
-
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(event.target.files || [])
-    if (files.length > 2) {
-      setPreviewError('Please select up to 2 images only')
-      return
-    }
-    setSelectedFiles(files)
-    setPreviewError(null)
   }
 
   const steps: Step[] = [
@@ -442,231 +237,75 @@ export default function PhotoCoachModal({ isOpen, onClose, onComplete }: PhotoCo
     },
     {
       id: 4,
-      title: "Get Your FREE AI Proof Shot OR skip to unlock full photoshoot",
-      subtitle: "Upload 1-2 photos to see the real quality our AI delivers.",
+      title: "See How Our AI Works",
+      subtitle: "Watch a real user upload their photo and generate stunning AI results.",
       content: (
-        <div className="mt-6 space-y-6">
-          {/* Show generated image only when available */}
-          {generatedImage ? (
-            <div className="space-y-4">
-            
-              
-              {/* Responsive image container with portrait 3:4 aspect ratio - made smaller for mobile */}
-              <div className="relative w-full max-w-[200px] sm:max-w-xs mx-auto">
-                <div className="aspect-[3/4] w-full overflow-hidden rounded-lg border shadow-sm bg-gray-100">
-                  <img
-                    src={generatedImage}
-                    alt="Generated preview"
-                    className="w-full h-full object-cover select-none pointer-events-none"
-                    onContextMenu={(e) => e.preventDefault()}
-                    onDragStart={(e) => e.preventDefault()}
-                    style={{ 
-                      userSelect: 'none',
-                      WebkitUserSelect: 'none',
-                      MozUserSelect: 'none',
-                      msUserSelect: 'none'
-                    }}
-                  />
-                  {/* Site logo watermark */}
-                  <div className="absolute text-xs font-semibold bottom-2 right-2 flex items-center gap-1 bg-white/80 p-1 rounded pointer-events-none select-none">
-                    <img
-                      src="/site-logo.png"
-                      alt="Watermark"
-                      className="w-5 h-5 opacity-70 rounded select-none"
-                      onContextMenu={(e) => e.preventDefault()}
-                      onDragStart={(e) => e.preventDefault()}
-                    />
-                    Unrealshot AI
-                  </div>
-                  {/* Invisible overlay to prevent right-click bypass */}
-                  <div 
-                    className="absolute inset-0 z-10"
-                    onContextMenu={(e) => e.preventDefault()}
-                    onDragStart={(e) => e.preventDefault()}
-                    style={{ 
-                      userSelect: 'none',
-                      WebkitUserSelect: 'none',
-                      MozUserSelect: 'none',
-                      msUserSelect: 'none'
-                    }}
-                  />
+        <div className="space-y-6">
+          {/* Demo Video Component */}
+          <div className="flex justify-center items-center">
+            <div 
+              className="relative w-full max-w-md border-[#ff6f00] border-4 h-[250px] sm:h-[300px] md:h-[350px] rounded-2xl overflow-hidden shadow-2xl group cursor-pointer"
+              onClick={() => {
+                const iframe = document.getElementById('demo-video-iframe') as HTMLIFrameElement;
+                const thumbnail = document.getElementById('demo-video-thumbnail') as HTMLElement;
+                if (iframe && thumbnail) {
+                  iframe.classList.remove('opacity-0', 'pointer-events-none');
+                  iframe.classList.add('opacity-100');
+                  thumbnail.classList.add('opacity-0', 'pointer-events-none');
+                }
+              }}
+            >
+              {/* Custom Thumbnail Background */}
+              <div id="demo-video-thumbnail" className="absolute inset-0 transition-opacity duration-300">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#ff6f00]/20 via-orange-100/50 to-[#ff6f00]/30">
+                  <div className="w-full h-full bg-[url('/images/howtothumbnail.webp')] bg-cover bg-center opacity-80"></div>
                 </div>
-              </div>
-
-              {/* Action buttons */}
-              <div className="flex gap-2 justify-center">
-                <Button
-                  onClick={downloadImage}
-                  variant="outline"
-                  size="sm"
-                  className="text-xs"
-                >
-                  <Download className="w-3 h-3 mr-1" />
-                  Download Preview
-                </Button>
-               
-              </div>
-
-              {/* Hidden canvas for watermark generation */}
-              <canvas ref={canvasRef} className="hidden" />
-            </div>
-          ) : isGenerating ? (
-            /* Show loader when generating */
-            <div className="flex flex-col items-center justify-center py-12 space-y-4">
-              <Loader2 className="w-8 h-8 animate-spin text-gray-600" />
-              <div className="text-center">
-                <p className="text-sm font-medium text-gray-900">Generating your AI-version...</p>
-                <p className="text-xs text-gray-600 mt-1">This may take a few moments</p>
-              </div>
-            </div>
-          ) : (
-            /* Show upload form when no image generated */
-            <>
-              {/* Upload Section - Only show if no files uploaded */}
-              {selectedFiles.length === 0 && (
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                  <input
-                    id="preview-upload"
-                    type="file"
-                    accept="image/jpeg,image/png,image/webp"
-                    multiple
-                    onChange={handleFileSelect}
-                    className="hidden"
-                  />
-                  <label
-                    htmlFor="preview-upload"
-                    className="cursor-pointer"
-                  >
-                    <Upload className="mx-auto h-8 w-8 text-gray-400 mb-3" />
-                    <p className="text-sm text-gray-600 mb-1">
-                      Click to upload 1-2 photos (max 10MB each)
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      JPG, PNG, or WEBP formats
-                    </p>
-                  </label>
-                </div>
-              )}
-
-              {/* File List - Compact design like TrainModelZone */}
-              {selectedFiles.length > 0 && (
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <h4 className="text-sm font-medium text-gray-900">Uploaded Photos ({selectedFiles.length}/2)</h4>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setSelectedFiles([])}
-                      className="text-xs text-gray-500 hover:text-gray-700"
-                    >
-                      Clear all
-                    </Button>
-                  </div>
-                  {selectedFiles.map((file, index) => (
+                
+                {/* Overlay gradient */}
+                <div className="absolute inset-0 bg-black/20"></div>
+                
+                <div className="absolute inset-0 flex items-center justify-center group-hover:scale-100 scale-[0.9] transition-all duration-200 ease-out rounded-2xl">
+                  <div className="bg-[#ff6f00]/10 flex items-center justify-center rounded-full backdrop-blur-md size-20">
                     <div
-                      key={index}
-                      className="bg-background flex items-center justify-between gap-2 rounded-lg border p-2 pe-3"
+                      className={`flex items-center justify-center bg-gradient-to-b from-primary/30 to-primary shadow-md rounded-full size-14 transition-all ease-out duration-200 relative group-hover:scale-[1.2] scale-100`}
                     >
-                      <div className="flex items-center gap-3 overflow-hidden">
-                        <div className="bg-accent aspect-square shrink-0 rounded">
-                          <img
-                            src={URL.createObjectURL(file)}
-                            alt={file.name}
-                            className="size-10 rounded-[inherit] object-cover"
-                          />
-                        </div>
-                        <div className="flex min-w-0 flex-col gap-0.5">
-                          <p className="truncate text-[13px] font-medium">
-                            {file.name}
-                          </p>
-                          <p className="text-muted-foreground text-xs">
-                            {formatBytes(file.size)}
-                          </p>
-                        </div>
-                      </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                          const newFiles = selectedFiles.filter((_, i) => i !== index)
-                          setSelectedFiles(newFiles)
+                      <Play
+                        className="size-6 text-white fill-white group-hover:scale-105 scale-100 transition-transform duration-200 ease-out"
+                        style={{
+                          filter:
+                            "drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06))",
                         }}
-                        className="h-8 w-8 p-0 text-gray-400 hover:text-gray-600"
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
+                      />
                     </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Style Picker */}
-              <div className="space-y-3">
-                <h4 className="text-sm font-medium text-gray-900">Choose a style:</h4>
-                <div className="grid grid-cols-2 gap-2">
-                  {styleOptions.map((style) => (
-                    <button
-                      key={style.key}
-                      onClick={() => setSelectedStyle(style.key)}
-                      className={`p-2 text-left border rounded-lg transition-colors ${
-                        selectedStyle === style.key
-                          ? 'border-gray-900 bg-gray-50'
-                          : 'border-gray-200 hover:border-gray-300'
-                      }`}
-                    >
-                      <div className="font-medium text-xs">{style.label}</div>
-                      <div className="text-xs text-gray-500 leading-tight">{style.description}</div>
-                    </button>
-                  ))}
+                  </div>
                 </div>
               </div>
+              
+              {/* Hidden iframe that will be shown on click */}
+              <iframe
+                className="w-full h-full opacity-0 pointer-events-none transition-opacity duration-300"
+                src="https://k3gonexouqnxegps.public.blob.vercel-storage.com/howtovideo.mp4"
+                title="AI Processing Demo Video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                id="demo-video-iframe"
+              ></iframe>
+            </div>
+          </div>
 
-              {/* Generate Button */}
-              <Button
-                onClick={generatePreview}
-                disabled={selectedFiles.length === 0}
-                className="w-full bg-gray-900 hover:bg-gray-800 disabled:opacity-50"
-                size="sm"
-              >
-                Generate My Free Proof Shot
-              </Button>
-
-              {/* Error Display */}
-              {previewError && (
-                <div className="p-2 bg-red-50 border border-red-200 rounded-lg">
-                  <p className="text-xs text-red-600">{previewError}</p>
-                </div>
-              )}
-            </>
-          )}
+          {/* Call to Action */}
+          <div className="text-center space-y-4">
+            <p className="text-sm text-gray-600 leading-relaxed">
+              Ready to create your own professional AI photoshoot? Upload 6-10 photos and get 20 stunning results in minutes.
+            </p>
+            
+            
+          </div>
         </div>
       )
     }
   ]
-
-  const handleNext = () => {
-    if (currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1)
-    }
-  }
-
-  const handlePrevious = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1)
-    }
-  }
-
-  const handleComplete = async () => {
-    // Redirect to buy-credits page immediately to avoid dashboard flash
-    router.push('/buy-credits')
-    
-    // Call server-side completion in background
-    await completeOnboarding()
-    
-    // Close modal and reset state
-    onComplete()
-    setCurrentStep(0)
-  }
 
   if (!isOpen) return null
 
@@ -700,8 +339,8 @@ export default function PhotoCoachModal({ isOpen, onClose, onComplete }: PhotoCo
           </button>
         </div>
 
-        {/* Content - Fixed height to prevent scrolling */}
-        <div className="p-4 flex-1 overflow-hidden">
+        {/* Content - Made scrollable for small screens */}
+        <div className="p-4 flex-1 overflow-y-auto">
           <div className="text-center">
             <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-2">
               {currentStepData.title}
@@ -713,7 +352,7 @@ export default function PhotoCoachModal({ isOpen, onClose, onComplete }: PhotoCo
             )}
           </div>
 
-          <div className="overflow-hidden">
+          <div className="min-h-0">
             {currentStepData.content}
           </div>
          
@@ -743,10 +382,10 @@ export default function PhotoCoachModal({ isOpen, onClose, onComplete }: PhotoCo
             ) : (
               <Button
                 onClick={handleComplete}
-                disabled={loading || isGenerating}
+                disabled={loading}
                 className="px-6 bg-gray-900 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
               >
-                {loading ? 'Completing...' : isGenerating ? 'Generating Image...' : 'Unlock Full 20-Photo Shoot'}
+                {loading ? 'Completing...' : 'Unlock Full 20-Photo Shoot'}
               </Button>
             )}
           </div>
