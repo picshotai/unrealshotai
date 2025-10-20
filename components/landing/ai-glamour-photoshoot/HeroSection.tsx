@@ -16,19 +16,25 @@ const caveat = Caveat({
 
 // Using your actual image paths from the original component
 const images = [
-  { src: "/landing/glamour/1.jpg", alt: "AI Glamour Photoshoot: Creative portrait with styled outfit | Unrealshot AI" },
-  { src: "/landing/glamour/2.jpg", alt: "AI Glamour Photoshoot: Glamour look with soft studio lighting | Unrealshot AI" },
-  { src: "/landing/glamour/3.jpg", alt: "AI Glamour Photoshoot: Editorial pose with dramatic shadows | Unrealshot AI" },
-  { src: "/landing/glamour/4.jpg", alt: "AI Glamour Photoshoot: Outdoor scene with natural light | Unrealshot AI" },
-  { src: "/landing/glamour/5.jpg", alt: "AI Glamour Photoshoot: Fashion-inspired portrait, bold colors | Unrealshot AI" },
-  { src: "/landing/glamour/6.jpg", alt: "AI Glamour Photoshoot: Classic look against textured backdrop | Unrealshot AI" },
-  { src: "/landing/glamour/7.jpg", alt: "AI Glamour Photoshoot: Candid pose, lifestyle feel | Unrealshot AI" },
-  { src: "/landing/glamour/8.jpg", alt: "AI Glamour Photoshoot: Minimalist studio setup, clean lines | Unrealshot AI" },
-  { src: "/landing/glamour/9.jpg", alt: "AI Glamour Photoshoot: Artistic composition with unique framing | Unrealshot AI" },
-  { src: "/landing/glamour/10.jpg", alt: "AI Glamour Photoshoot: Vintage-inspired portrait aesthetics | Unrealshot AI" },
-  { src: "/landing/glamour/11.jpg", alt: "AI Glamour Photoshoot: Creative portrait with styled outfit | Unrealshot AI" },
-  { src: "/landing/glamour/12.jpg", alt: "AI Glamour Photoshoot: Glamour look with soft studio lighting | Unrealshot AI" },
-]
+  { src: "/landing/landingphotowoman1.webp", alt: "AI-generated glamorous photoshoot - Unrealshot AI" },
+  { src: "/landing/landingphotoman2.webp", alt: "AI-generated vintage photoshoot of a man - Unrealshot AI" },
+  { src: "/landing/landingphotowoman3.webp", alt: "AI-generated influencer photoshoot of a lady - Unrealshot AI" },
+    { src: "/landing/landingphotoman4.webp", alt: "AI-generated 90s photoshoot of a man - Unrealshot AI" },
+  { src: "/landing/landingphotowoman5.webp", alt: "AI-generated Natural Looks photoshoot of a lady - Unrealshot AI" },
+    { src: "/landing/landingphotoman16.webp", alt: "- MD doctor AI headshot of a man - Unrealshot AI" },
+    { src: "/landing/landingphotowoman7.webp", alt: "Stylish AI Portraits of a woman - Unrealshot AI" },
+
+  { src: "/landing/landingphotoman8.webp", alt: "AI-generated professional headshot of a man - Unrealshot AI" },
+  { src: "/landing/landingphotowoman9.webp", alt: "AI-generated Neutral Muse photoshoot of woman - Unrealshot AI" },
+  { src: "/landing/landingphotoman10.webp", alt: "AI real estate headshot of a man - Unrealshot AI" },
+  { src: "/landing/landingphotowoman11.webp", alt: "AI-generated romantic indoor photoshoot of a lady - Unrealshot AI" },
+    { src: "/landing/landingphotoman12.webp", alt: "AI Dating photoshoot of a man  - Unrealshot AI" },
+  { src: "/landing/landingphotowoman13.webp", alt: "urban street style photo of a woman - Unrealshot AI" },
+  { src: "/landing/landingphotoman14.webp", alt: "AI-generated Fantasy photoshoot of a man - Unrealshot AI" },
+  { src: "/landing/landingphotowoman15.webp", alt: "AI Yearbook photo of a woman - Unrealshot AI" },
+  { src: "/landing/landingphotoman6.webp", alt: "AI-generated natural outdoor photography of a man - Unrealshot AI" },
+ { src: "/landing/landingphotoman17.webp", alt: "black swan inspired photoshoot of a man - Unrealshot AI" },
+ ]
 
 export function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);

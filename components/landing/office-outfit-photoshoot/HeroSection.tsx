@@ -16,26 +16,25 @@ const caveat = Caveat({
 
 // Using your actual image paths from the original component
 const images = [
-  { src: "/landing/landingphoto1.jpg", alt: "Office Outfit Photoshoot: Creative portrait with styled outfit | Unrealshot AI" },
-  { src: "/landing/landingphoto2.jpg", alt: "Office Outfit Photoshoot: Glamour look with soft studio lighting | Unrealshot AI" },
-  { src: "/landing/landingphoto3.jpg", alt: "Office Outfit Photoshoot: Editorial pose with dramatic shadows | Unrealshot AI" },
-  { src: "/landing/landingphoto4.jpg", alt: "Office Outfit Photoshoot: Outdoor scene with natural light | Unrealshot AI" },
-  { src: "/landing/landingphoto5.jpg", alt: "Office Outfit Photoshoot: Fashion-inspired portrait, bold colors | Unrealshot AI" },
-  { src: "/landing/landingphoto6.jpg", alt: "Office Outfit Photoshoot: Classic look against textured backdrop | Unrealshot AI" },
-  { src: "/landing/landingphoto7.jpg", alt: "Office Outfit Photoshoot: Candid pose, lifestyle feel | Unrealshot AI" },
-  { src: "/landing/landingphoto9.jpg", alt: "Office Outfit Photoshoot: Minimalist studio setup, clean lines | Unrealshot AI" },
-  { src: "/landing/landingphoto10.jpg", alt: "Office Outfit Photoshoot: Artistic composition with unique framing | Unrealshot AI" },
-  { src: "/landing/landingphoto11.jpg", alt: "Office Outfit Photoshoot: Vintage-inspired portrait aesthetics | Unrealshot AI" },
-  { src: "/landing/landingphoto12.jpg", alt: "Office Outfit Photoshoot: Creative portrait with styled outfit | Unrealshot AI" },
-  { src: "/landing/landingphoto13.jpg", alt: "Office Outfit Photoshoot: Glamour look with soft studio lighting | Unrealshot AI" },
-  { src: "/landing/landingphoto14.jpg", alt: "Office Outfit Photoshoot: Editorial pose with dramatic shadows | Unrealshot AI" },
-  { src: "/landing/landingphoto15.jpg", alt: "Office Outfit Photoshoot: Outdoor scene with natural light | Unrealshot AI" },
-  { src: "/landing/landingphoto16.jpg", alt: "Office Outfit Photoshoot: Fashion-inspired portrait, bold colors | Unrealshot AI" },
-   { src: "/landing/landingphoto8.jpg", alt: "Office Outfit Photoshoot: Classic look against textured backdrop | Unrealshot AI" },
- { src: "/landing/landingphoto17.jpg", alt: "Office Outfit Photoshoot: Candid pose, lifestyle feel | Unrealshot AI" },
-  { src: "/landing/landingphoto18.jpg", alt: "Office Outfit Photoshoot: Minimalist studio setup, clean lines | Unrealshot AI" },
-  { src: "/landing/landingphoto19.jpg", alt: "Office Outfit Photoshoot: Artistic composition with unique framing | Unrealshot AI" },
-]
+  { src: "/landing/landingphotowoman1.webp", alt: "AI-generated glamorous photoshoot - Unrealshot AI" },
+  { src: "/landing/landingphotoman2.webp", alt: "AI-generated vintage photoshoot of a man - Unrealshot AI" },
+  { src: "/landing/landingphotowoman3.webp", alt: "AI-generated influencer photoshoot of a lady - Unrealshot AI" },
+    { src: "/landing/landingphotoman4.webp", alt: "AI-generated 90s photoshoot of a man - Unrealshot AI" },
+  { src: "/landing/landingphotowoman5.webp", alt: "AI-generated Natural Looks photoshoot of a lady - Unrealshot AI" },
+    { src: "/landing/landingphotoman16.webp", alt: "- MD doctor AI headshot of a man - Unrealshot AI" },
+    { src: "/landing/landingphotowoman7.webp", alt: "Stylish AI Portraits of a woman - Unrealshot AI" },
+
+  { src: "/landing/landingphotoman8.webp", alt: "AI-generated professional headshot of a man - Unrealshot AI" },
+  { src: "/landing/landingphotowoman9.webp", alt: "AI-generated Neutral Muse photoshoot of woman - Unrealshot AI" },
+  { src: "/landing/landingphotoman10.webp", alt: "AI real estate headshot of a man - Unrealshot AI" },
+  { src: "/landing/landingphotowoman11.webp", alt: "AI-generated romantic indoor photoshoot of a lady - Unrealshot AI" },
+    { src: "/landing/landingphotoman12.webp", alt: "AI Dating photoshoot of a man  - Unrealshot AI" },
+  { src: "/landing/landingphotowoman13.webp", alt: "urban street style photo of a woman - Unrealshot AI" },
+  { src: "/landing/landingphotoman14.webp", alt: "AI-generated Fantasy photoshoot of a man - Unrealshot AI" },
+  { src: "/landing/landingphotowoman15.webp", alt: "AI Yearbook photo of a woman - Unrealshot AI" },
+  { src: "/landing/landingphotoman6.webp", alt: "AI-generated natural outdoor photography of a man - Unrealshot AI" },
+ { src: "/landing/landingphotoman17.webp", alt: "black swan inspired photoshoot of a man - Unrealshot AI" },
+ ]
 
 export function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
