@@ -83,7 +83,7 @@ export const defaultSEO: SEOConfig = {
   type: 'website',
   robots: 'index, follow',
   // Add your verification codes here
-  googleSiteVerification: 'googlec76eab1a4ae6fb83.html',
+  googleSiteVerification: 'c76eab1a4ae6fb83',
   yandexVerification: '47ba7543cebfc90b',
 };
 
