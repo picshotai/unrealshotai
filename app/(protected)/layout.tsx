@@ -13,6 +13,7 @@ import { createClient } from "@/utils/supabase/server"
 import { creditService } from "@/lib/credits"
 import { redirect } from "next/navigation"
 import OnboardingGate from "@/components/OnboardingGate"
+import FeedbackForm from "@/components/FeedbackForm"
 import Script from "next/script"
 import ClarityInit from "@/components/ClarityInit"
 
@@ -121,6 +122,7 @@ export default async function DashboardLayout({
           </SidebarInset>
         </SidebarProvider>
       </OnboardingGate>
+      <FeedbackForm userId={user.id} />
     </div>
   )
 }
