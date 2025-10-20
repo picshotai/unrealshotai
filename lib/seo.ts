@@ -29,6 +29,7 @@ export interface PageSEOProps {
   ogType?: 'website' | 'article' | 'profile';
   twitterCard?: 'summary' | 'summary_large_image' | 'app' | 'player';
   jsonLd?: Record<string, any> | Record<string, any>[];
+  baseUrl?: string;
 }
 
 /**
@@ -48,7 +49,7 @@ export function generateMetadata(props: PageSEOProps = {}): Metadata {
   } = props;
 
   const pageTitle = title ? seoUtils.generateTitle(title) : defaultSEO.title;
-  const canonicalUrl = canonical ? seoUtils.generateCanonicalUrl(canonical) : defaultSEO.siteUrl;
+  const canonicalUrl = canonical ? seoUtils.generateCanonicalUrl(canonical, props.baseUrl) : defaultSEO.siteUrl;
   const ogImageUrl = ogImage || openGraphImages.default.url;
 
   // Generate robots directive
@@ -541,6 +542,7 @@ export const commonPageMetadata = {
       keywords,
       canonical: `/${slug}`,
       ogType: 'website',
+      baseUrl: defaultSEO.siteUrl,
     });
   },
 

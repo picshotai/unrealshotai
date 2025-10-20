@@ -436,9 +436,10 @@ export const seoUtils = {
   /**
    * Generate canonical URL
    */
-  generateCanonicalUrl: (path: string): string => {
+  generateCanonicalUrl: (path: string, baseUrl?: string): string => {
     const cleanPath = path.startsWith('/') ? path : `/${path}`;
-    return `${defaultSEO.siteUrl}${cleanPath}`;
+    const url = baseUrl || defaultSEO.siteUrl;
+    return `${url}${cleanPath}`;
   },
 
   /**
