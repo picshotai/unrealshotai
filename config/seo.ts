@@ -344,7 +344,6 @@ export const robotsConfig = {
       '/dashboard/',
       '/account/',
       '/settings/',
-      '/_next/',
       '/admin/',
     ],
   },
