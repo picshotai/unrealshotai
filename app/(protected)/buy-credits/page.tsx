@@ -33,6 +33,17 @@ function normalizePlanName(name: string) {
   return name.trim().toLowerCase();
 }
 
+function getDisplayName(name: string) {
+  const n = normalizePlanName(name);
+  if (n === 'basic pack' || n === 'starter') {
+    return 'Basic Starter Pack';
+  }
+  if (n === 'premium pack' || n === 'pro') {
+    return 'Premium Portfolio Pack';
+  }
+  return name;
+}
+
 type PricingPlan = {
   id: string;
   name: string;
@@ -74,22 +85,20 @@ export default async function BuyCreditsPage() {
 
   // Plan feature bullets (aligned with pricing cards)
   const starterFeatures = [
-    '20 AI-generated photos',
-    '1 model training included',
-    '20 unique styles & backgrounds',
-    '20 different outfits',
-    'Full commercial license',
-    '30 credits included'
+    '20 High-Res AI Photos',
+    '100% Quality & Performance Guarantee',
+    '1 AI Model Training Included',
+    '20 Unique Styles & Backgrounds',
+    'Full Commercial License Included'
   ];
 
   const proFeatures = [
-    'Upto 80 AI  photos',
-    '1 model training included',
-    '80 unique styles & backgrounds',
-    '80 different outfits',
+    'Up to 80 AI Photos',
+    '1 AI Model Training Included',
+    '80 Unique Styles & Backgrounds',
     'Priority processing',
-    'Premium customer support',
-    '60 credits included'
+    'Full Commercial License Included',
+    'Premium customer support'
   ];
 
   // Use normalized keys so minor plan name differences don't break mapping
@@ -116,10 +125,9 @@ export default async function BuyCreditsPage() {
       )}
       <div className="container mx-auto px-4 py-8 text-center">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-4">Buy Credits</h1>
+        <h1 className="text-3xl font-bold mb-4">Get Your Professional AI Photoshoot</h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          Purchase credits to unlock premium features and enhance your experience. 
-          Credits never expire and can be used across all platform features.
+          Transform your selfies into studio-quality headshots. Photos are guaranteed and credits never expire.
         </p>
       </div>
 
@@ -133,15 +141,20 @@ export default async function BuyCreditsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {plans.map((plan) => (
             <Card key={plan.id} className={`relative ${plan.isPopular ? 'border-primary shadow-lg' : ''}`}>
-              {plan.isPopular && (
-                <Badge className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-primary">
-                  <Star className="h-3 w-3 mr-1" />
-                  Best Value
-                </Badge>
-              )}
+              {(() => {
+                const normalized = normalizePlanName(plan.name);
+                const showRecommended = normalized === 'basic pack' || normalized === 'starter';
+                const showBestValue = plan.isPopular && !showRecommended;
+                return (showRecommended || showBestValue) ? (
+                  <Badge className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-primary">
+                    <Star className="h-3 w-3 mr-1" />
+                    {showRecommended ? 'Recommended' : 'Best Value'}
+                  </Badge>
+                ) : null;
+              })()}
               
               <CardHeader className="text-center">
-                <CardTitle className="text-xl">{plan.name}</CardTitle>
+                <CardTitle className="text-xl">{getDisplayName(plan.name)}</CardTitle>
                 {plan.description && (
                   <CardDescription>{plan.description}</CardDescription>
                 )}
@@ -149,11 +162,17 @@ export default async function BuyCreditsPage() {
                   <div className="text-3xl font-bold">
                     {formatPrice(plan.price, plan.currency)}
                   </div>
-                  <div className="text-lg text-muted-foreground">
-                    {formatCredits(plan.credits)} credits
-                  </div>
+                  {(() => {
+                    const normalized = normalizePlanName(plan.name);
+                    if (normalized === 'basic pack' || normalized === 'starter') {
+                      return (
+                        <div className="text-sm text-muted-foreground">Less than $0.50 per photo</div>
+                      );
+                    }
+                    return null;
+                  })()}
                 </div>
-              </CardHeader>
+                </CardHeader>
               
               <CardContent className="pb-2">
                 <ul className="space-y-2 text-sm">
@@ -183,7 +202,16 @@ export default async function BuyCreditsPage() {
                   planName={plan.name}
                   className="w-full border border-input bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer"
                 >
-                  Buy {formatCredits(plan.credits)} Credits
+                  {(() => {
+                    const normalized = normalizePlanName(plan.name);
+                    if (normalized === 'basic pack' || normalized === 'starter') {
+                      return 'Buy Basic Pack';
+                    }
+                    if (normalized === 'premium pack' || normalized === 'pro') {
+                      return 'Buy Premium Pack';
+                    }
+                    return 'Buy Pack';
+                  })()}
                 </DodoCheckoutButton>
               </CardFooter>
             </Card>
@@ -191,37 +219,22 @@ export default async function BuyCreditsPage() {
         </div>
       )}
 
-      {/* How credits translate into models & photos */}
-      <div className="mt-12 text-left">
-        <div className="max-w-3xl mx-auto">
-          <h3 className="text-lg font-semibold mb-4">How credits turn into models and photos</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-            <div className="p-4 rounded-lg bg-muted/50">
-              <h4 className="font-medium mb-2">Custom Model Training</h4>
-              <ul className="space-y-1 text-muted-foreground">
-                <li>• Costs <span className="font-medium">20 credits</span> per model.</li>
-                <li>• You write your own prompts and generate photos freely.</li>
-                <li>• With Pro, typical outcomes:</li>
-                <li className="pl-4">– <span className="font-medium">1 model</span> + up to <span className="font-medium">80 AI photos</span>.</li>
-                <li className="pl-4">– <span className="font-medium">2 models</span> + up to <span className="font-medium">40 AI photos</span>.</li>
-              </ul>
-              <p className="text-xs text-muted-foreground mt-2">These are simple examples to help you plan your credits.</p>
-            </div>
-            <div className="p-4 rounded-lg bg-muted/50">
-              <h4 className="font-medium mb-2">Shoot Packs</h4>
-              <ul className="space-y-1 text-muted-foreground">
-                <li>• Costs <span className="font-medium">30 credits</span> per pack.</li>
-                <li>• Each pack includes <span className="font-medium">1 model training + 20 photos</span>.</li>
-                <li>• With Pro, <span className="font-medium">2 packs</span> = <span className="font-medium">2 models + 40 photos</span>.</li>
-              </ul>
-              <p className="text-xs text-muted-foreground mt-2">Choose packs for curated styles; choose custom for prompt-based control.</p>
-            </div>
-          </div>
+     
+
+      {/* Universal Guarantee */}
+      <div className="mt-10 max-w-3xl mx-auto text-left">
+        <div className="rounded-lg border bg-muted/30 p-4">
+          <h4 className="text-base font-semibold mb-2">🔒 Our Universal Guarantee</h4>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li> <span className='font-semibold text-primary/90'>1. Quality Guarantee (Shoot Packs)</span>: We guarantee professional quality on all photos generated using our pre-made Shoot Packs. If 30% of the photos quality is not satisfactory, we offer re-creation and if 50% of the photos quality is not satisfactory, we offer a full refund, <span className='font-semibold underline'>no questions asked.</span></li>
+            <li> <span className='font-semibold text-primary/90'>2. Performance Guarantee (All Packs)</span>: We guarantee that your photos will be delivered and your AI Model will train successfully from your selfies. If the technology fails, you get a refund.</li>
+          </ul>
+          <p className="text-xs text-red-500 mt-2">Note: The quality of photos generated using Custom Prompts is the user's responsibility as the Image quality depends entirely on your prompt writing skill.</p>
         </div>
       </div>
 
-<p className="text-center  text-gray-600 text-base leading-relaxed mt-8">
-     Payments are processed securly with 
+      <p className="text-center  text-gray-600 text-base leading-relaxed mt-8">
+     Payments are processed securely with 
      <Link href="https://dodopayments.com" className="text-[#ff6f00] font-medium">
       <Image src="/dodo-logo.png" alt="dodopayments" width={96} height={96} className="inline-block ml-1 bg-black" />
      </Link>
