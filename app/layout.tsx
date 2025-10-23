@@ -76,6 +76,8 @@ export default async function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/icon.svg" />
         <link rel="icon" type="image/png" sizes="32x32" href="/icon.svg" />
         <link rel="icon" type="image/png" sizes="48x48" href="/icon.svg" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/icon.svg" />
+
         
         {/* Apple-specific meta tags */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
