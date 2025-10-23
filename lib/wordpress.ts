@@ -141,8 +141,9 @@ const GET_ALL_SLUGS_QUERY = `
 
 // Helper function to make GraphQL requests
 async function fetchGraphQL(query: string, variables: Record<string, any> = {}, retries: number = 3) {
+  // Shorter timeout to avoid crawler timeouts; retry on transient failures
   const controller = new AbortController()
-  const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+  const timeoutId = setTimeout(() => controller.abort(), 8000)
 
   try {
     const response = await fetch(WORDPRESS_GRAPHQL_URL, {
@@ -162,13 +163,24 @@ async function fetchGraphQL(query: string, variables: Record<string, any> = {}, 
 
     clearTimeout(timeoutId)
 
+    // Retry on 5xx responses
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+      const status = response.status
+      if (status >= 500 && retries > 0) {
+        await new Promise((r) => setTimeout(r, 500))
+        return fetchGraphQL(query, variables, retries - 1)
+      }
+      throw new Error(`HTTP error! status: ${status}`)
     }
 
     const json = await response.json()
     
     if (json.errors) {
+      // GraphQL layer errors are usually transient; retry a couple times
+      if (retries > 0) {
+        await new Promise((r) => setTimeout(r, 500))
+        return fetchGraphQL(query, variables, retries - 1)
+      }
       throw new Error('GraphQL query failed')
     }
 
@@ -176,10 +188,9 @@ async function fetchGraphQL(query: string, variables: Record<string, any> = {}, 
   } catch (error) {
     clearTimeout(timeoutId)
     
-    // Retry logic for network errors
+    // Retry logic for network errors and timeouts
     if (retries > 0 && (error instanceof TypeError || (error as Error).name === 'AbortError')) {
-      console.warn(`Retrying GraphQL request. Attempts remaining: ${retries - 1}`)
-      await new Promise(resolve => setTimeout(resolve, 1000)) // Wait 1 second before retry
+      await new Promise(resolve => setTimeout(resolve, 500))
       return fetchGraphQL(query, variables, retries - 1)
     }
     
@@ -227,11 +238,15 @@ export async function getAllPosts(first: number = 10, after?: string): Promise<{
 
 // Fetch a single post by slug
 export async function getPostBySlug(slug: string): Promise<WordPressPost | null> {
-  const response: WordPressSinglePostResponse = await fetchGraphQL(GET_POST_BY_SLUG_QUERY, {
-    slug,
-  })
-
-  return response.data.post
+  try {
+    const response: WordPressSinglePostResponse = await fetchGraphQL(GET_POST_BY_SLUG_QUERY, {
+      slug,
+    })
+    return response.data.post
+  } catch (error) {
+    console.warn('getPostBySlug failed, returning null:', error)
+    return null
+  }
 }
 
 // Get all post slugs for static generation

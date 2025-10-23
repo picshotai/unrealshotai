@@ -7,6 +7,9 @@ import { CTASection } from "@/components/landing/CTASection"
 import { getAllPosts, formatDate, calculateReadingTime, extractExcerpt, type WordPressPost } from "@/lib/wordpress"
 import { Suspense } from "react"
 
+export const dynamic = 'force-static'
+export const revalidate = 600 // 10 minutes
+
 export const metadata: Metadata = {
   title: "The Unrealshot AI Blog",
   description:

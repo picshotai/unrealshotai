@@ -7,10 +7,13 @@ import { Calendar, Clock, ArrowLeft, User } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { getPostBySlug, getAllPostSlugs, formatDate, calculateReadingTime, type WordPressPost } from "@/lib/wordpress"
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import Image from "next/image"
 import { CTASection } from "@/components/landing/CTASection"
 
+// Ensure static generation with ISR for crawler stability
+export const dynamic = 'force-static'
+export const revalidate = 600 // 10 minutes
 
 // Generate static paths for all blog posts
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
@@ -27,8 +30,10 @@ export async function generateStaticParams(): Promise<{ slug: string }[]> {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
+  // Strip trailing punctuation (e.g., commas) and whitespace
+  const canonicalSlug = slug.replace(/[\s,]+$/g, '')
   try {
-    const post = await getPostBySlug(slug)
+    const post = await getPostBySlug(canonicalSlug)
 
     if (!post) {
       return {
@@ -80,8 +85,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function BlogArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
+  // Normalize slug and redirect if it contains trailing punctuation
+  const canonicalSlug = slug.replace(/[\s,]+$/g, '')
+  if (canonicalSlug !== slug) {
+    redirect(`/blog/${canonicalSlug}`)
+  }
   try {
-    const post = await getPostBySlug(slug)
+    const post = await getPostBySlug(canonicalSlug)
 
     if (!post) {
       notFound()
