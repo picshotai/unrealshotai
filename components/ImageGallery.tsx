@@ -54,8 +54,8 @@ export default function ImageGallery() {
           setImages(cachedImages.map((img) => ({ ...img, isLoading: true })))
         }
 
-        // Fetch latest images
-        const resp = await fetch("/api/download")
+        // Fetch latest images (use correct endpoint)
+        const resp = await fetch("/api/get-user-images")
         if (!resp.ok) {
           // Treat auth/billing-related statuses as an expected empty gallery state
           if (resp.status === 401 || resp.status === 403 || resp.status === 402) {
@@ -76,29 +76,20 @@ export default function ImageGallery() {
 
         const data = await resp.json()
 
-        const promptImages: Image[] = (data?.prompts || []).map((p: any) => ({
-          id: p.id,
-          image_url: p.output,
-          promptId: String(p.id),
-          user_id: p.user_id,
-          created_at: p.created_at,
-          source: "prompts",
+        // Map server response shape to our client type
+        const fetchedImages: Image[] = (data?.images || []).map((i: any) => ({
+          id: i.id,
+          image_url: i.image_url,
+          promptId: String(i.promptId),
+          user_id: i.user_id,
+          created_at: i.created_at,
+          source: i.source,
           isLoading: true,
         }))
 
-        const galleryImages: Image[] = (data?.images || []).map((img: any) => ({
-          id: img.id,
-          image_url: img.image_url,
-          promptId: String(img.promptId),
-          user_id: img.user_id,
-          created_at: img.created_at,
-          source: "images",
-          isLoading: true,
-        }))
-
-        // Merge with cache and sort by created_at desc
+        // Prefer fresh data over cache; dedupe by id
         const mergedMap = new Map<number, Image>()
-        for (const img of [...promptImages, ...galleryImages, ...cachedImages]) {
+        for (const img of [...cachedImages, ...fetchedImages]) {
           mergedMap.set(img.id, img)
         }
         const merged = Array.from(mergedMap.values()).sort(
@@ -340,7 +331,7 @@ export default function ImageGallery() {
                       disabled={deletingImageId === image.id}
                     >
                       <Trash2 className="h-4 w-4 mr-2" />
-                      {deletingImageId === image.id ? "Deleting..." : "Delete"}
+
                     </Button>
                     <Button
                       variant="ghost"
