@@ -12,6 +12,7 @@ import { generateProductSchema } from '@/lib/seo'
 import Image from 'next/image'
 import Link from 'next/link'
 import FeedbackForm from "@/components/FeedbackForm"
+import { ShineBorder } from "@/components/ui/shine-border";
 
 export const metadata: Metadata = commonPageMetadata.buyCredits()
 
@@ -140,7 +141,8 @@ export default async function BuyCreditsPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {plans.map((plan) => (
-            <Card key={plan.id} className={`relative ${plan.isPopular ? 'border-primary shadow-lg' : ''}`}>
+            <Card key={plan.id} className={`relative ${plan.isPopular ? '' : ''}`}>
+              {plan.isPopular && <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]}/>}
               {(() => {
                 const normalized = normalizePlanName(plan.name);
                 const showRecommended = normalized === 'basic pack' || normalized === 'starter';

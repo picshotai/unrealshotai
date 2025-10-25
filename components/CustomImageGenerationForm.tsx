@@ -36,7 +36,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { InfoIcon, CircleDollarSign } from "lucide-react";
+import { PROMPT_IDEAS } from "@/lib/prompt-ideas";
+import { Dice5 } from "lucide-react";
 import AnimatedLoader from "./AnimatedLoader";
+import { ShineBorder } from "@/components/ui/shine-border";
 
 const imageGenerationFormSchema = z.object({
   modelId: z.string().min(1, "Please select a model"),
@@ -349,6 +352,16 @@ export default function CustomImageGenerationForm({
     }
   }, [preSelectedModelId, form]);
 
+  // Insert a random curated prompt into the prompt textarea
+  const insertRandomPrompt = () => {
+    if (!PROMPT_IDEAS || PROMPT_IDEAS.length === 0) return;
+    const idx = Math.floor(Math.random() * PROMPT_IDEAS.length);
+    const idea = PROMPT_IDEAS[idx]; // now a string
+    form.setValue("prompt", idea, { shouldValidate: true, shouldDirty: true });
+    setGeneratedPrompt(idea);
+    toast({ title: "Prompt loaded" });
+  };
+
   return (
     <div className="space-y-6">
       
@@ -436,6 +449,18 @@ export default function CustomImageGenerationForm({
                           <Label htmlFor="prompt-input" className="bg-card text-foreground absolute start-1 top-0 z-10 block -translate-y-1/2 px-2 text-xs font-medium">
                             Prompt ({wordCount}/300 words)
                           </Label>
+                          {/* Dice button for prompt ideas */}
+                          <button
+                            type="button"
+                            onClick={insertRandomPrompt}
+                            className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-sm px-2 py-1 text-xs bg-secondary border hover:bg-muted cursor-pointer overflow-hidden"
+                            aria-label="Insert a curated prompt"
+                            title="Insert a curated prompt"
+                          >
+                            <ShineBorder className="pointer-events-none absolute inset-0 rounded-sm" shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} />
+                            <Dice5 className="h-3.5 w-3.5" />
+                          </button>
+                           
                           <div className={`border rounded-lg p-3 bg-background ${isOverLimit ? 'border-red-500' : ''}`}>
                             <FormControl>
                               <Textarea

@@ -182,6 +182,9 @@
   --color-slate-10: var(--slate-10);
   --color-slate-11: var(--slate-11);
   --color-slate-12: var(--slate-12);
+  --animate-shine: shine var(--duration) infinite linear;
+ 
+ 
 }
 
 @layer base {
@@ -573,7 +576,17 @@
 }
 
 
-
+ @keyframes shine {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    to {
+      background-position: 0% 0%;
+    }
+  }
 /* Blog Content Rich Text Styling */
 
 .blog-content {
