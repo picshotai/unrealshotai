@@ -19,16 +19,15 @@ import {
 } from "@/components/ui/alert-dialog"
 import { motion } from "framer-motion"
 import { ImagePlaceholder } from "./ImagePlaceholder"
-import { toast as sonnerToast } from "sonner"
 
 interface Image {
-  id: number;
-  image_url: string;
-  promptId: string;
-  user_id: string;
-  isLoading?: boolean;
-  created_at: string;
-  source: "prompts" | "images";
+  id: number
+  image_url: string
+  promptId: string
+  user_id: string
+  isLoading?: boolean
+  created_at: string
+  source: "prompts" | "images"
 }
 
 export default function ImageGallery() {
@@ -43,55 +42,83 @@ export default function ImageGallery() {
   const { toast } = useToast()
 
   useEffect(() => {
-    const fetchImages = async () => {
+    async function fetchImages() {
       try {
-        // Check cache first
-        const cachedData = localStorage.getItem("userImages")
-        const lastFetched = localStorage.getItem("lastFetched")
-        let cachedImages: Image[] = cachedData ? JSON.parse(cachedData) : []
+        setIsLoading(true)
 
-        // Fetch new images since last fetch
-        const url = lastFetched
-          ? `/api/get-user-images?since=${encodeURIComponent(lastFetched)}`
-          : "/api/get-user-images"
-        const response = await fetch(url)
+        // Read cache for immediate UX
+        const CACHE_KEY = "userImages"
+        const cachedData = localStorage.getItem(CACHE_KEY)
+        const cachedImages: Image[] = cachedData ? JSON.parse(cachedData) : []
+        if (cachedImages.length > 0) {
+          setImages(cachedImages.map((img) => ({ ...img, isLoading: true })))
+        }
 
-        if (response.status === 401) {
-          router.push("/login")
+        // Fetch latest images
+        const resp = await fetch("/api/download")
+        if (!resp.ok) {
+          // Treat auth/billing-related statuses as an expected empty gallery state
+          if (resp.status === 401 || resp.status === 403 || resp.status === 402) {
+            setImages([])
+            return
+          }
+
+          // Otherwise fall back to cache and notify gently
+          if (cachedImages.length > 0) {
+            setImages(cachedImages.map((img) => ({ ...img, isLoading: true })))
+          }
+          toast({
+            title: "Gallery temporarily unavailable",
+            description: "We couldn’t refresh your images. Showing any cached items.",
+          })
           return
         }
-        if (!response.ok) {
-          throw new Error("Failed to fetch images")
+
+        const data = await resp.json()
+
+        const promptImages: Image[] = (data?.prompts || []).map((p: any) => ({
+          id: p.id,
+          image_url: p.output,
+          promptId: String(p.id),
+          user_id: p.user_id,
+          created_at: p.created_at,
+          source: "prompts",
+          isLoading: true,
+        }))
+
+        const galleryImages: Image[] = (data?.images || []).map((img: any) => ({
+          id: img.id,
+          image_url: img.image_url,
+          promptId: String(img.promptId),
+          user_id: img.user_id,
+          created_at: img.created_at,
+          source: "images",
+          isLoading: true,
+        }))
+
+        // Merge with cache and sort by created_at desc
+        const mergedMap = new Map<number, Image>()
+        for (const img of [...promptImages, ...galleryImages, ...cachedImages]) {
+          mergedMap.set(img.id, img)
         }
+        const merged = Array.from(mergedMap.values()).sort(
+          (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        )
 
-        const data = await response.json()
-        const newImages = data.images.map((img: Image) => ({ ...img, isLoading: true }))
-
-        // Merge new images with cached ones, avoiding duplicates, and sort by created_at
-        const updatedImages = [
-          ...newImages,
-          ...cachedImages.filter(
-            (cachedImg) => !newImages.some((newImg: Image) => newImg.id === cachedImg.id)
-          ),
-        ].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-
-        setImages(updatedImages)
-
-        // Update cache
-        localStorage.setItem("userImages", JSON.stringify(updatedImages))
-        localStorage.setItem("lastFetched", new Date().toISOString())
+        setImages(merged)
+        localStorage.setItem(CACHE_KEY, JSON.stringify(merged))
       } catch (error) {
-        console.error("Error fetching images:", error)
-        toast({
-          title: "Error",
-          description: "Failed to fetch images. Please try again.",
-          variant: "destructive",
-        })
-        // Fall back to cached images if fetch fails
+        console.error("Failed to fetch images:", error)
+        // Fall back to cache if available and notify
         const cachedData = localStorage.getItem("userImages")
         if (cachedData) {
-          setImages(JSON.parse(cachedData).map((img: Image) => ({ ...img, isLoading: true })))
+          const cachedImages: Image[] = JSON.parse(cachedData)
+          setImages(cachedImages.map((img) => ({ ...img, isLoading: true })))
         }
+        toast({
+          title: "Network error",
+          description: "Couldn’t load your gallery right now. Showing any cached items.",
+        })
       } finally {
         setIsLoading(false)
       }
@@ -104,15 +131,14 @@ export default function ImageGallery() {
     if (expiredImagesCount > 0) {
       toast({
         title: "Expired Images Removed",
-        description: `${expiredImagesCount} image${expiredImagesCount > 1 ? "s" : ""} ha${expiredImagesCount > 1 ? "ve" : "s"} expired and been removed from your gallery.`,
-        variant: "default",
+        description: `${expiredImagesCount} image${expiredImagesCount > 1 ? "s" : ""} expired and been removed from your gallery.`,
       })
-      setExpiredImagesCount(0) // Reset count after showing toast
+      setExpiredImagesCount(0)
     }
   }, [expiredImagesCount, toast])
 
   const handleImageLoad = (id: number) => {
-    setImages((prevImages) => prevImages.map((img) => (img.id === id ? { ...img, isLoading: false } : img)))
+    setImages((prev) => prev.map((img) => (img.id === id ? { ...img, isLoading: false } : img)))
   }
 
   const handleImageError = async (image: Image) => {
@@ -124,21 +150,18 @@ export default function ImageGallery() {
         })
         const result = await deleteResponse.json()
 
-
         if (!deleteResponse.ok || result.error) {
           console.error("Error deleting expired image from Supabase:", result.error || "Unknown error")
           toast({
             title: "Error",
             description: "Failed to clean up expired image from database. Please try again.",
-            variant: "destructive",
           })
-          return // Do not remove from state/cache if deletion fails
+          return
         }
 
         toast({
           title: "Expired Image Removed",
           description: `Successfully deleted expired image with id: ${image.id} from Supabase`,
-          variant: "default",
         })
         setImages((prevImages) => prevImages.filter((img) => img.id !== image.id))
         updateCacheAfterDelete(image.id)
@@ -147,7 +170,6 @@ export default function ImageGallery() {
         toast({
           title: "Image Unavailable",
           description: "Image is no longer available. It has been removed from the gallery.",
-          variant: "default",
         })
         setImages((prevImages) => prevImages.filter((img) => img.id !== image.id))
         updateCacheAfterDelete(image.id)
@@ -157,7 +179,6 @@ export default function ImageGallery() {
       toast({
         title: "Error",
         description: "Failed to check image availability. Please try again.",
-        variant: "destructive",
       })
     }
   }
@@ -165,9 +186,7 @@ export default function ImageGallery() {
   const handleDownload = async (imageUrl: string, promptId: string) => {
     try {
       const response = await fetch(`/api/proxy-image?url=${encodeURIComponent(imageUrl)}&download=true`)
-      if (!response.ok) {
-        throw new Error("Failed to download image")
-      }
+      if (!response.ok) throw new Error("Failed to download image")
       const blob = await response.blob()
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement("a")
@@ -183,7 +202,6 @@ export default function ImageGallery() {
       toast({
         title: "Error",
         description: "Failed to download image. Please try again.",
-        variant: "destructive",
       })
     }
   }
@@ -207,17 +225,22 @@ export default function ImageGallery() {
       })
       const result = await response.json()
 
-
       if (!response.ok || result.error) {
         throw new Error(result.error || "Failed to delete image")
       }
 
-      setImages((prevImages) => prevImages.filter((img) => img.id !== imageToDelete.id))
+      toast({
+        title: "Image Deleted",
+        description: "The image has been removed from your gallery.",
+      })
+      setImages((prev) => prev.filter((img) => img.id !== imageToDelete.id))
       updateCacheAfterDelete(imageToDelete.id)
-      sonnerToast.success("Image removed from your gallery.")
     } catch (error) {
       console.error("Error deleting image:", error)
-      sonnerToast.error("Could not delete the image. Please try again.")
+      toast({
+        title: "Error",
+        description: "Failed to delete image. Please try again.",
+      })
     } finally {
       setDeletingImageId(null)
       setShowDeleteDialog(false)
@@ -244,15 +267,34 @@ export default function ImageGallery() {
 
   if (images.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-64 text-center">
-        <p className="text-muted-foreground mb-4">No images found in your gallery.</p>
-        <Button asChild>
-          <Link href="/generate-image">
-            <Camera className="h-4 w-4 mr-2" />
-            Generate an Image
-          </Link>
-        </Button>
+      <div className="mx-auto max-w-3xl text-center py-12 px-4">
+    <h2 className="text-2xl sm:text-3xl font-semibold">Ready for Your Stunning AI Headshots?</h2>
+    
+    <p className="mt-2 text-muted-foreground">
+        You haven't generated any photos yet. Your professional AI photoshoots will appear right here.
+    </p>
+
+    <div className="mt-6 flex items-center justify-center gap-4">
+      <div className="w-[105px] h-[140px] rounded-md overflow-hidden shadow-sm">
+        <img src="/landing/demo-gallery.webp" alt="Before example" className="w-full object-cover " />
+        <p className="mt-1 text-xs text-muted-foreground">Before</p>
       </div>
+      <div className="w-[105px] h-[140px] rounded-md overflow-hidden shadow-sm">
+        <img src="/landing/black-swan1.webp" alt="After example" className="w-full object-cover" />
+        <p className="mt-1 text-xs text-muted-foreground">After</p>
+      </div>
+    </div>
+
+    <div className="mt-8">
+      <Button asChild size="lg" className="px-6">
+        <Link href="/packs">Get My AI Photoshoot Now</Link>
+      </Button>
+      <p className="mt-3 text-sm text-muted-foreground">
+        Packs start at just $9.99 for 20 photos — that’s less than $0.50 each!
+      </p>
+      <p className="mt-1 text-xs text-muted-foreground">Backed by our Quality & Performance Guarantee.</p>
+    </div>
+</div>
     )
   }
 

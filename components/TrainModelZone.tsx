@@ -139,7 +139,7 @@ export default function TrainModelZone({ packSlug }: { packSlug: string }) {
           title: "Insufficient Credits",
           description: (
             <div className="flex flex-col gap-2">
-              <p>You need at least 30 credits to train this model</p>
+              <p>You need at least 30 credits to train shoot packs model</p>
               <a href="/buy-credits">
                 <Button size="sm" className="mt-2">
                   Upgrade to Train the Model
@@ -279,7 +279,7 @@ export default function TrainModelZone({ packSlug }: { packSlug: string }) {
             </div>
             <h2 className="text-2xl font-bold mb-2 text-gray-900">Insufficient Credits</h2>
             <p className="text-gray-600">
-              You need {requiredCredits} credits to train a model. You currently have {userCredits} credits.
+              You need {requiredCredits} credits to train shoot packs model. You currently have {userCredits} credits.
             </p>
           </div>
           

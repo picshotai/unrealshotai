@@ -457,7 +457,7 @@ export default function CustomModelTrainingZone() {
                       disabled={isLoading || files.length < minFiles || files.length > maxFiles || !inspectionComplete}
                       size="lg"
                     >
-                      {isLoading ? "Processing..." : "Train Custom Model"}
+                      {isLoading ? "Processing..." : "Start AI Training"}
                       {dodopaymentIsConfigured && ` (${form.watch("auto_extend") ? "22" : "20"} Credits)`}
                     </Button>
                   </div>

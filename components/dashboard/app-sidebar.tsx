@@ -28,48 +28,15 @@ import {
 import { useCreditManager } from "@/lib/credit-manager"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { createClient } from "@/utils/supabase/client"
 
-const data = {
-  navMain: [
-    {
-      title: "Dashboard",
-      url: "/dashboard",
-      icon: SquareTerminal,
-      isActive: true,
-    },
-    {
-      title: "Generate Photos",
-      url: "/generate-image",
-      icon: SparklesIcon,
-    },
-    
-    {
-      title: "Trained Models",
-      url: "/trained-models",
-      icon: FolderOpen,
-    },
+const navSecondary = [
   {
-      title: "My Gallery",
-      url: "/gallery",
-      icon: ImageIcon,
-    },
-{
-      title: "Photo Upload Guide",
-      url: "/photo-upload-guide",
-      icon: Upload,
-    },
-    
-   ],
-   navSecondary: [
-   
-    {
-      title: "Support",
-      url: "mailto:support@unrealshot.com",
-      icon: Send,
-    },
-  ],
- 
-}
+    title: "Support",
+    url: "mailto:support@unrealshot.com",
+    icon: Send,
+  },
+]
 
 // Credits Card Component
 function CreditsCard({ userId }: { userId?: string }) {
@@ -120,6 +87,68 @@ export function AppSidebar({
     email: "user@example.com",
     avatar: "/placeholder-user.jpg",
   }
+
+  const supabase = createClient()
+  const [hasTrainedModel, setHasTrainedModel] = React.useState(false)
+
+  React.useEffect(() => {
+    let active = true
+    ;(async () => {
+      try {
+        let uid = userData.id
+        if (!uid) {
+          const { data: { user } } = await supabase.auth.getUser()
+          uid = user?.id
+        }
+        if (!uid) {
+          if (active) setHasTrainedModel(false)
+          return
+        }
+        const { data } = await supabase
+          .from("models")
+          .select("id")
+          .eq("user_id", uid)
+          .eq("status", "finished")
+          .limit(1)
+        if (active) setHasTrainedModel(!!data && data.length > 0)
+      } catch (e) {
+        if (active) setHasTrainedModel(false)
+      }
+    })()
+    return () => { active = false }
+  }, [supabase, userData.id])
+
+  const navItems = React.useMemo(() => [
+    {
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: SquareTerminal,
+      isActive: true,
+    },
+    ...(hasTrainedModel ? [
+      {
+        title: "Generate Photos",
+        url: "/generate-image",
+        icon: SparklesIcon,
+      },
+    ] : []),
+    {
+      title: "Trained Models",
+      url: "/trained-models",
+      icon: FolderOpen,
+    },
+    {
+      title: "My Gallery",
+      url: "/gallery",
+      icon: ImageIcon,
+    },
+    {
+      title: "Photo Upload Guide",
+      url: "/photo-upload-guide",
+      icon: Upload,
+    },
+  ], [hasTrainedModel])
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -138,8 +167,8 @@ export function AppSidebar({
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavMain items={navItems} />
+        <NavSecondary items={navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <CreditsCard userId={userData.id} />

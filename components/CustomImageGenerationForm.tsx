@@ -35,7 +35,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { InfoIcon, CircleDollarSign } from "lucide-react";
 import AnimatedLoader from "./AnimatedLoader";
 
@@ -352,14 +351,7 @@ export default function CustomImageGenerationForm({
 
   return (
     <div className="space-y-6">
-      <Alert className="mb-6">
-        <AlertTitle><InfoIcon className="inline h-4 w-4 mr-2" />Important Information</AlertTitle>
-        <AlertDescription>
-          Please download your generated images asap. We
-          automatically delete all images and training data after 07 days as per
-          our policy for no data retention.
-        </AlertDescription>
-      </Alert>
+      
       
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -541,7 +533,7 @@ export default function CustomImageGenerationForm({
                     ) : (
                       <>
                         <Wand2 className="mr-2 h-4 w-4" />
-                        Generate Image (0.5<CircleDollarSign className="inline h-2 w-2 -mx-1" />)
+                        Generate Image
                       </>
                     )}
                   </Button>

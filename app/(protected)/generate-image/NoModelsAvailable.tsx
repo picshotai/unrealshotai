@@ -22,7 +22,7 @@ export default function NoModelsAvailable() {
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Button asChild size="lg" variant="default" className="font-semibold bg-primary text-white hover:text-gray-200 hover:from-indigo-600 hover:to-blue-600">
-            <Link href="/models/train/custom">Train Custom Model</Link>
+            <Link href="/models/train/custom">Train Your AI Model</Link>
           </Button>
         </div>
       </div>

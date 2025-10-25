@@ -34,7 +34,7 @@ function MagicLinkSubmit() {
           Sending link...
         </>
       ) : (
-        <>Send Magic Link</>
+        <>Send Magic Link to Login</>
       )}
       <div className="bg-white rounded-sm p-2 sm:p-3 absolute right-1 top-1/2 -translate-y-1/2">
         <img
@@ -104,8 +104,8 @@ function LoginFormWithSearchParams() {
     <CSRFProvider>
       <div className="min-h-screen flex flex-col bg-[#F7F5F3]">
         <Header />
-        {/* Spacer to account for fixed header height */}
-        <main className="flex-1 pt-24 md:pt-28 px-4 pb-12 sm:px-6 lg:px-8">
+        <div className="h-16 " aria-hidden />
+        <main className="flex-1 flex items-center justify-center px-2 sm:px-6 lg:px-8 min-h-screen">
           <div className="mx-auto max-w-4xl px-4 sm:px-1">
             <div className="grid  place-items-center">
               <Card className="overflow-hidden p-0 shadow-xs w-full">

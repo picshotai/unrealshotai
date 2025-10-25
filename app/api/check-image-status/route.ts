@@ -63,16 +63,6 @@ export async function GET(request: Request) {
         console.error("Error updating prompt:", promptError)
       }
 
-      // Insert into images table
-      const { error: imageError } = await supabase.from("images").insert({
-        userId: userId,
-        modelId: Number(modelId),
-        uri: imageUrl,
-      })
-
-      if (imageError) {
-        console.error("Error inserting image:", imageError)
-      }
 
       return NextResponse.json({
         status: "succeeded",

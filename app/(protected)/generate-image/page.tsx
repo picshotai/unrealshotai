@@ -17,7 +17,7 @@ export default async function GenerateImagePage({ searchParams }: { searchParams
   const { data: models } = await supabase.from("models").select("*").eq("user_id", user.id).eq("status", "finished")
 
   return (
-    <div className="container mx-auto px-2 py-8">
+    <div className="container mx-auto py-8">
       {models && models.length > 0 ? (
         <CustomImageGenerationForm preSelectedModelId={awaitedSearchParams.modelId} />
       ) : (

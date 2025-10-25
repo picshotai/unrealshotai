@@ -39,10 +39,16 @@ export async function clearAllModels(_formData: FormData): Promise<void> {
 
   const deletedCount = deletedRows?.length ?? 0;
 
+  // Graceful no-op when there are no models
   if (deletedCount === 0) {
     console.warn("[clearAllModels] No models were deleted for user:", user.id, "; This likely means no matching rows found.");
-    throw new Error("No models found to delete for your account.");
+    // Revalidate relevant pages to ensure UI reflects current state
+    revalidatePath('/dashboard');
+    revalidatePath('/trained-models');
+    return; // Do not throw; treat as successful no-op
   }
+
   // Ensure the models page reflects the latest DB state
   revalidatePath('/dashboard');
+  revalidatePath('/trained-models');
 }
