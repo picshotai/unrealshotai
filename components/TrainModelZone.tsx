@@ -13,7 +13,6 @@ import { type SubmitHandler, useForm } from "react-hook-form"
 import { User, Image as ImageIcon, Upload, X, AlertCircle, Zap, CreditCard } from "lucide-react"
 import type * as z from "zod"
 import { fileUploadFormSchema } from "@/types/zod"
-import { upload } from "@vercel/blob/client"
 import { createClient } from '@/utils/supabase/client';
 import { useCallback, useState, useEffect } from "react"
 import { ImageInspector } from "./imageInspector"
@@ -161,8 +160,8 @@ export default function TrainModelZone({ packSlug }: { packSlug: string }) {
         return
       }
 
-      // 4. File uploads
-      const blobUrls = []
+      // 4. File uploads to R2
+      const r2Keys: string[] = []
       for (const fileWithPreview of files) {
         // Handle both File and FileMetadata types
         const file = fileWithPreview.file instanceof File ? fileWithPreview.file : null
@@ -174,14 +173,27 @@ export default function TrainModelZone({ packSlug }: { packSlug: string }) {
           })
           return
         }
-        
-        // Generate a unique pathname to avoid collisions (library option not available)
-        const uniquePathname = `${Date.now()}-${(typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') ? crypto.randomUUID() : Math.random().toString(36).slice(2)}-${file.name.replace(/\s+/g, '-')}`
-        const blob = await upload(uniquePathname, file, {
-          access: "public",
-          handleUploadUrl: "/astria/train-model/image-upload",
+        const formData = new FormData()
+        formData.append("file", file)
+        formData.append("filename", file.name)
+
+        const res = await fetch("/astria/train-model/image-upload", {
+          method: "POST",
+          body: formData,
         })
-        blobUrls.push(blob.url)
+
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}))
+          toast({
+            title: "Upload Failed",
+            description: data?.error || "Could not upload image",
+            variant: "destructive",
+          })
+          return
+        }
+
+        const { key } = await res.json()
+        r2Keys.push(key)
       }
 
       // 5. Aggregate characteristics from image inspections
@@ -190,17 +202,17 @@ export default function TrainModelZone({ packSlug }: { packSlug: string }) {
       )
 
       // 6. Training request
-      const response = await fetch("/astria/train-model", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          urls: blobUrls,
-          name: form.getValues("name").trim(),
-          type: form.getValues("type"),
-          pack: packSlug,
-          characteristics: aggregatedCharacteristics,
-        }),
-      })
+       const response = await fetch("/astria/train-model", {
+         method: "POST",
+         headers: { "Content-Type": "application/json" },
+         body: JSON.stringify({
+           urls: r2Keys,
+           name: form.getValues("name").trim(),
+           type: form.getValues("type"),
+           pack: packSlug,
+           characteristics: aggregatedCharacteristics,
+         }),
+       })
 
       if (!response.ok) {
         const responseData = await response.json()

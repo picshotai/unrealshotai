@@ -9,8 +9,6 @@ export function getDodoPaymentsClient(): DodoPayments {
     const environment = process.env.DODO_ENVIRONMENT as "live_mode" | "test_mode"
 
     console.log('Initializing DodoPayments client...')
-    console.log('Token exists:', !!token)
-    console.log('Environment:', environment)
 
     if (!token) {
       throw new Error(`

@@ -42,7 +42,6 @@ export async function GET(request: NextRequest) {
       
       if (data?.user) {
         // Log successful auth without user details
-        console.log('Authentication successful (code)')
         return NextResponse.redirect(`${origin}${next}`)
       } else {
         console.error('No user data returned after exchange')
@@ -68,7 +67,6 @@ export async function GET(request: NextRequest) {
       }
 
       if (data?.user) {
-        console.log('Authentication successful (token_hash)')
         return NextResponse.redirect(`${origin}${next}`)
       } else {
         console.error('No user data returned after verifyOtp')

@@ -40,6 +40,15 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/ai-influencer-generator/",
+        destination: "/ai-influencer-generator",
+        permanent: true,
+      },
+    ];
+  },
 }
 
 export default nextConfig

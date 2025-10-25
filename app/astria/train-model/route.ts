@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 import axios from "axios";
+import { getR2SignedUrl } from "@/lib/r2";
 
 export const dynamic = "force-dynamic";
 
@@ -18,20 +19,18 @@ export async function POST(request: Request) {
   const payload = await request.json();
   const { urls: images, name, type, pack, is_custom, auto_extend } = payload;
 
-   const supabase = await createClient();
+  const supabase = await createClient();
 
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-      if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
-  
-
-  const minImages = 6
-  const maxImages = 12
+  const minImages = 6;
+  const maxImages = 12;
   if (images?.length < minImages || images?.length > maxImages) {
     return NextResponse.json(
       { message: `Please upload ${minImages} - ${maxImages} sample images` },
@@ -39,11 +38,17 @@ export async function POST(request: Request) {
     );
   }
 
+  // Convert incoming keys to short-lived signed URLs for Astria API
+  // We expect `images` here to be R2 object keys (e.g., "user-123/model-abc/sample-1.jpg")
+  const signedImages = await Promise.all(
+    (images as string[]).map((key) => getR2SignedUrl(key, 900)), // 15 minutes expiry
+  );
+
   let _credits = null;
   // Base credits: 20 for custom, 30 for pack-based
   // Additional 2 credits if auto_extend is enabled for custom models
   const baseCredits = is_custom ? 20 : 30;
-  const autoExtendCredits = (is_custom && auto_extend) ? 2 : 0;
+  const autoExtendCredits = is_custom && auto_extend ? 2 : 0;
   const requiredCredits = baseCredits + autoExtendCredits;
 
   console.log({ dodopaymentIsConfigured });
@@ -99,7 +104,7 @@ export async function POST(request: Request) {
       name,
       type,
       is_custom,
-      auto_extend: is_custom ? (auto_extend || false) : false, // Only set auto_extend for custom models
+      auto_extend: is_custom ? auto_extend || false : false, // Only set auto_extend for custom models
       expires_at: new Date(Date.now() + (is_custom && auto_extend ? 30 : 14) * 24 * 60 * 60 * 1000).toISOString(), // 14 days default, 30 days if auto_extend
     })
     .select("id")
@@ -128,16 +133,17 @@ export async function POST(request: Request) {
 
     // Create a fine-tuned model using Astria API
     const tuneBody = {
-      tune: {
+       tune: {
         title: name,
         base_tune_id: 1504944, // Flux1.dev tune ID
         model_type: "lora",
         token: "ohwx",
-        name: is_custom ? type : "custom", // Use 'type' for custom models
+        name: is_custom ? type : "custom",
         preset: "flux-lora-portrait",
-        image_urls: images,
+        image_urls: signedImages,
         callback: trainWebhookWithParams,
-        ...(is_custom && auto_extend && { auto_extend: true }), // Add auto_extend only for custom models
+        ...(is_custom && auto_extend && { auto_extend: true }),
+        ...(astriaTestModeIsOn && { branch: "fast" }), // mock tuning mode
       },
     };
 
@@ -150,15 +156,15 @@ export async function POST(request: Request) {
         prompt_attributes: {
           callback: promptWebhookWithParams,
         },
-        image_urls: images,
+        image_urls: signedImages, // use signed URLs for private R2 objects
       },
     };
 
     // Insert into samples table before credit deduction and Astria API call
     const { error: samplesError } = await supabase.from("samples").insert(
-      images.map((sample: string) => ({
+      (images as string[]).map((sample: string) => ({
         modelId: modelId,
-        uri: sample,
+        uri: sample, // store raw R2 keys in Supabase
       })),
     );
 
@@ -195,8 +201,7 @@ export async function POST(request: Request) {
           { status: 500 },
         );
       }
-      console.log({ data });
-      console.log({ subtractedCredits });
+
     }
 
     const response = await axios.post(

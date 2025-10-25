@@ -407,7 +407,9 @@ export default function CustomImageGenerationForm({
                                     {model.samples && model.samples[0]?.uri && (
                                       <div className="flex-shrink-0">
                                         <Image
-                                          src={model.samples[0].uri}
+                                          src={(model.samples[0].uri?.startsWith("users/"))
+                                            ? `/api/img-proxy?key=${encodeURIComponent(model.samples[0].uri)}`
+                                            : model.samples[0].uri}
                                           alt={model.name}
                                           width={20}
                                           height={20}

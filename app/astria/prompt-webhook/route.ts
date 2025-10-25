@@ -39,7 +39,6 @@ export async function POST(request: Request) {
   const incomingData = (await request.json()) as { prompt: PromptData };
   const { prompt } = incomingData;
 
-  console.log({ prompt });
 
   const urlObj = new URL(request.url);
   const user_id = urlObj.searchParams.get("user_id");

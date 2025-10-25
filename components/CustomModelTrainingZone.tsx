@@ -15,7 +15,7 @@ import { type SubmitHandler, useForm } from "react-hook-form"
 import { User, Image as ImageIcon, Upload, X, AlertCircle, Clock, CreditCard } from "lucide-react"
 import type * as z from "zod"
 import { fileUploadFormSchema } from "@/types/zod"
-import { upload } from "@vercel/blob/client"
+
 import { createClient } from '@/utils/supabase/client';
 import { creditManager } from '@/lib/credit-manager'
 import type { Database } from "@/types/supabase"
@@ -179,8 +179,8 @@ export default function CustomModelTrainingZone() {
         return
       }
 
-      // 4. File uploads
-      const blobUrls = []
+      // 4. File uploads to R2
+      const r2Keys: string[] = []
       for (const fileWithPreview of files) {
         // Handle both File and FileMetadata types
         const file = fileWithPreview.file instanceof File ? fileWithPreview.file : null
@@ -192,14 +192,28 @@ export default function CustomModelTrainingZone() {
           })
           return
         }
-        
-        // Generate a unique pathname to avoid collisions (library option not available)
-        const uniquePathname = `${Date.now()}-${(typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') ? crypto.randomUUID() : Math.random().toString(36).slice(2)}-${file.name.replace(/\s+/g, '-')}`
-        const blob = await upload(uniquePathname, file, {
-          access: "public",
-          handleUploadUrl: "/astria/train-model/image-upload",
+
+        const formData = new FormData()
+        formData.append("file", file)
+        formData.append("filename", file.name)
+
+        const res = await fetch("/astria/train-model/image-upload", {
+          method: "POST",
+          body: formData,
         })
-        blobUrls.push(blob.url)
+
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}))
+          toast({
+            title: "Upload Failed",
+            description: data?.error || "Could not upload image",
+            variant: "destructive",
+          })
+          return
+        }
+
+        const { key } = await res.json()
+        r2Keys.push(key)
       }
 
       // 5. Aggregate image characteristics
@@ -212,7 +226,7 @@ export default function CustomModelTrainingZone() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          urls: blobUrls,
+          urls: r2Keys,
           name: form.getValues("name").trim(),
           type: form.getValues("type"),
           is_custom: true,
@@ -276,6 +290,7 @@ export default function CustomModelTrainingZone() {
   // Calculate required credits and insufficient status
   const requiredCredits = form.watch("auto_extend") ? 22 : 20
   const hasInsufficientCredits = !creditsLoading && userCredits < requiredCredits
+  const inspectionComplete = files.length > 0 && files.every((file) => characteristics.some((c) => c.fileId === file.id))
 
 
   return (
@@ -439,7 +454,7 @@ export default function CustomModelTrainingZone() {
                     <Button 
                       type="submit" 
                       className="w-full text-md" 
-                      disabled={isLoading || files.length < minFiles || files.length > maxFiles}
+                      disabled={isLoading || files.length < minFiles || files.length > maxFiles || !inspectionComplete}
                       size="lg"
                     >
                       {isLoading ? "Processing..." : "Train Custom Model"}
@@ -576,7 +591,7 @@ export default function CustomModelTrainingZone() {
             <Button 
               type="submit" 
               className="w-full text-md" 
-              disabled={isLoading || files.length < minFiles || files.length > maxFiles}
+              disabled={isLoading || files.length < minFiles || files.length > maxFiles || !inspectionComplete}
               size="lg"
             >
               {isLoading ? "Processing..." : "Train Custom Model"}

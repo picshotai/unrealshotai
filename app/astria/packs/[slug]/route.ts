@@ -51,7 +51,6 @@ export async function GET(
       "Content-Type": "application/json",
     };
 
-    console.log(`Fetching pack details for ID: ${packId}`);
 
     const response = await axios.get(`${DOMAIN}/p/${packId}`, {
       headers,

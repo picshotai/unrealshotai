@@ -63,7 +63,12 @@ export default function ModelsTable({ models }: ModelsTableProps) {
                 <div className="flex items-center space-x-2 overflow-x-auto">
                   {model.samples.slice(0, 3).map((sample, index) => (
                     <Avatar key={index} className="h-8 w-8 border-2 border-gray-100 shadow-sm flex-shrink-0">
-                      <AvatarImage src={sample.uri} alt={`Sample ${index + 1}`} />
+                      <AvatarImage
+                        src={(sample.uri?.startsWith("users/"))
+                          ? `/api/img-proxy?key=${encodeURIComponent(sample.uri)}`
+                          : sample.uri}
+                        alt={`Sample ${index + 1}`}
+                      />
                       <AvatarFallback className="bg-gray-200 text-gray-700 text-xs font-medium">
                         {index + 1}
                       </AvatarFallback>

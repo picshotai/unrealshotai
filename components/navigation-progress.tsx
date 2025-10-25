@@ -37,9 +37,21 @@ export function NavigationProgress() {
     // Listen for navigation start (when clicking links)
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement
-      const link = target.closest('a')
+      const link = target.closest('a') as HTMLAnchorElement | null
       
-      if (link && link.href && !link.href.startsWith('mailto:') && !link.href.startsWith('tel:')) {
+      if (!link) return
+      
+      // Skip progress for downloads, blob URLs, and new-tab links
+      const isDownload = link.hasAttribute('download')
+      const isBlob = link.href?.startsWith('blob:')
+      const isExternalTarget = link.target === '_blank'
+      const isNonNavProtocol = link.href?.startsWith('mailto:') || link.href?.startsWith('tel:')
+
+      if (isDownload || isBlob || isExternalTarget || isNonNavProtocol) {
+        return
+      }
+      
+      try {
         const url = new URL(link.href)
         const currentUrl = new URL(window.location.href)
         
@@ -47,6 +59,8 @@ export function NavigationProgress() {
         if (url.origin === currentUrl.origin && url.pathname !== currentUrl.pathname) {
           startLoading()
         }
+      } catch (_) {
+        // If URL parsing fails (e.g., custom protocols), do nothing
       }
     }
 

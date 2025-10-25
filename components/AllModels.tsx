@@ -77,7 +77,9 @@ export default function ModelsTable({ models }: ModelsTableProps) {
             <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
               {model.samples[0]?.uri ? (
                 <Image
-                  src={model.samples[0].uri || "/placeholder.svg"}
+                  src={(model.samples[0].uri?.startsWith("users/"))
+                    ? `/api/img-proxy?key=${encodeURIComponent(model.samples[0].uri)}`
+                    : (model.samples[0].uri || "/placeholder.svg")}
                   alt={`Featured image for ${model.name}`}
                   fill
                   className="object-cover transition-transform duration-200 group-hover:scale-[1.02]"
@@ -136,7 +138,9 @@ export default function ModelsTable({ models }: ModelsTableProps) {
                         className="relative w-6 h-6 rounded-full ring-1 ring-white overflow-hidden"
                       >
                         <Image
-                          src={sample.uri || "/placeholder.svg"}
+                          src={(sample.uri?.startsWith("users/"))
+                            ? `/api/img-proxy?key=${encodeURIComponent(sample.uri)}`
+                            : (sample.uri || "/placeholder.svg")}
                           alt={`Sample ${index + 1}`}
                           fill
                           className="object-cover"
