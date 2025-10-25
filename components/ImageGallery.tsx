@@ -275,12 +275,12 @@ export default function ImageGallery() {
     </p>
 
     <div className="mt-6 flex items-center justify-center gap-4">
-      <div className="w-[105px] h-[140px] rounded-md overflow-hidden shadow-sm">
-        <img src="/landing/demo-gallery.webp" alt="Before example" className="w-full object-cover " />
+      <div className="w-[105px] h-[130px] rounded-md overflow-hidden shadow-sm">
+        <img src="/landing/demo-gallery.webp" alt="Before example" className="w-full object-fit" />
         <p className="mt-1 text-xs text-muted-foreground">Before</p>
       </div>
-      <div className="w-[105px] h-[140px] rounded-md overflow-hidden shadow-sm">
-        <img src="/landing/black-swan1.webp" alt="After example" className="w-full object-cover" />
+      <div className="w-[105px] h-[130px] rounded-md overflow-hidden shadow-sm">
+        <img src="/landing/black-swan1.webp" alt="After example" className="w-full object-fit" />
         <p className="mt-1 text-xs text-muted-foreground">After</p>
       </div>
     </div>

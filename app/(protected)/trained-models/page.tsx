@@ -6,6 +6,7 @@ import { redirect } from "next/navigation"
 import ClearModels from "@/components/ClearModels"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 
 
@@ -43,40 +44,66 @@ export default async function AllModelsPage() {
     samples: model.samples || []
   })) || []
 
+  const sampleImages = [
+    "/landing/landingphotowoman1.webp",
+    "/landing/landingphotoman8.webp",
+    "/landing/landingphotowoman9.webp",
+    "/landing/landingphotoman10.webp",
+    "/landing/landingphotoman2.webp",
+    "/landing/landingphotowoman5.webp",
+  ]
+
   return (
     <div className="container mx-auto py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Your Personal AI Photoshoot Setup</h1>
+        {transformedModels.length > 0 && <h1 className="text-3xl font-bold">Your Personal AI Photoshoot Setup</h1>}
+        
         {transformedModels.length > 0 && <ClearModels />}
       </div>
       {transformedModels && transformedModels.length > 0 ? (
         <ModelsTable models={transformedModels as modelRowWithSamples[]} />
       ) : (
-        <div className="bg-gradient-to-br from-gray-50 to-white rounded-lg p-8 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">Ready for Your Professional AI Headshots?</h2>
-          <p className="text-gray-600 mb-6 max-w-md mx-auto">
-            Unlock your professional headshots by creating your private AI. To begin, select your style pack (recommended for quality) or train a custom model.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto mb-4">
-            <Link href="/packs" className="flex-1">
-              <Button 
-                variant="outline" 
-                className="w-full border-gray-300 text-gray-800 hover:bg-gray-100 hover:text-gray-900"
-              >
-                Browse Packs (Guaranteed Quality)
-              </Button>
-            </Link>
-            <Link href="/models/train/custom" className="flex-1">
-              <Button 
-                className="w-full bg-gray-900 text-white hover:bg-gray-800"
-              >
-                Train Custom Look (Advanced)
-              </Button>
-            </Link>
+        <div className="text-center">
+          <div className="min-h-[50vh] flex flex-col items-center justify-center px-4">
+            {/* Visual strip for vibe */}
+            <div className="mb-6">
+              <div className="flex gap-2 rounded-xl border bg-white p-2 shadow-sm">
+                {sampleImages.map((src, i) => (
+                  <div key={i} className="relative w-[80px] h-[110px] overflow-hidden rounded-md">
+                    <Image src={src} alt="Sample pack preview" fill className="object-cover" />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">Your Personal AI Photoshoot Setup</h2>
+            <p className="text-gray-600 mb-6 max-w-xl mx-auto">Train a shoot pack model or train a custom model.</p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-3">
+              <Link href="/packs">
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  className="px-5 border-gray-300 text-gray-900 hover:bg-gray-100 hover:text-gray-900"
+                >
+                  Browse Packs (Guaranteed Quality)
+                </Button>
+              </Link>
+              <Link href="/models/train/custom">
+                <Button 
+                  size="lg"
+                  className="px-5 bg-gray-900 text-white hover:bg-gray-800"
+                >
+                  Train Custom Look (Advanced)
+                </Button>
+              </Link>
+            </div>
+            <p className="text-sm text-gray-500 max-w-xl mx-auto">
+              <strong>All packs include your Personal AI Setup</strong>
+              <span className="mx-1">•</span>
+              <strong>Starts under $0.50/photo</strong>
+            </p>
           </div>
-          <p className="text-sm text-gray-500 max-w-md mx-auto">
-            <strong>Remember:</strong> All packs include your <strong>Personal AI Setup</strong> and <strong>start at less than $0.50 per photo.</strong>
-          </p>
         </div>
       )}
     </div>
