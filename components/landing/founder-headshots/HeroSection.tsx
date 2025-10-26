@@ -133,7 +133,7 @@ You're paid for your decisions, not your time. Make the right one for your brand
                 ))}
               </div>
             </div>
-            <p className="text-gray-400 text-md">Trusted by 1200+ Worldwide</p>
+            <p className="text-gray-400 text-md">Starting at $9.99 ONLY</p>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Play } from "lucide-react"
+import { Check, Play, Sparkles } from "lucide-react"
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import Image from "next/image"
@@ -48,6 +48,17 @@ export function HeroSection() {
     return () => clearInterval(interval);
   }, []);
 
+    const [isCopied, setIsCopied] = useState(false)
+  const couponCode = "WELCOME15"
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(couponCode)
+    setIsCopied(true)
+    setTimeout(() => {
+      setIsCopied(false)
+    }, 2000) // Revert back to the original text after 2 seconds
+  }
+
   return (
     <section className="relative mx-auto pb-12 overflow-hidden min-h-screen bg-black">
       {/* Paper Texture */}
@@ -70,14 +81,40 @@ export function HeroSection() {
       <div className="px-4 pt-[150px] max-w-6xl mx-auto text-center flex flex-col justify-center">
         <div className="relative z-10 space-y-6">
           <div className="space-y-6">
-            <div className="bg-white inline-block p-[2px] rounded">
-              <div className="flex items-center">
-                <div className="bg-black text-white text-xs px-2 py-1 rounded leading-[1.2]">
-                  +70 Shoots This Week
+            <div className="inline-flex p-[3px] rounded-full bg-gradient-to-r from-[#ff6f00] via-orange-400 to-[#ff6f00] shadow-[0_0_15px_rgba(255,111,0,0.3)] animate-pulse-subtle">
+              <div className="flex items-center bg-black rounded-full p-[2px]">
+
+                {/* Left Side: The Hook (High Contrast Orange) */}
+                <div className="bg-[#ff6f00] text-white text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1.5">
+                  <Sparkles size={12} className="text-white" />
+                  <span className="tracking-wide uppercase ">Halloween Sale</span>
                 </div>
-                <span className="text-black text-sm px-1 mx-1">
-                  Join Them
-                </span>
+
+                {/* --- The NEW Interactive Right Side --- */}
+                <div
+                  className="flex items-center px-3 cursor-pointer"
+                  onClick={handleCopy}
+                  title="Click to copy coupon code"
+                >
+                  <span className="text-gray-300 text-xs font-medium mr-1 transition-all duration-300">
+                    {isCopied ? (
+                      <span className="text-green-400 font-bold">Code Copied!</span>
+                    ) : (
+                      <>
+                        Get <span className="text-white font-bold">15% Off</span>
+                      </>
+                    )}
+                  </span>
+
+                  {/* The icon now changes based on the state */}
+                  {isCopied ? (
+                    <Check size={14} className="text-green-400" />
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-[#ff6f00] opacity-80"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+                  )}
+                </div>
+
+
               </div>
             </div>
             <h1 className="text-4xl sm:text-6xl max-w-4xl mx-auto font-bold leading-[1.1] mb-4 font-[var(--font-inter-tight)]">
@@ -181,7 +218,7 @@ Summon cinematic Halloween portraits—ghostly, glam, or gothic. Pick your vibe 
                 ))}
               </div>
             </div>
-            <p className="text-gray-400 text-md">Trusted by 1200+ Worldwide</p>
+            <p className="text-gray-400 text-md">Starting at $9.99 ONLY</p>
           </div>
         </div>
       </div>

@@ -181,7 +181,7 @@ Transform simple photos into high-fashion fantasy worlds. Get scroll-stopping po
                 ))}
               </div>
             </div>
-            <p className="text-gray-400 text-md">Trusted by 1200+ Worldwide</p>
+            <p className="text-gray-400 text-md">Starting at $9.99 ONLY</p>
           </div>
         </div>
       </div>

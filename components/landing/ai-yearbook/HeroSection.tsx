@@ -180,7 +180,7 @@ Relive the glory days. Get hilarious and iconic 90s-style AI yearbook photos tha
                 ))}
               </div>
             </div>
-            <p className="text-gray-400 text-md">Trusted by 1200+ Worldwide</p>
+            <p className="text-gray-400 text-md">Starting at $9.99 ONLY</p>
           </div>
         </div>
       </div>

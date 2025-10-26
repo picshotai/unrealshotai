@@ -181,7 +181,7 @@ Present a credible, camera-ready image with clean, modern portraits tailored to 
                 ))}
               </div>
             </div>
-            <p className="text-gray-400 text-md">Trusted by 1200+ Worldwide</p>
+            <p className="text-gray-400 text-md">Starting at $9.99 ONLY</p>
           </div>
         </div>
       </div>

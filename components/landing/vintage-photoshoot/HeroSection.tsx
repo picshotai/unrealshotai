@@ -106,7 +106,7 @@ Classic Hollywood glamour is yours. Create elegant, nostalgic AI photos with a v
               </div>
               <div className="flex text-yellow-400">{[...Array(5)].map((_, i) => (<span key={i} className="text-lg">★</span>))}</div>
             </div>
-            <p className="text-gray-400 text-md">Trusted by 1200+ Worldwide</p>
+            <p className="text-gray-400 text-md">Starting at $9.99 ONLY</p>
           </div>
         </div>
       </div>
