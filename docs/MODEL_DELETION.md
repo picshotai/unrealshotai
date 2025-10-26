@@ -50,19 +50,13 @@ There is no database-level timer. Deletion happens when one of these endpoints i
 - Cleanup functions return a deleted count and a list of deleted model IDs/names/expires_at, so you can log or display what was removed.
 - If there are no matches, the endpoints return a message indicating that nothing was deleted.
 
-## Practical examples
-- Set up a daily Vercel Cron job to `GET https://<your-app>/api/cron/cleanup-models?key=<CRON_SECRET>`.
-- Use the manual `GET /api/cleanup-models` to see how many expired models would be deleted.
-- Use the manual `POST /api/cleanup-models` to immediately delete expired models.
-- If you want to keep a custom model longer, set `auto_extend = true`. It will be excluded from the cleanup job. If you later set `auto_extend = false`, it will be eligible for deletion once `expires_at` is past.
-
 ## Notes and safeguards
 - Only completed models (`status = 'finished'`) are considered for deletion to avoid removing models that are still training or in an intermediate state.
 - Do not expose secrets in client-side code. The cron endpoint supports secure verification via a server-side secret or Upstash signature.
 - You can tune your cron frequency based on your storage and cost needs. Daily is a common, simple default.
 
 
-## Upstash QStash integration (optional)
+## Upstash QStash integration 
 
 QStash can be used to trigger the automated cleanup via a signed POST request to your cron endpoint. This adds an extra layer of request authenticity beyond a simple shared secret.
 

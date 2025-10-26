@@ -92,7 +92,7 @@ export default function BlogError({
             )}
           </div>
           
-          {process.env.NODE_ENV === 'development' && (
+          {process.env.NODE_ENV === 'production' && (
             <div className="mt-8 p-4 bg-red-50 border border-red-200 rounded-lg text-left">
               <h3 className="font-semibold text-red-800 mb-2">Error Details (Development)</h3>
               <p className="text-sm text-red-700 font-mono">{error.message}</p>
