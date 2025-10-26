@@ -33,6 +33,13 @@ export default function VideoModal({ isOpen, onClose, videoUrl, title = "Video" 
 
   if (!isOpen) return null;
 
+  const isYoutube = videoUrl.includes('youtube.com');
+  
+  // Append params for YouTube videos for a better experience
+  const finalVideoUrl = isYoutube 
+    ? `${videoUrl}?autoplay=1&mute=1&rel=0&modestbranding=1` 
+    : videoUrl;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
@@ -54,16 +61,27 @@ export default function VideoModal({ isOpen, onClose, videoUrl, title = "Video" 
         
         {/* Video Container */}
         <div className="relative w-full" style={{ paddingBottom: '56.25%' /* 16:9 aspect ratio */ }}>
-          <video
-            className="absolute inset-0 w-full h-full"
-            controls
-            autoPlay
-            preload="metadata"
-            poster="/images/howtothumbnail.webp"
-          >
-            <source src={videoUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          {isYoutube ? (
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src={finalVideoUrl}
+              title={title}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          ) : (
+            <video
+              className="absolute inset-0 w-full h-full"
+              controls
+              autoPlay
+              preload="metadata"
+              poster="/images/howtothumbnail.webp"
+            >
+              <source src={videoUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          )}
         </div>
         
         {/* Optional Title */}

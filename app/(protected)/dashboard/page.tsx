@@ -84,10 +84,10 @@ iew all professional styles (Corporate, Glamour, Founder, etc.) and choose the p
         </div>
       )}
       {/* Quick Actions - Clean Design */}
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2">
         <Card className="bg-gradient-to-br from-white to-gray-50">
           <CardHeader>
-            <CardTitle className="text-lg font-bold text-gray-900">Need Credits?</CardTitle>
+            <CardTitle className="text-lg font-bold text-gray-900">Buy Credits?</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-gray-600 mb-4">
@@ -117,20 +117,7 @@ iew all professional styles (Corporate, Glamour, Founder, etc.) and choose the p
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-white to-gray-100">
-          <CardHeader>
-            <CardTitle className="text-lg font-bold text-gray-900">Generate Photos</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-gray-600 mb-4">
-              Generate AI Photos using your trained models with custom prompts            </p>
-            <Link href="/generate-image">
-              <Button variant="outline" className="w-full border-gray-300 text-gray-800 hover:bg-gray-100 hover:text-gray-900">
-                Generate AI Photos
-              </Button>
-            </Link>
-          </CardContent>
-        </Card>
+    
       </div>
       <FeedbackForm userId={user.id} />
     </div>

@@ -292,7 +292,7 @@ export function HeroSection() {
       <VideoModal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
-        videoUrl="https://k3gonexouqnxegps.public.blob.vercel-storage.com/howtovideo.mp4"
+        videoUrl="https://www.youtube.com/embed/UL357H91Gc0"
         title="How It Works - AI Photo Generation Demo"
       />
     </section>

@@ -321,7 +321,7 @@ Embrace the power of minimalism. This AI photoshoot creates sophisticated portra
       <VideoModal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
-        videoUrl=""
+        videoUrl="https://www.youtube.com/embed/UL357H91Gc0"
         title="How It Works - Neutral Muse Photoshoot Demo"
       />
     </section>

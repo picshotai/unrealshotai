@@ -311,7 +311,7 @@ This isn't a filter - it's a generative engine. Our system analyzes your feature
               {/* Hidden iframe that will be shown on click */}
               <iframe
                 className="w-full h-full opacity-0 pointer-events-none transition-opacity duration-300"
-                src="https://k3gonexouqnxegps.public.blob.vercel-storage.com/howtovideo.mp4"
+                src="https://www.youtube.com/embed/UL357H91Gc0?rel=0"
                 title="AI Processing Video"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

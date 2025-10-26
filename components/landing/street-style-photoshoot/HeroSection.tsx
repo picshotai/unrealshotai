@@ -319,7 +319,7 @@ Capture that effortless urban edge. Turn your selfies into a high-fashion street
       <VideoModal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
-        videoUrl=""
+        videoUrl="https://www.youtube.com/embed/UL357H91Gc0"
         title="How It Works - Street Style Photoshoot Demo"
       /> 
     </section>

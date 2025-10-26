@@ -37,10 +37,10 @@ function normalizePlanName(name: string) {
 function getDisplayName(name: string) {
   const n = normalizePlanName(name);
   if (n === 'basic pack' || n === 'starter') {
-    return 'Basic Starter Pack';
+    return 'Starter Pack';
   }
   if (n === 'premium pack' || n === 'pro') {
-    return 'Premium Portfolio Pack';
+    return 'Premium Pack (Advanced)';
   }
   return name;
 }

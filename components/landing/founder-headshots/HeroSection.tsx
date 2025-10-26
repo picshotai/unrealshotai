@@ -199,7 +199,7 @@ You're paid for your decisions, not your time. Make the right one for your brand
       <VideoModal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
-        videoUrl=""
+        videoUrl="https://www.youtube.com/embed/UL357H91Gc0"
         title="How It Works - Founder Headshots Demo"
       />
     </section>

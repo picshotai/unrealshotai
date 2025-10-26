@@ -317,7 +317,7 @@ Project the compassion and professionalism you're known for. Get warm, high-qual
       <VideoModal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
-        videoUrl=""
+        videoUrl="https://www.youtube.com/embed/UL357H91Gc0"
         title="How It Works - Doctor Headshots Demo"
       />
     </section>

@@ -1,16 +1,14 @@
 'use client'
 
-import { useState, useRef } from 'react'
-import { X, Check, Play } from 'lucide-react'
+import { useState } from 'react'
+import { Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import Image from 'next/image'
 import { useUserStore } from '@/stores/userStore'
 import { useRouter } from 'next/navigation'
+import { BrainCircuit, ShieldCheck } from "lucide-react";
 
 interface PhotoCoachModalProps {
   isOpen: boolean
-  onClose: () => void
   onComplete: () => void
 }
 
@@ -21,7 +19,7 @@ interface Step {
   content: React.ReactNode
 }
 
-export default function PhotoCoachModal({ isOpen, onClose, onComplete }: PhotoCoachModalProps) {
+export default function PhotoCoachModal({ isOpen, onComplete }: PhotoCoachModalProps) {
   const [currentStep, setCurrentStep] = useState(0)
 
   const { completeOnboarding, loading } = useUserStore()
@@ -53,198 +51,42 @@ export default function PhotoCoachModal({ isOpen, onClose, onComplete }: PhotoCo
   const steps: Step[] = [
     {
       id: 0,
-      title: "Welcome to Professional AI Photography",
-      subtitle: "The quality of your AI photoshoot depends entirely on the photos you upload. Let's ensure you get stunning results.",
+      title: "Welcome! Let's Get Your Personal AI Setup Ready",
+      subtitle: "How Unrealshot AI Delivers Realism:",
       content: (
-        <div className="mt-6">
-          <div className="bg-gray-50 p-4 rounded-lg mb-4">
-            <p className="text-sm text-gray-700 leading-relaxed">
-              Our AI will learn from every image you provide. Higher quality inputs result in more professional, realistic outputs that accurately represent your appearance.
-            </p>
+        <div className="mt-6 space-y-4">
+          <div className="flex items-start gap-4 rounded-lg bg-gray-50 p-4">
+            <BrainCircuit className="h-8 w-8 flex-shrink-0 text-gray-500 mt-1" />
+            <div>
+              <h3 className="font-semibold text-gray-900">Your Personal AI Model</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Unlike simple filters, we build a dedicated AI model trained exclusively on your photos. This power-intensive process uses dedicated GPUs to ensure the highest realism and accuracy, capturing your unique likeness.
+              </p>
+            </div>
           </div>
-          <div className="space-y-3">
-            <div className="flex items-start">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0" />
-              <span className="text-sm text-gray-600">Upload clear, well-lit photos for optimal training</span>
-            </div>
-            <div className="flex items-start">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0" />
-              <span className="text-sm text-gray-600">Show different angles and expressions</span>
-            </div>
-            <div className="flex items-start">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0" />
-              <span className="text-sm text-gray-600">Avoid obstructions like sunglasses or hats</span>
+          <div className="flex items-start gap-4 rounded-lg bg-green-50 p-4 border border-green-200">
+            <ShieldCheck className="h-8 w-8 flex-shrink-0 text-green-600 mt-1" />
+            <div>
+              <h3 className="font-semibold text-green-600">Our Quality & Performance Guarantee</h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Your investment is protected. We back every pack with a full money-back guarantee. If you're not satisfied with the quality and performance we promise, you are eligible for a refund.
+              </p>
             </div>
           </div>
         </div>
       )
     },
-    {
-      id: 1,
-      title: "The Magic Number: 10 Images",
-      subtitle: "Though we support minimum 5 images but we recommend uploading exactly 10 images to train the AI effectively and achieve professional results",
-      content: (
-        <div className="mt-6">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
-            <div className="flex flex-col items-center">
-              <div className="relative w-full aspect-square mb-2 bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
-                <Image src="/content/selfie2.jpg" alt="Face expressions" fill className="object-cover" />
-                <div className="absolute bottom-1 left-1 bg-gray-800 text-white text-xs px-1.5 py-0.5 rounded">5</div>
-              </div>
-              <span className="text-xs text-gray-600">Face</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="relative w-full aspect-square mb-2 bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
-                <Image src="/content/vishnuselfie.jpg" alt="Half body" fill className="object-cover" />
-                <div className="absolute bottom-1 left-1 bg-gray-800 text-white text-xs px-1.5 py-0.5 rounded">2</div>
-              </div>
-              <span className="text-xs text-gray-600">Half</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="relative w-full aspect-square mb-2 bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
-                <Image src="/content/you-man.jpg" alt="Left profile" fill className="object-cover" />
-                <div className="absolute bottom-1 left-1 bg-gray-800 text-white text-xs px-1.5 py-0.5 rounded">1</div>
-              </div>
-              <span className="text-xs text-gray-600">Left</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="relative w-full aspect-square mb-2 bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
-                <Image src="/content/right-profile.jpg" alt="Right profile" fill className="object-cover" />
-                <div className="absolute bottom-1 left-1 bg-gray-800 text-white text-xs px-1.5 py-0.5 rounded">1</div>
-              </div>
-              <span className="text-xs text-gray-600">Right</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="relative w-full aspect-square mb-2 bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
-                <Image src="/content/full-body.jpg" alt="Full body" fill className="object-cover" />
-                <div className="absolute bottom-1 left-1 bg-gray-800 text-white text-xs px-1.5 py-0.5 rounded">1</div>
-              </div>
-              <span className="text-xs text-gray-600">Full</span>
-            </div>
-          </div>
-          <div className="space-y-2">
-            <div className="flex items-start">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0" />
-              <span className="text-sm text-gray-600">5 facial images with different expressions</span>
-            </div>
-            <div className="flex items-start">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0" />
-              <span className="text-sm text-gray-600">2 half-body shots showing your upper body</span>
-            </div>
-            <div className="flex items-start">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0" />
-              <span className="text-sm text-gray-600">1 left-side profile and 1 right-side profile</span>
-            </div>
-            <div className="flex items-start">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0" />
-              <span className="text-sm text-gray-600">1 full-body image showing your entire physique</span>
-            </div>
-          </div>
-        </div>
-      )
-    },
+   
     {
       id: 2,
-      title: "Upload photos like these:",
-      content: (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-6">
-          <Card className="p-3 bg-white border border-gray-200 rounded-lg gap-2">
-            <div className="relative aspect-square mb-2 bg-gray-100 rounded-md overflow-hidden border border-gray-200">
-              <Image src="/content/good-lighting.png" alt="Good lighting example" fill className="object-cover" />
-              <div className="absolute top-2 left-2 flex items-center justify-center bg-gray-800/80 rounded-full p-1">
-                <Check className="h-3 w-3 text-white" />
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full flex-shrink-0" />
-              <span className="text-sm text-gray-700">Good lighting</span>
-            </div>
-          </Card>
-          
-          <Card className="p-3 bg-white border border-gray-200 rounded-lg gap-2">
-            <div className="relative aspect-square mb-2 bg-gray-100 rounded-md overflow-hidden border border-gray-200">
-              <Image src="/content/confident.jpg" alt="Clear background example" fill className="object-cover" />
-              <div className="absolute top-2 left-2 flex items-center justify-center bg-gray-800/80 rounded-full p-1">
-                <Check className="h-3 w-3 text-white" />
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full flex-shrink-0" />
-              <span className="text-sm text-gray-700">Clear background</span>
-            </div>
-          </Card>
-          
-          <Card className="p-3 bg-white border border-gray-200 rounded-lg gap-2">
-            <div className="relative aspect-square mb-2 bg-gray-100 rounded-md overflow-hidden border border-gray-200">
-              <Image src="/content/selfie2.jpg" alt="Clear portrait" fill className="object-cover" />
-              <div className="absolute top-2 left-2 flex items-center justify-center bg-gray-800/80 rounded-full p-1">
-                <Check className="h-3 w-3 text-white" />
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full flex-shrink-0" />
-              <span className="text-sm text-gray-700">Clear portraits</span>
-            </div>
-          </Card>
-        </div>
-      )
-    },
-    {
-      id: 3,
-      title: "Avoid uploading photos like these:",
-      content: (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-6">
-          <Card className="p-3 bg-white border border-gray-200 rounded-lg gap-2">
-            <div className="relative aspect-square mb-2 bg-gray-100 rounded-md overflow-hidden border border-gray-200">
-              <Image src="/content/groupphoto.webp" alt="Clear portrait" fill className="object-cover" />
-              <div className="absolute top-2 left-2 flex items-center justify-center bg-gray-800/80 rounded-full p-1">
-                <Check className="h-3 w-3 text-white" />
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full flex-shrink-0" />
-              <span className="text-sm text-gray-700">No Group Photos</span>
-            </div>
-          </Card>
-          
-          <Card className="p-3 bg-white border border-gray-200 rounded-lg gap-2">
-            <div className="relative aspect-square mb-2 bg-gray-100 rounded-md overflow-hidden border border-gray-200">
-              <Image src="/content/nocaps.webp" alt="Clear portrait" fill className="object-cover" />
-              <div className="absolute top-2 left-2 flex items-center justify-center bg-gray-800/80 rounded-full p-1">
-                <Check className="h-3 w-3 text-white" />
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full flex-shrink-0" />
-              <span className="text-sm text-gray-700">NO caps or accessories</span>
-            </div>
-          </Card>
- 
-          <Card className="p-3 bg-white border border-gray-200 rounded-lg gap-2">
-            <div className="relative aspect-square mb-2 bg-gray-100 rounded-md overflow-hidden border border-gray-200">
-              <Image src="/content/sillyface.webp" alt="Blurry shot example" fill className="object-cover" />
-              <div className="absolute top-2 left-2 flex items-center justify-center bg-gray-800/80 rounded-full p-1">
-                <Check className="h-3 w-3 text-white" />
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full flex-shrink-0" />
-              <span className="text-sm text-gray-700">No Silly Faces</span>
-            </div>
-          </Card>
-        </div>
-      )
-    },
-    {
-      id: 4,
       title: "See How Our AI Works",
       subtitle: "Watch a real user upload their photo and generate stunning AI results.",
       content: (
         <div className="space-y-6">
           {/* Demo Video Component */}
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center mt-2">
             <div 
-              className="relative w-full max-w-md border-[#ff6f00] border-4 h-[250px] sm:h-[300px] md:h-[350px] rounded-2xl overflow-hidden shadow-2xl group cursor-pointer"
+              className="relative w-full max-w-lg border-[#ff6f00] border-4 h-[250px] sm:h-[300px] md:h-[350px] rounded-2xl overflow-hidden shadow-2xl group cursor-pointer"
               onClick={() => {
                 const iframe = document.getElementById('demo-video-iframe') as HTMLIFrameElement;
                 const thumbnail = document.getElementById('demo-video-thumbnail') as HTMLElement;
@@ -284,7 +126,7 @@ export default function PhotoCoachModal({ isOpen, onClose, onComplete }: PhotoCo
               {/* Hidden iframe that will be shown on click */}
               <iframe
                 className="w-full h-full opacity-0 pointer-events-none transition-opacity duration-300"
-                src="https://k3gonexouqnxegps.public.blob.vercel-storage.com/howtovideo.mp4"
+                src="https://www.youtube.com/embed/UL357H91Gc0"
                 title="AI Processing Demo Video"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -297,7 +139,7 @@ export default function PhotoCoachModal({ isOpen, onClose, onComplete }: PhotoCo
           {/* Call to Action */}
           <div className="text-center space-y-4">
             <p className="text-sm text-gray-600 leading-relaxed">
-              Ready to create your own professional AI photoshoot? Upload 6-10 photos and get 20 stunning results in minutes.
+              Ready to create your own professional AI photoshoot? Upload 6-10 photos, train your model and get 20 stunning photos in 20 minutes.
             </p>
             
             
@@ -331,12 +173,7 @@ export default function PhotoCoachModal({ isOpen, onClose, onComplete }: PhotoCo
               Step {currentStep + 1} of {steps.length}
             </span>
           </div>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-          >
-            <X className="w-4 h-4" />
-          </button>
+          
         </div>
 
         {/* Content - Made scrollable for small screens */}
@@ -377,15 +214,15 @@ export default function PhotoCoachModal({ isOpen, onClose, onComplete }: PhotoCo
                 onClick={handleNext}
                 className="px-6 bg-gray-900 hover:bg-gray-800 text-sm"
               >
-                {currentStep === 4 ? 'Unlock Full 20-Photo Shoot →' : 'Next →'}
+                 Next →
               </Button>
             ) : (
               <Button
                 onClick={handleComplete}
                 disabled={loading}
-                className="px-6 bg-gray-900 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                className="px-6 bg-gray-900 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-semibold"
               >
-                {loading ? 'Completing...' : 'Unlock Full 20-Photo Shoot'}
+                {loading ? 'Completing...' : 'Start Your AI Model Training'}
               </Button>
             )}
           </div>

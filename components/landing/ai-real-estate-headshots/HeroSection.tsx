@@ -318,7 +318,7 @@ Your face is your brand in real estate. Create trustworthy, approachable AI head
       <VideoModal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
-        videoUrl=""
+        videoUrl="https://www.youtube.com/embed/UL357H91Gc0"
         title="How It Works - AI Real Estate Headshots Demo"
       />
     </section>

@@ -319,7 +319,7 @@ Showcase your professional style beyond the basic headshot. Generate polished, f
       <VideoModal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
-        videoUrl=""
+        videoUrl="https://www.youtube.com/embed/UL357H91Gc0"
         title="How It Works - Office Outfit Photoshoot Demo"
       />
     </section>

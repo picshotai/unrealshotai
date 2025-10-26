@@ -319,7 +319,7 @@ Present a credible, consistent brand across LinkedIn, Slack, and your company si
       <VideoModal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
-        videoUrl=""
+        videoUrl="https://www.youtube.com/embed/UL357H91Gc0"
         title="How It Works - Corporate Headshots Demo"
       />
     </section>

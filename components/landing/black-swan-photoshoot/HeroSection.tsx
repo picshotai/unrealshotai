@@ -319,7 +319,7 @@ Capture the breathtaking artistry of the Black Swan. This AI photoshoot creates 
       <VideoModal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
-        videoUrl=""
+        videoUrl="https://www.youtube.com/embed/UL357H91Gc0"
         title="How It Works - Black Swan Photoshoot Demo"
       />
     </section>

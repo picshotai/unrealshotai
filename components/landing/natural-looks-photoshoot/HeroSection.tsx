@@ -319,7 +319,7 @@ Your natural beauty, perfectly captured. This AI photoshoot creates authentic, m
       <VideoModal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
-        videoUrl=""
+        videoUrl="https://www.youtube.com/embed/UL357H91Gc0"
         title="How It Works - Natural Looks Photoshoot Demo"
       />
     </section>
