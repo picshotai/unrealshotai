@@ -1,5 +1,4 @@
 import { getDodoPaymentsClient } from "@/lib/dodopayments";
-import { DodoPayments } from "dodopayments";
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/utils/supabase/admin";
 import { z } from "zod";
@@ -96,7 +95,7 @@ export async function POST(request: NextRequest) {
 
             // Create checkout session with new DodoPayments SDK
             const session = await getDodoPaymentsClient().checkoutSessions.create({
-                allowed_payment_method_types: ["credit", "debit", "upi_collect", "upi_intent"],
+                allowed_payment_method_types: ["credit", "debit", "upi_collect", "upi_intent", "paypal"],
                 confirm: false, // Set to false since we're not providing customer details
                 customization: {
                     show_on_demand_tag: true,
@@ -175,7 +174,7 @@ export async function POST(request: NextRequest) {
         const { productCart, customer, billing_address, return_url, customMetadata } = validationResult.data;
 
         const session = await getDodoPaymentsClient().checkoutSessions.create({
-            allowed_payment_method_types: ["credit", "debit", "upi_collect", "upi_intent"],
+            allowed_payment_method_types: ["credit", "debit", "upi_collect", "upi_intent", "paypal"],
             confirm: false, // Set to false since we're not providing customer details
             customization: {
                 show_on_demand_tag: true,
