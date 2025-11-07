@@ -68,6 +68,36 @@ async function getPricingPlan(planId: string, supabase: any) {
   };
 }
 
+// Centralized helper to create a DodoPayments checkout session without duplicating payload setup
+async function createCheckoutSession(args: {
+    productCart: { product_id: string; quantity: number; amount?: number }[];
+    returnUrl: string;
+    metadata?: Record<string, string>;
+}) {
+    const { productCart, returnUrl, metadata } = args;
+    const client = getDodoPaymentsClient();
+
+    return client.checkoutSessions.create({
+        allowed_payment_method_types: ["credit", "debit", "upi_collect", "upi_intent", "paypal"],
+        confirm: false,
+        customization: {
+            show_on_demand_tag: true,
+            show_order_details: true,
+            theme: "light",
+        },
+        feature_flags: {
+            allow_currency_selection: false,
+            allow_discount_code: true,
+            allow_phone_number_collection: false,
+            allow_tax_id: false,
+        },
+        product_cart: productCart,
+        return_url: returnUrl,
+        metadata,
+        show_saved_payment_methods: true,
+    });
+}
+
 export async function POST(request: NextRequest) {
     const supabase = createAdminClient();
     
@@ -93,33 +123,19 @@ export async function POST(request: NextRequest) {
             const finalPrice = plan.price;
             const finalReturnUrl = returnUrl || `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard`;
 
-            // Create checkout session with new DodoPayments SDK
-            const session = await getDodoPaymentsClient().checkoutSessions.create({
-                allowed_payment_method_types: ["credit", "debit", "upi_collect", "upi_intent", "paypal"],
-                confirm: false, // Set to false since we're not providing customer details
-                customization: {
-                    show_on_demand_tag: true,
-                    show_order_details: true,
-                    theme: "light"
-                },
-                feature_flags: {
-                    allow_currency_selection: false,
-                    allow_discount_code: true,
-                    allow_phone_number_collection: false,
-                    allow_tax_id: false
-                },
+            // Create checkout session (centralized helper to avoid duplication)
+            const session = await createCheckoutSession({
+                productCart: [{
+                    product_id: plan.productId,
+                    quantity: 1,
+                    amount: Math.round(finalPrice * 100)
+                }],
+                returnUrl: finalReturnUrl,
                 metadata: {
                     user_id: userId,
                     pricing_plan_id: planId,
                     credits: plan.credits.toString()
-                },
-                product_cart: [{
-                    product_id: plan.productId,
-                    quantity: 1,
-                    amount: Math.round(finalPrice * 100) // Convert to cents
-                }],
-                return_url: finalReturnUrl,
-                show_saved_payment_methods: true
+                }
             });
 
             // Store the checkout session in our database for tracking
@@ -173,24 +189,11 @@ export async function POST(request: NextRequest) {
 
         const { productCart, customer, billing_address, return_url, customMetadata } = validationResult.data;
 
-        const session = await getDodoPaymentsClient().checkoutSessions.create({
-            allowed_payment_method_types: ["credit", "debit", "upi_collect", "upi_intent", "paypal"],
-            confirm: false, // Set to false since we're not providing customer details
-            customization: {
-                show_on_demand_tag: true,
-                show_order_details: true,
-                theme: "light"
-            },
-            feature_flags: {
-                allow_currency_selection: false,
-                allow_discount_code: true,
-                allow_phone_number_collection: false,
-                allow_tax_id: false
-            },
-            product_cart: productCart,
-            return_url: return_url,
-            metadata: customMetadata,
-            show_saved_payment_methods: true
+        // New checkout flow uses the same centralized helper (no customer/billing passed)
+        const session = await createCheckoutSession({
+            productCart,
+            returnUrl: return_url,
+            metadata: customMetadata
         });
 
         return NextResponse.json(session);
