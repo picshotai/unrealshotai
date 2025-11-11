@@ -131,12 +131,12 @@ export function AppSidebar({
         url: "/generate-image",
         icon: SparklesIcon,
       },
-    ] : []),
-    {
+      {
       title: "Trained Models",
       url: "/trained-models",
       icon: FolderOpen,
     },
+    ] : []),
     {
       title: "My Gallery",
       url: "/gallery",

@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+// Removed Alert in favor of a site-consistent muted card banner
 import { CreditCard, Star, Check } from 'lucide-react';
 import DodoCheckoutButton from '@/components/dodopayments/DodoCheckoutButton';
 import { pricingPlanService } from '@/lib/pricing-plans';
@@ -125,6 +126,18 @@ export default async function BuyCreditsPage() {
         />
       )}
       <div className="container mx-auto px-4 py-8 text-center">
+      <div className="mx-auto mb-6 max-w-3xl">
+        <div className="relative rounded-lg border border-primary/10 bg-muted/30 p-4 text-left md:text-center">
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary">Exclusive Offer</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Hey friend, use code
+            <Badge variant="outline" className="mx-2 font-mono">WELCOME</Badge>
+            to get <span className="font-semibold text-primary">10% off</span> your first pack!
+            <span className="ml-1">Limited time for new users.</span>
+          </p>
+          <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} borderWidth={2} />
+        </div>
+      </div>
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold mb-4">Get Your Professional AI Photoshoot</h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
