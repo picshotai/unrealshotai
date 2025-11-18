@@ -15,25 +15,23 @@ const caveat = Caveat({
 });
 
 const images = [
-  { src: "/landing/landingphotowoman1.webp", alt: "AI-generated glamorous photoshoot - Unrealshot AI" },
-  { src: "/landing/landingphotoman2.webp", alt: "AI-generated vintage photoshoot of a man - Unrealshot AI" },
-  { src: "/landing/landingphotowoman3.webp", alt: "AI-generated influencer photoshoot of a lady - Unrealshot AI" },
-    { src: "/landing/landingphotoman4.webp", alt: "AI-generated 90s photoshoot of a man - Unrealshot AI" },
-  { src: "/landing/landingphotowoman5.webp", alt: "AI-generated Natural Looks photoshoot of a lady - Unrealshot AI" },
-    { src: "/landing/landingphotoman16.webp", alt: "- MD doctor AI headshot of a man - Unrealshot AI" },
-    { src: "/landing/landingphotowoman7.webp", alt: "Stylish AI Portraits of a woman - Unrealshot AI" },
+  { src: "/landing/corporate_woman_headshot1.webp", alt: "Professional corporate headshot of a woman" },
+  { src: "/landing/corporate_woman_headshot2.webp", alt: "Executive corporate headshot of a woman" },
+  { src: "/landing/corporate_woman_headshot3.webp", alt: "Business professional headshot of a woman" },
+  { src: "/landing/corporate_man_headshot4.webp", alt: "Modern corporate headshot of a man" },
+  { src: "/landing/corporate_woman_headshot5.webp", alt: "Formal corporate headshot of a woman" },
+  { src: "/landing/corporate_man_headshot6.webp", alt: "AI-generated corporate headshot of a man in a suit" },
+  { src: "/landing/corporate_woman_headshot7.webp", alt: "High-quality AI business headshot of a woman" },
+  { src: "/landing/corporate_man_headshot8.webp", alt: "AI-generated professional headshot of a man" },
+  { src: "/landing/corporate_woman_headshot9.webp", alt: "Corporate profile picture of a woman" },
+  { src: "/landing/corporate_man_headshot10.webp", alt: "Professional AI headshot for a man's corporate profile - Unrealshot AI" },
+  { src: "/landing/corporate_woman_headshot11.webp", alt: "Executive AI portrait of a woman - Unrealshot AI" },
+  { src: "/landing/corporate_man_headshot12.webp", alt: "Formal business headshot of a man - Unrealshot AI" },
+  { src: "/landing/corporate_man_headshot13.webp", alt: "Corporate AI headshot of a man in business attire - Unrealshot AI" },
+  { src: "/landing/corporate_man_headshot14.webp", alt: "Modern professional headshot of a man for LinkedIn - Unrealshot AI" },
+  { src: "/landing/corporate_woman_headshot15.webp", alt: "AI-generated corporate portrait of a woman - Unrealshot AI" }
+]
 
-  { src: "/landing/landingphotoman8.webp", alt: "AI-generated professional headshot of a man - Unrealshot AI" },
-  { src: "/landing/landingphotowoman9.webp", alt: "AI-generated Neutral Muse photoshoot of woman - Unrealshot AI" },
-  { src: "/landing/landingphotoman10.webp", alt: "AI real estate headshot of a man - Unrealshot AI" },
-  { src: "/landing/landingphotowoman11.webp", alt: "AI-generated romantic indoor photoshoot of a lady - Unrealshot AI" },
-    { src: "/landing/landingphotoman12.webp", alt: "AI Dating photoshoot of a man  - Unrealshot AI" },
-  { src: "/landing/landingphotowoman13.webp", alt: "urban street style photo of a woman - Unrealshot AI" },
-  { src: "/landing/landingphotoman14.webp", alt: "AI-generated Fantasy photoshoot of a man - Unrealshot AI" },
-  { src: "/landing/landingphotowoman15.webp", alt: "AI Yearbook photo of a woman - Unrealshot AI" },
-  { src: "/landing/landingphotoman6.webp", alt: "AI-generated natural outdoor photography of a man - Unrealshot AI" },
- { src: "/landing/landingphotoman17.webp", alt: "black swan inspired photoshoot of a man - Unrealshot AI" },
- ]
 
 export function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
